@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class PlayerEat : MonoBehaviour
     public bool eat_ammo = false;
     public Text bullet_text;
     private bool has_bullet = false;
+
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI expText;
 
     public void UpdateFood()
     {
@@ -101,6 +105,7 @@ public class PlayerEat : MonoBehaviour
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         GameManager.instance.AddHP(5);
+                        hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
                     }
                     else
                     {
@@ -124,12 +129,14 @@ public class PlayerEat : MonoBehaviour
                         {
                             GameManager.instance.DeductHP(20);
                             Debug.Log("HP deducted by 20%");
+                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
                         }
                         else
                         {
                             // If more than 50% overlap, game over
                             GameOver();
                             Debug.Log("Game Over! Enemy overlapped more than 50%.");
+                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
                         }
                     }
                     else
@@ -139,6 +146,7 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         GameManager.instance.AddEXP(10);
+                        expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
 
                         if (ms.created_enemies.Count == 0)
                         {
