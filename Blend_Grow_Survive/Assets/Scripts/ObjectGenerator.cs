@@ -104,12 +104,12 @@ public class ObjectGenerator : MonoBehaviour
             }
         }
         return Position;
-            }
+    }
 
     public void CreateBullet()
     {
         players[0].GetComponent<PlayerEat>().AddBullet();
-        }
+    }
 
     public void DestroyPlayerBullet()
     {
@@ -122,22 +122,23 @@ public class ObjectGenerator : MonoBehaviour
         if (created_objects.Contains(m) == false)
         {
             created_objects.Add(m);
-            for (int i = 0; i < players.Count; i++)
+            if (players.Count > 0)
             {
-                PlayerEat pp = players[i].GetComponent<PlayerEat>();
+                PlayerEat pp = players[0].GetComponent<PlayerEat>();
                 pp.AddObject(m);
             }
         }
     }
+
     // remove the gameobject in created_objects
     public void RemoveObject(GameObject m, List<GameObject> created_objects)
     {
         if (created_objects.Contains(m) == true)
         {
             created_objects.Remove(m);
-            for (int i = 0; i < players.Count; i++)
+            if (players.Count > 0)
             {
-                PlayerEat pp = players[i].GetComponent<PlayerEat>();
+                PlayerEat pp = players[0].GetComponent<PlayerEat>();
                 pp.RemoveObject(m);
             }
         }

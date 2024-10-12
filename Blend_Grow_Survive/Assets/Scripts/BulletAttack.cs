@@ -37,6 +37,7 @@ public class BulletAttack : MonoBehaviour
                 Destroy(hit.collider.gameObject);
                 generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
                 Destroy(gameObject);
+                GameManager.instance.AddEXP(5);
                 if (generator.created_enemies.Count == 0)
                 {
                     FindObjectOfType<PlayerEat>().WinGame();
