@@ -92,12 +92,15 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
+                    // Destroy the object first to prevent multiple calls
+                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
+
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        Destroy(m.gameObject);
+                        GameManager.instance.AddHP(5);
                     }
                     else
                     {
@@ -110,21 +113,37 @@ public class PlayerEat : MonoBehaviour
                 }
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-                    // Compare sizes between player and enemy
-                    if (transform.localScale.x > m.localScale.x)
+                    float distance = Vector2.Distance(transform.position, m.position);
+                    float overlap = (playerRadius + objectRadius) - distance;
+
+                    // If the player's size is smaller than the enemy's size
+                    if (transform.localScale.x < m.localScale.x)
+                    {
+                        // Check if the overlap is less than 50% of the player's radius
+                        if (overlap < playerRadius / 2)
+                        {
+                            GameManager.instance.DeductHP(20);
+                            Debug.Log("HP deducted by 20%");
+                        }
+                        else
+                        {
+                            // If more than 50% overlap, game over
+                            GameOver();
+                            Debug.Log("Game Over! Enemy overlapped more than 50%.");
+                        }
+                    }
+                    else
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
+                        GameManager.instance.AddEXP(10);
+
                         if (ms.created_enemies.Count == 0)
                         {
                             WinGame();
                         }
-                    }
-                    else
-                    {
-                        GameOver();
                     }
                 }
             }
@@ -201,6 +220,8 @@ public class PlayerEat : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
+        GameManager.instance.ResetHP();
+        GameManager.instance.ResetEXP();
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -220,6 +241,4 @@ public class PlayerEat : MonoBehaviour
 
         ms.players.Add(gameObject);
     }
-
-
 }
