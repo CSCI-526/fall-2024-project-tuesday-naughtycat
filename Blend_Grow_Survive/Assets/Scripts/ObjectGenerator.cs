@@ -20,7 +20,7 @@ public class ObjectGenerator : MonoBehaviour
     public GameObject food;
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
-    public int max_food = 50;
+    public int max_food = 1;
     public float create_food_time = 0.5f;
     public float create_enemy_time = 5.0f;
     public Vector2 pos;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
@@ -16,10 +17,15 @@ public class PlayerEat : MonoBehaviour
     public bool eat_ammo = false;
     public Text bullet_text;
     private bool has_bullet = false;
+    public TextMeshProUGUI expText;
+
+    public int exp;
+
 
     public void UpdateFood()
     {
         food = GameObject.FindGameObjectsWithTag("Food");
+        // Debug.Log("Food updated.");
     }
 
     public void UpdateEnemy()
@@ -40,9 +46,19 @@ public class PlayerEat : MonoBehaviour
         {
             ObjectList.Add(food[i]);
         }
+
         ObjectList.Remove(Object);
 
+
         food = ObjectList.ToArray();
+
+        //UpdateFood();
+
+
+
+
+
+        Debug.Log("food removed.");
     }
 
     public void AddObject(GameObject Object)
@@ -88,16 +104,26 @@ public class PlayerEat : MonoBehaviour
             float playerRadius = transform.localScale.x / 2;
             float objectRadius = m.localScale.x / 2;
 
-            if (Vector2.Distance(transform.position, m.position) <= playerRadius + objectRadius)
+            if (Vector2.Distance(transform.position, m.position) <= playerRadius + objectRadius) // check whether player coolide with any game objects
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
                     RemoveObject(m.gameObject);
                     PlayerGrow();
+
+                  
+
+                    // smoething wrong with food object, one food object has 2 more copy attached in food object list
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
+
+                        //Debug.Log("food destory !!!!!!" + "---- i=" + i);
+                        Debug.Log("food destory !!!!!!" + "---- i=" + i + " obj radius:" + objectRadius + " player rad:" + playerRadius);
+                        exp += 1;
+                        expText.text = exp.ToString();
+
                     }
                     else
                     {
@@ -106,6 +132,11 @@ public class PlayerEat : MonoBehaviour
                     
                         ms.CreateBullet();
                         eat_ammo = true;
+
+                        Debug.Log("ammo destory !!!!!!" + "---- i=" + i);
+                        exp += 1;
+                        expText.text = exp.ToString();
+
                     }
                 }
                 else if (m.gameObject.CompareTag("Enemy"))
@@ -115,6 +146,12 @@ public class PlayerEat : MonoBehaviour
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
+
+                        Debug.Log("grow !!!!!! enemy " + "---- i=" + i);
+                        exp += 1;
+                        expText.text = exp.ToString();
+
+
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         if (ms.created_enemies.Count == 0)
@@ -135,6 +172,7 @@ public class PlayerEat : MonoBehaviour
     void PlayerGrow()
     {
         transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+        
     }
 
     //update the bullet text if get or use the bullet
