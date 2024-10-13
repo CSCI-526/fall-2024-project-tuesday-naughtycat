@@ -24,7 +24,8 @@ public class PlayerShoot : MonoBehaviour
     {
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
-        if (Input.GetMouseButtonDown(0) && !has_shot && player_eat.eat_ammo) 
+        // if (Input.GetMouseButtonDown(0) && !has_shot && player_eat.eat_ammo) 
+        if (Input.GetMouseButtonDown(0) && player_eat.eat_ammo) 
         {
             Shoot();
             generator.DestroyPlayerBullet();

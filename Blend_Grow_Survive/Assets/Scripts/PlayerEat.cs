@@ -18,8 +18,17 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     private bool has_bullet = false;
 
+<<<<<<< HEAD
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI expText;
+=======
+    public int maxHealth = 10; 
+    public int currentHealth;  
+    public int experience = 0;  
+
+    public Text healthText;     
+    public Text experienceText; 
+>>>>>>> feature-enemy
 
     public void UpdateFood()
     {
@@ -96,28 +105,34 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
-                    // Destroy the object first to prevent multiple calls
-                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
-
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
+<<<<<<< HEAD
                         GameManager.instance.AddHP(5);
                         hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
+=======
+                        Destroy(m.gameObject);
+                       
+                        GainExperience(1); 
+                        break;  
+>>>>>>> feature-enemy
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                    
                         ms.CreateBullet();
                         eat_ammo = true;
+                         break;  
                     }
                 }
+                 
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
+<<<<<<< HEAD
                     float distance = Vector2.Distance(transform.position, m.position);
                     float overlap = (playerRadius + objectRadius) - distance;
 
@@ -140,28 +155,83 @@ public class PlayerEat : MonoBehaviour
                         }
                     }
                     else
+=======
+                    // Compare sizes between player and enemy
+                    if (transform.localScale.x > m.localScale.x)
+>>>>>>> feature-enemy
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
+<<<<<<< HEAD
                         GameManager.instance.AddEXP(10);
                         expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
 
+=======
+                        
+                        GainExperience(2); 
+                        //continue;  
+>>>>>>> feature-enemy
                         if (ms.created_enemies.Count == 0)
                         {
                             WinGame();
+                        }
+                        continue;
+                    }
+                    else
+                    {
+
+                       TakeDamage(1); 
+                        if (currentHealth <= 0)
+                        {
+                            GameOver(); 
                         }
                     }
                 }
             }
         }
     }
+     
+public void TakeDamage(int damage)
+{
+    currentHealth -= damage;
+    UpdateHealthUI();
+
+    if (currentHealth <= 0)
+    {
+        GameOver(); 
+    }
+}
+
+public void UpdateHealthUI()
+{
+    if (healthText != null)
+    {
+        healthText.text = "Health : " + currentHealth + "/" + maxHealth;
+    }
+}
+
+
+public void GainExperience(int xp)
+{
+    experience += xp;
+    UpdateExperienceUI();
+}
+
+public void UpdateExperienceUI()
+{
+    if (experienceText != null)
+    {
+        experienceText.text = "Exp : " + experience ;
+    }
+}
 
     // If the player eat the food or enemy, the player will grow the size
     void PlayerGrow()
     {
-        transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+         
+        transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
     }
 
     //update the bullet text if get or use the bullet
@@ -228,8 +298,6 @@ public class PlayerEat : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
-        GameManager.instance.ResetHP();
-        GameManager.instance.ResetEXP();
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -239,6 +307,11 @@ public class PlayerEat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        currentHealth = maxHealth;
+    UpdateHealthUI();
+    UpdateExperienceUI();
+
         UpdateFood();
         UpdateEnemy();
         UpdateAmmo();
@@ -249,4 +322,6 @@ public class PlayerEat : MonoBehaviour
 
         ms.players.Add(gameObject);
     }
+
+
 }
