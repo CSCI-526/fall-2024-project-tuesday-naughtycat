@@ -32,12 +32,15 @@ public class BulletAttack : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, bullet_speed * Time.deltaTime, enemy_layer_mask);
         if (hit.collider != null)
         {
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
             {
-                Destroy(hit.collider.gameObject);
-                generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
+                 EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    // Debug.Log("次子彈擊中敵人，減少1點血量");
+                    enemyHealth.TakeDamage(1);  // 每次子彈擊中敵人，減少1點血量
+                }
                 Destroy(gameObject);
-                GameManager.instance.AddEXP(5);
                 if (generator.created_enemies.Count == 0)
                 {
                     FindObjectOfType<PlayerEat>().WinGame();

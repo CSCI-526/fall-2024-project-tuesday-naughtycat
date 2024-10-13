@@ -17,6 +17,14 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     private bool has_bullet = false;
 
+    /// 新增
+    public int maxHealth = 10; // 玩家最大血量
+    public int currentHealth;   // 玩家當前血量
+    public int experience = 0;  // 玩家經驗值
+
+    public Text healthText;     // 用來顯示血量的 UI
+    public Text experienceText; // 用來顯示經驗值的 UI 
+
     public void UpdateFood()
     {
         food = GameObject.FindGameObjectsWithTag("Food");
@@ -92,67 +100,95 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
-                    // Destroy the object first to prevent multiple calls
-                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
-
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        GameManager.instance.AddHP(5);
+                        Destroy(m.gameObject);
+                           Debug.Log("吃掉食物");
+                        GainExperience(1); // 吃掉食物獲得 1 點經驗值
+                        break;  // 避免重複處理
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                    
+                    Debug.Log("補充子彈");
                         ms.CreateBullet();
                         eat_ammo = true;
+                         break;  // 避免重複處理
                     }
                 }
+                 // 碰撞到敵人
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-                    float distance = Vector2.Distance(transform.position, m.position);
-                    float overlap = (playerRadius + objectRadius) - distance;
-
-                    // If the player's size is smaller than the enemy's size
-                    if (transform.localScale.x < m.localScale.x)
-                    {
-                        // Check if the overlap is less than 50% of the player's radius
-                        if (overlap < playerRadius / 2)
-                        {
-                            GameManager.instance.DeductHP(20);
-                            Debug.Log("HP deducted by 20%");
-                        }
-                        else
-                        {
-                            // If more than 50% overlap, game over
-                            GameOver();
-                            Debug.Log("Game Over! Enemy overlapped more than 50%.");
-                        }
-                    }
-                    else
+                    // Compare sizes between player and enemy
+                    if (transform.localScale.x > m.localScale.x)
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
-                        GameManager.instance.AddEXP(10);
-
+                        Debug.Log("碰到敵人");
+                        GainExperience(2); // 吃掉籃球獲得經驗值
+                        continue;  // 避免重複處理
                         if (ms.created_enemies.Count == 0)
                         {
                             WinGame();
+                        }
+                    }
+                    else
+                    {
+                       TakeDamage(1); // 當玩家比敵人小，扣 1 點血量
+                        if (currentHealth <= 0)
+                        {
+                            GameOver(); // 血量為 0 時，遊戲結束
                         }
                     }
                 }
             }
         }
     }
+     // 受到傷害時
+public void TakeDamage(int damage)
+{
+    currentHealth -= damage;
+    UpdateHealthUI();//更新UI
+
+    if (currentHealth <= 0)
+    {
+        GameOver(); // 血量降為 0 時，結束遊戲
+    }
+}
+
+public void UpdateHealthUI()
+{
+    if (healthText != null)
+    {
+        healthText.text = "Health : " + currentHealth + "/" + maxHealth;
+    }
+}
+
+// 經驗值
+public void GainExperience(int xp)
+{
+    experience += xp;
+    UpdateExperienceUI();
+}
+
+public void UpdateExperienceUI()
+{
+    if (experienceText != null)
+    {
+        experienceText.text = "Exp : " + experience ;
+    }
+}
 
     // If the player eat the food or enemy, the player will grow the size
     void PlayerGrow()
     {
+         // 增加玩家大小
         transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
@@ -220,8 +256,6 @@ public class PlayerEat : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1;
-        GameManager.instance.ResetHP();
-        GameManager.instance.ResetEXP();
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -231,6 +265,11 @@ public class PlayerEat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 血量跟經驗值ui
+        currentHealth = maxHealth;
+    UpdateHealthUI();
+    UpdateExperienceUI();
+
         UpdateFood();
         UpdateEnemy();
         UpdateAmmo();
@@ -241,4 +280,6 @@ public class PlayerEat : MonoBehaviour
 
         ms.players.Add(gameObject);
     }
+
+
 }
