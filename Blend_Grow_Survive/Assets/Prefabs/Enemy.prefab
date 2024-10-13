@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739f4b00cff46c441b565b51d730aab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy_speed: 3
+  enemy_speed: 2
   player: {fileID: 0}
 --- !u!58 &-7986896599372693351
 CircleCollider2D:

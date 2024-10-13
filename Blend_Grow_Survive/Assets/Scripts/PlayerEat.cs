@@ -188,7 +188,7 @@ public void UpdateExperienceUI()
     void PlayerGrow()
     {
          
-        transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+        transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
     }
 
     //update the bullet text if get or use the bullet
