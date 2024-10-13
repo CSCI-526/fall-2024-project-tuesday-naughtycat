@@ -26,7 +26,7 @@ public class ObjectGenerator : MonoBehaviour
     public float create_enemy_time = 5.0f;
     public Vector2 pos;
     public GameObject enemy;
-    public GameObject healthBarPrefab; // 血量的Prefab
+    public GameObject healthBarPrefab; 
     public int max_enemies = 10;
     public List<GameObject> created_enemies = new List<GameObject>();
     public Vector2 enemy_size_range;
@@ -83,11 +83,11 @@ public class ObjectGenerator : MonoBehaviour
             float randomSize = Random.Range(1.0f, 3.0f);
             m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-            // // 在敵人頭上添加血量顯示
+            
             // GameObject healthBar = Instantiate(healthBarPrefab, m.transform);
             // healthBar.transform.localPosition = new Vector3(0, 1.5f, 0);  
 
-            // 設置血量文字的引用
+            
             // EnemyHealth enemyHealth = m.GetComponent<EnemyHealth>();
             // enemyHealth.healthText = healthBar.GetComponent<TextMeshProUGUI>();
 

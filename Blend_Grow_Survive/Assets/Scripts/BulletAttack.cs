@@ -37,8 +37,8 @@ public class BulletAttack : MonoBehaviour
                  EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
                 if (enemyHealth != null)
                 {
-                    // Debug.Log("次子彈擊中敵人，減少1點血量");
-                    enemyHealth.TakeDamage(1);  // 每次子彈擊中敵人，減少1點血量
+                    
+                    enemyHealth.TakeDamage(1);  
                 }
                 Destroy(gameObject);
                 if (generator.created_enemies.Count == 0)

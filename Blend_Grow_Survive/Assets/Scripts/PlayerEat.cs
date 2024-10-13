@@ -17,13 +17,12 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     private bool has_bullet = false;
 
-    /// 新增
-    public int maxHealth = 10; // 玩家最大血量
-    public int currentHealth;   // 玩家當前血量
-    public int experience = 0;  // 玩家經驗值
+    public int maxHealth = 10; 
+    public int currentHealth;  
+    public int experience = 0;  
 
-    public Text healthText;     // 用來顯示血量的 UI
-    public Text experienceText; // 用來顯示經驗值的 UI 
+    public Text healthText;     
+    public Text experienceText; 
 
     public void UpdateFood()
     {
@@ -106,21 +105,20 @@ public class PlayerEat : MonoBehaviour
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
-                           Debug.Log("吃掉食物");
-                        GainExperience(1); // 吃掉食物獲得 1 點經驗值
-                        break;  // 避免重複處理
+                       
+                        GainExperience(1); 
+                        break;  
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                    Debug.Log("補充子彈");
                         ms.CreateBullet();
                         eat_ammo = true;
-                         break;  // 避免重複處理
+                         break;  
                     }
                 }
-                 // 碰撞到敵人
+                 
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
                     // Compare sizes between player and enemy
@@ -130,35 +128,36 @@ public class PlayerEat : MonoBehaviour
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
-                        Debug.Log("碰到敵人");
-                        GainExperience(2); // 吃掉籃球獲得經驗值
-                        continue;  // 避免重複處理
+                        
+                        GainExperience(2); 
+                        //continue;  
                         if (ms.created_enemies.Count == 0)
                         {
                             WinGame();
                         }
+                        continue;
                     }
                     else
                     {
-                       TakeDamage(1); // 當玩家比敵人小，扣 1 點血量
+                       TakeDamage(1); 
                         if (currentHealth <= 0)
                         {
-                            GameOver(); // 血量為 0 時，遊戲結束
+                            GameOver(); 
                         }
                     }
                 }
             }
         }
     }
-     // 受到傷害時
+     
 public void TakeDamage(int damage)
 {
     currentHealth -= damage;
-    UpdateHealthUI();//更新UI
+    UpdateHealthUI();
 
     if (currentHealth <= 0)
     {
-        GameOver(); // 血量降為 0 時，結束遊戲
+        GameOver(); 
     }
 }
 
@@ -170,7 +169,7 @@ public void UpdateHealthUI()
     }
 }
 
-// 經驗值
+
 public void GainExperience(int xp)
 {
     experience += xp;
@@ -188,7 +187,7 @@ public void UpdateExperienceUI()
     // If the player eat the food or enemy, the player will grow the size
     void PlayerGrow()
     {
-         // 增加玩家大小
+         
         transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
@@ -265,7 +264,7 @@ public void UpdateExperienceUI()
     // Start is called before the first frame update
     void Start()
     {
-        // 血量跟經驗值ui
+        
         currentHealth = maxHealth;
     UpdateHealthUI();
     UpdateExperienceUI();

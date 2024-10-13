@@ -32,17 +32,17 @@ public class ChangeEnemyDir : MonoBehaviour
     {
         if (player != null)
         {
-            // 計算敵人到玩家的方向
+           
             Vector3 direction = (player.position - transform.position).normalized;
 
-            // 移動敵人朝向玩家
+            
             transform.position += direction * enemy_speed * Time.deltaTime;
 
-            // 限制敵人到達一定距離後才進行其他行為
-            float followDistance = 100f; // 定義跟隨距離
+            
+            float followDistance = 100f; 
             if (Vector3.Distance(transform.position, player.position) > followDistance)
             {
-                // 在一定距離內不進行隨機移動
+              
                 SetRandomTargetPosition();
             }
         }
