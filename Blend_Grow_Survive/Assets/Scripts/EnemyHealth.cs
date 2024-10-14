@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth;  
-    private int currentHealth;  
+    public int maxHealth;
+    public int currentHealth;
     public TextMeshProUGUI healthText; 
+    
 
     void Start()
     {

@@ -140,11 +140,11 @@ public class PlayerEat : MonoBehaviour
                     else
                     {
 
-                       TakeDamage(1); 
-                        if (currentHealth <= 0)
-                        {
+                        //TakeDamage(1); 
+                        //if (currentHealth <= 0)
+                        //{
                             GameOver(); 
-                        }
+                        //}
                     }
                 }
             }
