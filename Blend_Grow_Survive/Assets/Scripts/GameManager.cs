@@ -1,15 +1,10 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int playerHP = 100;
     public int playerEXP = 0;
-
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI expText;
 
     private void Awake()
     {
@@ -30,7 +25,6 @@ public class GameManager : MonoBehaviour
         playerHP += hpAmount;
         playerHP = Mathf.Clamp(playerHP, 0, 100);
         Debug.Log("Current HP: " + playerHP);
-        
     }
 
     // Method to deduct HP
@@ -38,7 +32,6 @@ public class GameManager : MonoBehaviour
     {
         playerHP -= hpAmount;
         Debug.Log("Current HP: " + playerHP);
-        
         // If HP falls to 0 or below, end the game
         if (playerHP <= 0)
         {
@@ -53,7 +46,6 @@ public class GameManager : MonoBehaviour
     {
         playerHP = 100;
         Debug.Log("HP reset to: " + playerHP);
-        
     }
 
     // Method to add EXP when an enemy is defeated
@@ -62,7 +54,6 @@ public class GameManager : MonoBehaviour
         playerEXP += expAmount;
         playerEXP = Mathf.Clamp(playerEXP, 0, 100);
         Debug.Log("Current EXP: " + playerEXP);
-        
     }
 
     // Reset EXP when restarting the game
@@ -70,6 +61,5 @@ public class GameManager : MonoBehaviour
     {
         playerEXP = 0;
         Debug.Log("EXP reset to: " + playerEXP);
-        
     }
 }

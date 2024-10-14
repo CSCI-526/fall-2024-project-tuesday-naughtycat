@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
@@ -18,17 +17,12 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     private bool has_bullet = false;
 
-<<<<<<< HEAD
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI expText;
-=======
     public int maxHealth = 10; 
     public int currentHealth;  
     public int experience = 0;  
 
     public Text healthText;     
     public Text experienceText; 
->>>>>>> feature-enemy
 
     public void UpdateFood()
     {
@@ -110,15 +104,10 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
-<<<<<<< HEAD
-                        GameManager.instance.AddHP(5);
-                        hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
-=======
                         Destroy(m.gameObject);
                        
                         GainExperience(1); 
                         break;  
->>>>>>> feature-enemy
                     }
                     else
                     {
@@ -132,47 +121,16 @@ public class PlayerEat : MonoBehaviour
                  
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-<<<<<<< HEAD
-                    float distance = Vector2.Distance(transform.position, m.position);
-                    float overlap = (playerRadius + objectRadius) - distance;
-
-                    // If the player's size is smaller than the enemy's size
-                    if (transform.localScale.x < m.localScale.x)
-                    {
-                        // Check if the overlap is less than 50% of the player's radius
-                        if (overlap < playerRadius / 2)
-                        {
-                            GameManager.instance.DeductHP(20);
-                            Debug.Log("HP deducted by 20%");
-                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
-                        }
-                        else
-                        {
-                            // If more than 50% overlap, game over
-                            GameOver();
-                            Debug.Log("Game Over! Enemy overlapped more than 50%.");
-                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
-                        }
-                    }
-                    else
-=======
                     // Compare sizes between player and enemy
                     if (transform.localScale.x > m.localScale.x)
->>>>>>> feature-enemy
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
-<<<<<<< HEAD
-                        GameManager.instance.AddEXP(10);
-                        expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
-
-=======
                         
                         GainExperience(2); 
                         //continue;  
->>>>>>> feature-enemy
                         if (ms.created_enemies.Count == 0)
                         {
                             WinGame();
