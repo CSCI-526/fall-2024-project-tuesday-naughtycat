@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  currentHealth: 0
   healthText: {fileID: 3508050885967736782}
 --- !u!1 &8835963154262086847
 GameObject:

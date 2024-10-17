@@ -8,22 +8,22 @@ public class Boundaries : MonoBehaviour
     void Update()
     {
         // control the player position if it is out of bounds
-        if (transform.position.y >= 10)
+        if (transform.position.y >= 100)
         {
-            transform.position = new Vector3(transform.position.x,10,0);
+            transform.position = new Vector3(transform.position.x,100,0);
         }
-        else if(transform.position.y <= -10)
+        else if(transform.position.y <= -100)
         {
-            transform.position = new Vector3(transform.position.x,-10,0);
+            transform.position = new Vector3(transform.position.x,-100,0);
         }
 
-        if (transform.position.x >= 10)
+        if (transform.position.x >= 100)
         {
-            transform.position = new Vector3(10,transform.position.y,0);
+            transform.position = new Vector3(100,transform.position.y,0);
         }
-        else if(transform.position.x <= -10)
+        else if(transform.position.x <= -100)
         {
-            transform.position = new Vector3(-10,transform.position.y,0);
+            transform.position = new Vector3(-100,transform.position.y,0);
         }
     }
 }

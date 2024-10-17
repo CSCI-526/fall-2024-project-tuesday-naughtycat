@@ -21,13 +21,13 @@ public class ObjectGenerator : MonoBehaviour
     public GameObject food;
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
-    public int max_food = 50;
-    public float create_food_time = 0.5f;
-    public float create_enemy_time = 5.0f;
+    public int max_food = 1000;
+    public float create_food_time = 0.05f;
+    public float create_enemy_time = 3.0f;
     public Vector2 pos;
     public GameObject enemy;
     public GameObject healthBarPrefab; 
-    public int max_enemies = 10;
+    public int max_enemies = 25;
     public List<GameObject> created_enemies = new List<GameObject>();
     public Vector2 enemy_size_range;
     public float enemy_speed;
@@ -106,20 +106,21 @@ public class ObjectGenerator : MonoBehaviour
 
         while (!validPosition)
         {
-            Position = new Vector2(Random.Range(-20, 20), Random.Range(-20, 20)) / 2;
+            // Food/Enemy Position
+            Position = new Vector2(Random.Range(-98, 98), Random.Range(-98, 98)) / 2;
 
-            if (Vector2.Distance(Position, playerPosition) > 2f)
+            if (Vector2.Distance(Position, playerPosition) > 5f)
             {
                 validPosition = true;
             }
         }
         return Position;
-            }
+     }
 
     public void CreateBullet()
     {
         players[0].GetComponent<PlayerEat>().AddBullet();
-        }
+    }
 
     public void DestroyPlayerBullet()
     {
