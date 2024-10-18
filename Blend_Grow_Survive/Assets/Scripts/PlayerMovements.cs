@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerMovements : MonoBehaviour
 {
-
     Actions actions;
     ObjectGenerator generator;
-    public float speed = 5f;
+    public float speed = 1f;
     public GameObject bullet;
+
+    private Vector2 lastMoveDirection;  // Track the last movement direction
+    private bool canMove = true;        // Flag to control movement based on collision
 
     // Start is called before the first frame update
     void Start()
@@ -19,39 +21,55 @@ public class PlayerMovements : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        // Player move with WSAD keys
-        float Speed = speed / transform.localScale.x;
-        Vector2 moveDirection = Vector2.zero;
-
-        if (Input.GetKey(KeyCode.W))
+        if (canMove)  // Only allow movement if not colliding with a wall
         {
-            moveDirection.y += 1; // Move up
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveDirection.y -= 1; // Move down
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveDirection.x -= 1; // Move left
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveDirection.x += 1; // Move right
+            float Speed = speed / transform.localScale.x;
+            Vector2 moveDirection = Vector2.zero;
+
+            if (Input.GetKey(KeyCode.W))
+            {
+                moveDirection.y += 1; // Move up
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                moveDirection.y -= 1; // Move down
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveDirection.x -= 1; // Move left
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveDirection.x += 1; // Move right
+            }
+
+            // Normalize the movement direction to maintain consistent speed when moving diagonally
+            moveDirection = moveDirection.normalized;
+
+            // Apply movement based on input
+            GetComponent<Rigidbody2D>().position = Vector2.MoveTowards(GetComponent<Rigidbody2D>().position, (Vector2)GetComponent<Rigidbody2D>().position + moveDirection, Speed * Time.deltaTime);
+
+            // Store the last valid movement direction
+            lastMoveDirection = moveDirection;
         }
 
-        // Normalize the movement direction to maintain consistent speed when moving diagonally
-        moveDirection = moveDirection.normalized;
-
-        // Apply movement based on input
-        transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + moveDirection, Speed * Time.deltaTime);
-
-       
         if (Input.GetKey(KeyCode.Space))
         {
-            actions.PlayerThrow();
+            actions.PlayerThrow();  // Handle player throw when space is pressed
         }
+    }
+
+    // Public method to stop player movement upon wall collision
+    public void StopMovement()
+    {
+        canMove = false;
+    }
+
+    // Public method to resume player movement after leaving the wall
+    public void ResumeMovement()
+    {
+        canMove = true;
     }
 }

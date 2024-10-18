@@ -15,7 +15,7 @@ public class ChangeEnemyDir : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         MoveTowardPlayer();
     }
@@ -33,12 +33,12 @@ public class ChangeEnemyDir : MonoBehaviour
         if (player != null)
         {
            
-            Vector3 direction = (player.position - transform.position).normalized;
+            Vector2 direction = (player.position - transform.position).normalized;
 
             
-            transform.position += direction * enemy_speed * Time.deltaTime;
+            //transform.position += direction * enemy_speed * Time.deltaTime;
+            GetComponent<Rigidbody2D>().position += direction * enemy_speed * Time.deltaTime;
 
-            
             float followDistance = 100f; 
             if (Vector3.Distance(transform.position, player.position) > followDistance)
             {

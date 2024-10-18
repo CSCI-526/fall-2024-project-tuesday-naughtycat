@@ -30,7 +30,7 @@ public class ObjectForce : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         // not allow the object be threw out of bounds
         transform.Translate(Vector2.up * Speed * Time.deltaTime);

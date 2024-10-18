@@ -20,7 +20,7 @@ public class PlayerShoot : MonoBehaviour
         generator = ObjectGenerator.ins;
         generator.players.Add(gameObject);
     }
-    void Update()
+    void LateUpdate()
     {
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
