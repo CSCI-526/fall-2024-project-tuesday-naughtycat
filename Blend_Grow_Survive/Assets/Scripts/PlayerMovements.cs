@@ -6,7 +6,7 @@ public class PlayerMovements : MonoBehaviour
 {
     Actions actions;
     ObjectGenerator generator;
-    public float speed = 5f;
+    public float speed = 1f;
     public GameObject bullet;
 
     private Vector2 lastMoveDirection;  // Track the last movement direction
@@ -21,7 +21,7 @@ public class PlayerMovements : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (canMove)  // Only allow movement if not colliding with a wall
         {
@@ -49,7 +49,7 @@ public class PlayerMovements : MonoBehaviour
             moveDirection = moveDirection.normalized;
 
             // Apply movement based on input
-            transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + moveDirection, Speed * Time.deltaTime);
+            GetComponent<Rigidbody2D>().position = Vector2.MoveTowards(GetComponent<Rigidbody2D>().position, (Vector2)GetComponent<Rigidbody2D>().position + moveDirection, Speed * Time.deltaTime);
 
             // Store the last valid movement direction
             lastMoveDirection = moveDirection;

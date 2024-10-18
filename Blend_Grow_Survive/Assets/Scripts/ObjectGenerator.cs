@@ -83,14 +83,15 @@ public class ObjectGenerator : MonoBehaviour
             float randomSize = Random.Range(1.0f, 3.0f);
             m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-            
-            // GameObject healthBar = Instantiate(healthBarPrefab, m.transform);
-            // healthBar.transform.localPosition = new Vector3(0, 1.5f, 0);  
 
-            
-            // EnemyHealth enemyHealth = m.GetComponent<EnemyHealth>();
-            // enemyHealth.healthText = healthBar.GetComponent<TextMeshProUGUI>();
+                // GameObject healthBar = Instantiate(healthBarPrefab, m.transform);
+                // healthBar.transform.localPosition = new Vector3(0, 1.5f, 0);  
 
+
+                // EnemyHealth enemyHealth = m.GetComponent<EnemyHealth>();
+                // enemyHealth.healthText = healthBar.GetComponent<TextMeshProUGUI>();
+                //m.AddComponent<Rigidbody2D>();
+                //m.AddComponent<CircleCollider2D>();
             AddObject(m, created_enemies);
         }
         }
