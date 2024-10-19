@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;  
+using TMPro;
 
 public class ObjectGenerator : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class ObjectGenerator : MonoBehaviour
     public float create_enemy_time = 3.0f;
     public Vector2 pos;
     public GameObject enemy;
-    public GameObject healthBarPrefab; 
+    public GameObject healthBarPrefab;
     public int max_enemies = 25;
     public List<GameObject> created_enemies = new List<GameObject>();
     public Vector2 enemy_size_range;
@@ -43,7 +43,7 @@ public class ObjectGenerator : MonoBehaviour
         {
             if (created_enemies.Count < max_enemies)
             {
-                Vector2 Position = GetRandomValidPosition();
+                Vector2 Position = GetRandomValidPositionForEnemy();
                 GameObject m = Instantiate(enemy, Position, Quaternion.identity);
                 float randomSize = Random.Range(1.0f, 3.0f);
                 m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
@@ -62,7 +62,7 @@ public class ObjectGenerator : MonoBehaviour
             yield return new WaitForSecondsRealtime(create_food_time);
             if (created_food.Count < max_food)
             {
-                Vector2 Position = GetRandomValidPosition();
+                Vector2 Position = GetRandomFoodPosition();
                 GameObject m = Instantiate(food, Position, Quaternion.identity);
                 AddObject(m, created_food);
             }
@@ -76,47 +76,39 @@ public class ObjectGenerator : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(create_enemy_time);
 
-           if (created_enemies.Count < max_enemies)
-        {
-            Vector2 Position = GetRandomValidPosition();
-            GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-            float randomSize = Random.Range(1.0f, 3.0f);
-            m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+            if (created_enemies.Count < max_enemies)
+            {
+                Vector2 Position = GetRandomValidPositionForEnemy();
+                GameObject m = Instantiate(enemy, Position, Quaternion.identity);
+                float randomSize = Random.Range(1.0f, 3.0f);
+                m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-
-                // GameObject healthBar = Instantiate(healthBarPrefab, m.transform);
-                // healthBar.transform.localPosition = new Vector3(0, 1.5f, 0);  
-
-
-                // EnemyHealth enemyHealth = m.GetComponent<EnemyHealth>();
-                // enemyHealth.healthText = healthBar.GetComponent<TextMeshProUGUI>();
-                //m.AddComponent<Rigidbody2D>();
-                //m.AddComponent<CircleCollider2D>();
-            AddObject(m, created_enemies);
-        }
+                AddObject(m, created_enemies);
+            }
         }
     }
 
-    // Get a random position that is not too close to the player
-    public Vector2 GetRandomValidPosition()
+    private Vector2 GetRandomFoodPosition()
     {
-        Vector2 Position = Vector2.zero;
-        bool validPosition = false;
-
-        Vector2 playerPosition = transform.position;
-
-        while (!validPosition)
+        if (Random.value < 0.85f)  // 80% chance to be within 15x15
         {
-            // Food/Enemy Position
-            Position = new Vector2(Random.Range(-98, 98), Random.Range(-98, 98)) / 2;
-
-            if (Vector2.Distance(Position, playerPosition) > 5f)
-            {
-                validPosition = true;
-            }
+            return new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
         }
-        return Position;
-     }
+        else  // 20% chance to be outside 15x15 within 50x50
+        {
+            Vector2 pos = new Vector2(Random.Range(-25f, 25f), Random.Range(-25f, 25f));
+            while (Mathf.Abs(pos.x) <= 5f && Mathf.Abs(pos.y) <= 5f)
+            {
+                pos = new Vector2(Random.Range(-25f, 25f), Random.Range(-25f, 25f));
+            }
+            return pos;
+        }
+    }
+
+    private Vector2 GetRandomValidPositionForEnemy()
+    {
+        return new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
+    }
 
     public void CreateBullet()
     {
@@ -134,22 +126,23 @@ public class ObjectGenerator : MonoBehaviour
         if (created_objects.Contains(m) == false)
         {
             created_objects.Add(m);
-            for (int i = 0; i < players.Count; i++)
+            if (players.Count > 0)
             {
-                PlayerEat pp = players[i].GetComponent<PlayerEat>();
+                PlayerEat pp = players[0].GetComponent<PlayerEat>();
                 pp.AddObject(m);
             }
         }
     }
+
     // remove the gameobject in created_objects
     public void RemoveObject(GameObject m, List<GameObject> created_objects)
     {
         if (created_objects.Contains(m) == true)
         {
             created_objects.Remove(m);
-            for (int i = 0; i < players.Count; i++)
+            if (players.Count > 0)
             {
-                PlayerEat pp = players[i].GetComponent<PlayerEat>();
+                PlayerEat pp = players[0].GetComponent<PlayerEat>();
                 pp.RemoveObject(m);
             }
         }

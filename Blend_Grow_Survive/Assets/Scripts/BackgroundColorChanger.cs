@@ -18,8 +18,7 @@ public class BackgroundColorChanger : MonoBehaviour
         {
             new Color(1f, 0.8f, 0.8f),  
             new Color(0.8f, 0.8f, 1f),  
-            new Color(0.8f, 1f, 0.8f),  
-            Color.white,                
+            new Color(0.8f, 1f, 0.8f),
             new Color(1f, 0.9f, 0.8f),  
         };
         // Initialize the list of initial colors (without white)
