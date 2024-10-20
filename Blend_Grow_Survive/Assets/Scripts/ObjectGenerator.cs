@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;  
 
 public class ObjectGenerator : MonoBehaviour
 {
@@ -26,7 +25,6 @@ public class ObjectGenerator : MonoBehaviour
     public float create_enemy_time = 5.0f;
     public Vector2 pos;
     public GameObject enemy;
-    public GameObject healthBarPrefab; 
     public int max_enemies = 10;
     public List<GameObject> created_enemies = new List<GameObject>();
     public Vector2 enemy_size_range;
@@ -76,23 +74,15 @@ public class ObjectGenerator : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(create_enemy_time);
 
-           if (created_enemies.Count < max_enemies)
-        {
-            Vector2 Position = GetRandomValidPosition();
-            GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-            float randomSize = Random.Range(1.0f, 3.0f);
-            m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+            if (created_enemies.Count < max_enemies)
+            {
+                Vector2 Position = GetRandomValidPosition();
+                GameObject m = Instantiate(enemy, Position, Quaternion.identity);
+                float randomSize = Random.Range(1.0f, 3.0f);
+                m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-            
-            // GameObject healthBar = Instantiate(healthBarPrefab, m.transform);
-            // healthBar.transform.localPosition = new Vector3(0, 1.5f, 0);  
-
-            
-            // EnemyHealth enemyHealth = m.GetComponent<EnemyHealth>();
-            // enemyHealth.healthText = healthBar.GetComponent<TextMeshProUGUI>();
-
-            AddObject(m, created_enemies);
-        }
+                AddObject(m, created_enemies);
+            }
         }
     }
 
@@ -114,12 +104,12 @@ public class ObjectGenerator : MonoBehaviour
             }
         }
         return Position;
-            }
+    }
 
     public void CreateBullet()
     {
         players[0].GetComponent<PlayerEat>().AddBullet();
-        }
+    }
 
     public void DestroyPlayerBullet()
     {
@@ -132,22 +122,23 @@ public class ObjectGenerator : MonoBehaviour
         if (created_objects.Contains(m) == false)
         {
             created_objects.Add(m);
-            for (int i = 0; i < players.Count; i++)
+            if (players.Count > 0)
             {
-                PlayerEat pp = players[i].GetComponent<PlayerEat>();
+                PlayerEat pp = players[0].GetComponent<PlayerEat>();
                 pp.AddObject(m);
             }
         }
     }
+
     // remove the gameobject in created_objects
     public void RemoveObject(GameObject m, List<GameObject> created_objects)
     {
         if (created_objects.Contains(m) == true)
         {
             created_objects.Remove(m);
-            for (int i = 0; i < players.Count; i++)
+            if (players.Count > 0)
             {
-                PlayerEat pp = players[i].GetComponent<PlayerEat>();
+                PlayerEat pp = players[0].GetComponent<PlayerEat>();
                 pp.RemoveObject(m);
             }
         }
@@ -156,6 +147,12 @@ public class ObjectGenerator : MonoBehaviour
     public void StopGenerating()
     {
         StopAllCoroutines();
+    }
+
+    public void StartGenerating()
+    {
+        StartCoroutine(CreateFood());
+        StartCoroutine(CreateEnemy());
     }
 
     public void OnDrawGizmosSelected()

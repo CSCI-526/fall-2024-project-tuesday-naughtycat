@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
-
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
@@ -17,12 +17,9 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     private bool has_bullet = false;
 
-    public int maxHealth = 10; 
-    public int currentHealth;  
-    public int experience = 0;  
-
-    public Text healthText;     
-    public Text experienceText; 
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI expText;
+    public TextMeshProUGUI coinText;
 
     public void UpdateFood()
     {
@@ -99,97 +96,74 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
+                    // Destroy the object first to prevent multiple calls
+                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
+
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        Destroy(m.gameObject);
-                       
-                        GainExperience(1); 
-                        break;  
+                        GameManager.instance.AddHP(5);
+                        hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
+                    
                         ms.CreateBullet();
                         eat_ammo = true;
-                         break;  
                     }
                 }
-                 
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-                    // Compare sizes between player and enemy
-                    if (transform.localScale.x > m.localScale.x)
+                    float distance = Vector2.Distance(transform.position, m.position);
+                    float overlap = (playerRadius + objectRadius) - distance;
+
+                    // If the player's size is smaller than the enemy's size
+                    if (transform.localScale.x < m.localScale.x)
+                    {
+                        // Check if the overlap is less than 50% of the player's radius
+                        if (overlap < playerRadius / 2)
+                        {
+                            GameManager.instance.DeductHP(20);
+                            Debug.Log("HP deducted by 20%");
+                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
+                        }
+                        else
+                        {
+                            // If more than 50% overlap, game over
+                            GameOver();
+                            Debug.Log("Game Over! Enemy overlapped more than 50%.");
+                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
+                        }
+                    }
+                    else
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
-                        
-                        GainExperience(2); 
-                        //continue;  
+                        GameManager.instance.AddEXP(10);
+                        GameManager.instance.AddCoins(Random.Range(20, 30));
+                        expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
+                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+
                         if (ms.created_enemies.Count == 0)
                         {
                             WinGame();
                         }
-                        continue;
-                    }
-                    else
-                    {
-
-                        //TakeDamage(1); 
-                        //if (currentHealth <= 0)
-                        //{
-                            GameOver(); 
-                        //}
                     }
                 }
             }
         }
     }
-     
-public void TakeDamage(int damage)
-{
-    currentHealth -= damage;
-    UpdateHealthUI();
-
-    if (currentHealth <= 0)
-    {
-        GameOver(); 
-    }
-}
-
-public void UpdateHealthUI()
-{
-    if (healthText != null)
-    {
-        healthText.text = "Health : " + currentHealth + "/" + maxHealth;
-    }
-}
-
-
-public void GainExperience(int xp)
-{
-    experience += xp;
-    UpdateExperienceUI();
-}
-
-public void UpdateExperienceUI()
-{
-    if (experienceText != null)
-    {
-        experienceText.text = "Exp : " + experience ;
-    }
-}
 
     // If the player eat the food or enemy, the player will grow the size
     void PlayerGrow()
     {
-         
-        transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
+        transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
 
     //update the bullet text if get or use the bullet
@@ -253,23 +227,29 @@ public void UpdateExperienceUI()
         Time.timeScale = 0f;
     }
 
+    //GameManager.instance.ResetCoins();
     public void RestartGame()
     {
+        Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
         Time.timeScale = 1;
+        GameManager.instance.ResetHP();
+        GameManager.instance.ResetEXP();
+
+        // Reset the upgraded bullet properties upon restart of the game
+        GameManager.instance.ResetBulletProperties();
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        GameManager.instance.UpdateReferences();
+        Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
+
     }
 
     ObjectGenerator ms;
     // Start is called before the first frame update
     void Start()
     {
-        
-        currentHealth = maxHealth;
-    UpdateHealthUI();
-    UpdateExperienceUI();
-
         UpdateFood();
         UpdateEnemy();
         UpdateAmmo();
@@ -280,6 +260,4 @@ public void UpdateExperienceUI()
 
         ms.players.Add(gameObject);
     }
-
-
 }
