@@ -48,6 +48,15 @@ public class PlayerMovements : MonoBehaviour
         // Apply movement based on input
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + moveDirection, Speed * Time.deltaTime);
 
+
+
+        // Check for collisions at the new position
+        if (!IsColliding(newPosition))
+        {
+            // Apply movement if no collision
+            transform.position = newPosition;
+        }
+
         if (Input.GetKey(KeyCode.Space))
         {
             actions.PlayerThrow();
@@ -57,4 +66,11 @@ public class PlayerMovements : MonoBehaviour
 
     }
 
+    // Function to check for collisions at a given position
+    bool IsColliding(Vector2 targetPosition)
+    {
+        // Use OverlapCircle to check for collisions with obstacles
+        Collider2D hit = Physics2D.OverlapCircle(targetPosition, radius, obstacleLayer);
+        return hit != null; // Return true if there is a collision
+    }
 }

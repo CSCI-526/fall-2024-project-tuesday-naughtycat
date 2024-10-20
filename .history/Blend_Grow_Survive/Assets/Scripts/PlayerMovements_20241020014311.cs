@@ -48,13 +48,10 @@ public class PlayerMovements : MonoBehaviour
         // Apply movement based on input
         transform.position = Vector2.MoveTowards(transform.position, (Vector2)transform.position + moveDirection, Speed * Time.deltaTime);
 
+       
         if (Input.GetKey(KeyCode.Space))
         {
             actions.PlayerThrow();
         }
-
-
-
     }
-
 }
