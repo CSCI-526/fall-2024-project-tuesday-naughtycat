@@ -348,7 +348,7 @@ MonoBehaviour:
   player: {fileID: 7197361989872612428, guid: 67327bdca5408413797bf838b103bfdc, type: 3}
   bullet: {fileID: 7928638507455134860, guid: a60557e98b7b24f0d8c33e068868d03a, type: 3}
   bullet_speed: 10
-  shooting_interval: 2
+  shooting_interval: 5
 --- !u!1 &8835963154262086847
 GameObject:
   m_ObjectHideFlags: 0
