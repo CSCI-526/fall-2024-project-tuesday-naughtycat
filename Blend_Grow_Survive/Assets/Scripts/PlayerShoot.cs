@@ -25,7 +25,7 @@ public class PlayerShoot : MonoBehaviour
         currentGun = gun.transform.GetChild(currentGunIndex).GetComponent<Gun>();
         
     }
-    void Update()
+    void LateUpdate()
     {
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
