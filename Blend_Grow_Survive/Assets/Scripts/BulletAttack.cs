@@ -15,7 +15,7 @@ public class BulletAttack : MonoBehaviour
         generator = ObjectGenerator.ins;
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Destory the bullet if it is out of bounds
         // Raycast to detect if the bullet is close to an enemy
@@ -38,7 +38,7 @@ public class BulletAttack : MonoBehaviour
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(1);
-
+                    Debug.Log("Enemy got a damage ~~~");
                     if (enemyHealth.currentHealth <= 0)
                     {
                         Destroy(hit.collider.gameObject);
