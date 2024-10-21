@@ -91,8 +91,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 422113303
-  m_SortingOrder: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6841745794384503410
 MonoBehaviour:
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: -7986896599372693351}
   - component: {fileID: 1325935124826812044}
   - component: {fileID: 7872924942699315936}
+  - component: {fileID: -4455345236497319564}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -212,7 +213,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 422113303
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0.1415093, g: 0.4143252, b: 1, a: 1}
   m_FlipX: 0
@@ -284,7 +285,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -305,7 +306,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -316,7 +317,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &7872924942699315936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,9 +330,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0e82e3e72174a489a46b85d983ab87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   currentHealth: 0
   healthText: {fileID: 3508050885967736782}
-  hasBeenShot: 0
+--- !u!114 &-4455345236497319564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928638507455134860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5c030dc4df2444e8d318edf857533e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7197361989872612428, guid: 67327bdca5408413797bf838b103bfdc, type: 3}
+  bullet: {fileID: 7928638507455134860, guid: a60557e98b7b24f0d8c33e068868d03a, type: 3}
+  bullet_speed: 10
+  shooting_interval: 2
 --- !u!1 &8835963154262086847
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +383,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.001, y: -0.003}
+  m_AnchoredPosition: {x: -0.000000044703, y: 0.353}
   m_SizeDelta: {x: 0.451, y: 0.1346}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8450212962957988688
