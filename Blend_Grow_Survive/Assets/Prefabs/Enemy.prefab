@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: -7986896599372693351}
   - component: {fileID: 1325935124826812044}
   - component: {fileID: 7872924942699315936}
+  - component: {fileID: -4455345236497319564}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -330,7 +331,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  currentHealth: 0
   healthText: {fileID: 3508050885967736782}
+--- !u!114 &-4455345236497319564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928638507455134860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f5c030dc4df2444e8d318edf857533e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7197361989872612428, guid: 67327bdca5408413797bf838b103bfdc, type: 3}
+  bullet: {fileID: 7928638507455134860, guid: a60557e98b7b24f0d8c33e068868d03a, type: 3}
+  bullet_speed: 10
+  shooting_interval: 2
 --- !u!1 &8835963154262086847
 GameObject:
   m_ObjectHideFlags: 0
