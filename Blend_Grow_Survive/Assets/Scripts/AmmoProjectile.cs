@@ -15,6 +15,9 @@ public class AmmoProjectile : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(gameObject);
+        } else if (other.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
         }
     }
 }

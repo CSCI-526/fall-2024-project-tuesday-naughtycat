@@ -7,14 +7,13 @@ using TMPro;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth;
     public int currentHealth;
     public TextMeshProUGUI healthText; 
     
 
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = Mathf.RoundToInt(transform.localScale.x);
         
         healthText = GetComponentInChildren<TextMeshProUGUI>(true); 
         UpdateHealthText();

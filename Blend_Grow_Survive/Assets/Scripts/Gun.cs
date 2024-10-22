@@ -33,6 +33,7 @@ public class Gun : MonoBehaviour
     // Shooting behavior
     public virtual void Shoot()
     {
+        Physics2D.SyncTransforms();
         if (currentAmmo > 0 && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;

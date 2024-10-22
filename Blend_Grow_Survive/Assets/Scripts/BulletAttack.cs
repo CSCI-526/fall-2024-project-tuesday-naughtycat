@@ -21,7 +21,8 @@ public class BulletAttack : MonoBehaviour
         // Raycast to detect if the bullet is close to an enemy
         // If the ray hit an enemy, destory the enemy and remove it from the Created Enemies list
         // After that, destory the bullet itself
-        // Win the game if there are no enemies left 
+        // Win the game if there are no enemies left
+        Physics2D.SyncTransforms();
         transform.Translate(Vector3.up * bullet_speed * Time.deltaTime);
 
         if (Vector3.Distance(start_position, transform.position) >= max_distance)
@@ -34,23 +35,50 @@ public class BulletAttack : MonoBehaviour
         {
             if (hit.collider != null && hit.collider.CompareTag("Enemy"))
             {
+                Debug.Log(111111);
                 EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(1);
                     Debug.Log("Enemy got a damage ~~~");
+
+                    // Define how much size to reduce (2 units in this case)
+                    float sizeReduction = 1.0f;
+
+                    // Reduce the enemy's size by the specified amount
+                    Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
+
+                    // Ensure the size doesn't go below a minimum threshold
+                    float minScale = 1.0f;
+                    newScale.x = Mathf.Max(newScale.x, minScale);
+                    newScale.y = Mathf.Max(newScale.y, minScale);
+
+                    // Apply the new scale
+                    enemyHealth.transform.localScale = newScale;
+
                     if (enemyHealth.currentHealth <= 0)
                     {
                         Destroy(hit.collider.gameObject);
                         generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
+                        FindObjectOfType<PlayerEat>().GainExperience(10);
 
-                        if (generator.created_enemies.Count == 0)
+                        if (FindObjectOfType<PlayerEat>().experience >= 100)
                         {
                             FindObjectOfType<PlayerEat>().WinGame();
                         }
+
+                        //if (generator.created_enemies.Count == 0)
+                        //{
+                        //    FindObjectOfType<PlayerEat>().WinGame();
+                        //}
                     }
                 }
 
+                Destroy(gameObject);
+            }
+            else if (hit.collider.CompareTag("Wall"))
+            {
+                Debug.Log("Bullet hit the wall and got destroyed.");
                 Destroy(gameObject);
             }
         }

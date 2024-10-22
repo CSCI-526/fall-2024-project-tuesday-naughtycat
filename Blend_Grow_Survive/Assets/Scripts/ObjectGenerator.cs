@@ -27,7 +27,7 @@ public class ObjectGenerator : MonoBehaviour
     public Vector2 pos;
     public GameObject enemy;
     public GameObject healthBarPrefab;
-    public int max_enemies = 25;
+    public int max_enemies = 50;
     public List<GameObject> created_enemies = new List<GameObject>();
     public Vector2 enemy_size_range;
     public float enemy_speed;
@@ -72,6 +72,7 @@ public class ObjectGenerator : MonoBehaviour
     // If the number of enemy less than max_food, keep creating enemies
     public IEnumerator CreateEnemy()
     {
+        Physics2D.SyncTransforms();
         while (true)
         {
             yield return new WaitForSecondsRealtime(create_enemy_time);
@@ -80,7 +81,7 @@ public class ObjectGenerator : MonoBehaviour
             {
                 Vector2 Position = GetRandomValidPositionForEnemy();
                 GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-                float randomSize = Random.Range(1.0f, 3.0f);
+                float randomSize = Random.Range(1.0f, 4.0f);
                 m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
                 AddObject(m, created_enemies);

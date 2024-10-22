@@ -106,7 +106,7 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
                        
-                        GainExperience(1); 
+                        //GainExperience(1); 
                         break;  
                     }
                     else
@@ -129,9 +129,9 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         
-                        GainExperience(2); 
+                        GainExperience(10);
                         //continue;  
-                        if (ms.created_enemies.Count == 0)
+                        if (experience >= 100)
                         {
                             WinGame();
                         }
@@ -158,7 +158,7 @@ public void TakeDamage(int damage)
 
     if (currentHealth <= 0)
     {
-        GameOver(); 
+        GameOver();
     }
 }
 
@@ -166,7 +166,7 @@ public void UpdateHealthUI()
 {
     if (healthText != null)
     {
-        healthText.text = "Health : " + currentHealth + "/" + maxHealth;
+        healthText.text = "Health : " + Mathf.RoundToInt(transform.localScale.x);
     }
 }
 
@@ -267,8 +267,8 @@ public void UpdateExperienceUI()
     {
         
         currentHealth = maxHealth;
-    UpdateHealthUI();
-    UpdateExperienceUI();
+        UpdateHealthUI();
+        UpdateExperienceUI();
 
         UpdateFood();
         UpdateEnemy();
@@ -280,6 +280,4 @@ public void UpdateExperienceUI()
 
         ms.players.Add(gameObject);
     }
-
-
 }
