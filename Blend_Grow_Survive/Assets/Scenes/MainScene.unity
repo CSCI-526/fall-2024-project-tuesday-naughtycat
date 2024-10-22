@@ -3063,7 +3063,7 @@ MonoBehaviour:
   player: {fileID: 2032329663}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
   bullet_start_point: {fileID: 2032329666}
-  bullet_speed: 10
+  bullet_speed: 20
   gun: {fileID: 372667194}
 --- !u!50 &2032329671
 Rigidbody2D:

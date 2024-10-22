@@ -121,13 +121,6 @@ public class BulletAttack : MonoBehaviour
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                //here if the enemy is hit, enemiesShot+1, but if the same enemy is hit again, enemiesShot will not increase
-                // Check if the enemy was hit by a bullet before, and if not, increment enemiesShot
-                if (!enemyHealth.hasBeenShot)
-                {
-                    enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
-                    analyticsManager.EnemyShot(); // Increment enemiesShot
-                }
                 enemyHealth.TakeDamage(1);
                 Debug.Log("Enemy got a damage ~~~");
 
@@ -141,6 +134,13 @@ public class BulletAttack : MonoBehaviour
 
                 if (enemyHealth.currentHealth <= 0)
                 {
+                    //here if the enemy is hit, enemiesShot+1, but if the same enemy is hit again, enemiesShot will not increase
+                    // Check if the enemy was hit by a bullet before, and if not, increment enemiesShot
+                    if (!enemyHealth.hasBeenShot)
+                    {
+                        enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
+                        analyticsManager.EnemyShot(); // Increment enemiesShot
+                    }
                     //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
                     analyticsManager.EnemyDefeated();
                     Destroy(collision.gameObject);
