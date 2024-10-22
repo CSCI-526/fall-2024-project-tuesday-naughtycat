@@ -49,7 +49,7 @@ public class BulletAttack : MonoBehaviour
                     if (!enemyHealth.hasBeenShot)
                     {
                         enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
-                        analyticsManager.EnemyShot(); // Increment enemiesShot
+                        gameManager.EnemyShot(); // Increment enemiesShot
                     }
                     float sizeReduction = 1.0f;
 
@@ -63,7 +63,6 @@ public class BulletAttack : MonoBehaviour
 
                     if (enemyHealth.currentHealth <= 0)
                     {
-                        analyticsManager.EnemyDefeated();
                         //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
                         Destroy(hit.collider.gameObject);
                         generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);

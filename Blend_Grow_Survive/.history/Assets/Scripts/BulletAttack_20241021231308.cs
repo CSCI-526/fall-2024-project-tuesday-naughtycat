@@ -44,13 +44,7 @@ public class BulletAttack : MonoBehaviour
                 {
                     enemyHealth.TakeDamage(1);
                     Debug.Log("Enemy got a damage ~~~");
-                    //here if the enemy is hit, enemiesShot+1, but if the same enemy is hit again, enemiesShot will not increase
-                    // Check if the enemy was hit by a bullet before, and if not, increment enemiesShot
-                    if (!enemyHealth.hasBeenShot)
-                    {
-                        enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
-                        analyticsManager.EnemyShot(); // Increment enemiesShot
-                    }
+
                     float sizeReduction = 1.0f;
 
                     Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
@@ -63,8 +57,7 @@ public class BulletAttack : MonoBehaviour
 
                     if (enemyHealth.currentHealth <= 0)
                     {
-                        analyticsManager.EnemyDefeated();
-                        //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
+                        analyticsManager.EnemyDefeated(true);
                         Destroy(hit.collider.gameObject);
                         generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
                         FindObjectOfType<PlayerEat>().GainExperience(10);
@@ -89,6 +82,5 @@ public class BulletAttack : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
     }
 }

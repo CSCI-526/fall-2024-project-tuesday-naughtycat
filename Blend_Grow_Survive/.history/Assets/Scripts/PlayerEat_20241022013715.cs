@@ -131,7 +131,7 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         // Log that this enemy was absorbed
-                        analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
+                        //analyticsManager.EnemyDefeated(false); // Pass false to indicate the enemy was absorbed
 
                         GainExperience(10);
                         //continue;  
