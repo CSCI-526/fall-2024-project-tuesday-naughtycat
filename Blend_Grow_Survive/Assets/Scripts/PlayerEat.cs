@@ -7,7 +7,6 @@ using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
-
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
@@ -20,6 +19,7 @@ public class PlayerEat : MonoBehaviour
 
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI expText;
+    public TextMeshProUGUI coinText;
 
     public void UpdateFood()
     {
@@ -146,7 +146,9 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         GameManager.instance.AddEXP(10);
+                        GameManager.instance.AddCoins(Random.Range(20, 30));
                         expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
+                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
                         if (ms.created_enemies.Count == 0)
                         {
@@ -225,14 +227,23 @@ public class PlayerEat : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    //GameManager.instance.ResetCoins();
     public void RestartGame()
     {
+        Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
         Time.timeScale = 1;
         GameManager.instance.ResetHP();
         GameManager.instance.ResetEXP();
 
+        // Reset the upgraded bullet properties upon restart of the game
+        GameManager.instance.ResetBulletProperties();
+
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        GameManager.instance.UpdateReferences();
+        Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
+
     }
 
     ObjectGenerator ms;

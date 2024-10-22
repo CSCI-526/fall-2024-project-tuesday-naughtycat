@@ -149,6 +149,12 @@ public class ObjectGenerator : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void StartGenerating()
+    {
+        StartCoroutine(CreateFood());
+        StartCoroutine(CreateEnemy());
+    }
+
     public void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;

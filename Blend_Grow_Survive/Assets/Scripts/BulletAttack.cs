@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class BulletAttack : MonoBehaviour
 {
-    public float bullet_speed = 20f; 
-    public float max_distance = 20f;  
-    public LayerMask enemy_layer_mask; 
+    public float bullet_speed = 5f; 
+    public float max_distance = 4f;  
+    public LayerMask enemy_layer_mask;
 
     private Vector3 start_position; 
     ObjectGenerator generator;
@@ -12,7 +12,7 @@ public class BulletAttack : MonoBehaviour
     void Start()
     {
         start_position = transform.position;
-        generator = ObjectGenerator.ins; 
+        generator = ObjectGenerator.ins;
     }
 
     void Update()
@@ -38,6 +38,7 @@ public class BulletAttack : MonoBehaviour
                 generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
                 Destroy(gameObject);
                 GameManager.instance.AddEXP(5);
+                GameManager.instance.AddCoins(Random.Range(200,300));
                 if (generator.created_enemies.Count == 0)
                 {
                     FindObjectOfType<PlayerEat>().WinGame();

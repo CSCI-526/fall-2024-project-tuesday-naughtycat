@@ -13,18 +13,21 @@ public class PlayerShoot : MonoBehaviour
     private Vector2 mouse_position;
     private Vector2 direction;
     PlayerEat player_eat;
+    UpgradePanelToggle upgradePanelToggle;
 
     void Start()
     {
         player_eat = GetComponent<PlayerEat>();
         generator = ObjectGenerator.ins;
         generator.players.Add(gameObject);
+
+        upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
     }
     void Update()
     {
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
-        if (Input.GetMouseButtonDown(0) && !has_shot && player_eat.eat_ammo) 
+        if (Input.GetMouseButtonDown(0) && !has_shot && player_eat.eat_ammo && (upgradePanelToggle == null || !upgradePanelToggle.IsPanelOpen())) 
         {
             Shoot();
             generator.DestroyPlayerBullet();
@@ -52,7 +55,7 @@ public class PlayerShoot : MonoBehaviour
             GameObject bullet_instance = Instantiate(bullet, bullet_start_point.position, player.transform.rotation);
             Rigidbody2D rb = bullet_instance.GetComponent<Rigidbody2D>();
             rb.velocity = direction * bullet_speed;
-            has_shot = true;
+            //has_shot = true;
         }
 
     }
