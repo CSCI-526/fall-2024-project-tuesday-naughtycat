@@ -13,19 +13,16 @@ public class PlayerEat : MonoBehaviour
     public Transform player;
     public Text result_text;
     public Button restart_button;
-    //public bool eat_ammo = false;
+    public bool eat_ammo = false;
     public Text bullet_text;
-    //private bool has_bullet = false;
-    public int bulletCount = 0;
+    private bool has_bullet = false;
 
-    public int maxHealth = 10;
-    public int currentHealth;
-    public int experience = 0;
+    public int maxHealth = 10; 
+    public int currentHealth;  
+    public int experience = 0;  
 
-    public Text healthText;
-    public Text experienceText;
-
-    AnalyticsManager analyticsManager;
+    public Text healthText;     
+    public Text experienceText; 
 
     public void UpdateFood()
     {
@@ -102,30 +99,26 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
-                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
-
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
-
+                       
                         //GainExperience(1); 
-                        //break;  
+                        break;  
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                        bulletCount += 1;
-                        UpdateBulletText();
-                        //ms.CreateBullet();
-                        //eat_ammo = true;
-                        //break;
+                        ms.CreateBullet();
+                        eat_ammo = true;
+                         break;  
                     }
                 }
-
+                 
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
                     // Compare sizes between player and enemy
@@ -135,9 +128,7 @@ public class PlayerEat : MonoBehaviour
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
-                        // Log that this enemy was absorbed
-                        analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
-
+                        
                         GainExperience(10);
                         //continue;  
                         if (experience >= 100)
@@ -152,92 +143,83 @@ public class PlayerEat : MonoBehaviour
                         //TakeDamage(1); 
                         //if (currentHealth <= 0)
                         //{
-                        GameOver();
+                            GameOver(); 
                         //}
                     }
                 }
             }
         }
     }
+     
+public void TakeDamage(int damage)
+{
+    currentHealth -= damage;
+    UpdateHealthUI();
 
-    public void TakeDamage(int damage)
+    if (currentHealth <= 0)
     {
-        currentHealth -= damage;
-        UpdateHealthUI();
-
-        if (currentHealth <= 0)
-        {
-            GameOver();
-        }
+        GameOver();
     }
+}
 
-    public void UpdateHealthUI()
+public void UpdateHealthUI()
+{
+    if (healthText != null)
     {
-        if (healthText != null)
-        {
-            healthText.text = "Health : " + Mathf.RoundToInt(transform.localScale.x);
-        }
+        healthText.text = "Health : " + Mathf.RoundToInt(transform.localScale.x);
     }
+}
 
 
-    public void GainExperience(int xp)
+public void GainExperience(int xp)
+{
+    experience += xp;
+    UpdateExperienceUI();
+}
+
+public void UpdateExperienceUI()
+{
+    if (experienceText != null)
     {
-        experience += xp;
-        UpdateExperienceUI();
+        experienceText.text = "Exp : " + experience ;
     }
-
-    public void UpdateExperienceUI()
-    {
-        if (experienceText != null)
-        {
-            experienceText.text = "Exp : " + experience;
-        }
-    }
+}
 
     // If the player eat the food or enemy, the player will grow the size
     void PlayerGrow()
     {
-
+         
         transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
     }
 
     //update the bullet text if get or use the bullet
-    //public void AddBullet()
-    //{
-    //    has_bullet = true;
-    //    UpdateBulletText();
-    //}
+    public void AddBullet()
+    {
+        has_bullet = true;
+        UpdateBulletText();
+    }
 
-    //public void RemoveBullet()
-    //{
-    //    has_bullet = false;
-    //    UpdateBulletText();
-    //}
+    public void RemoveBullet()
+    {
+        has_bullet = false;
+        UpdateBulletText();
+    }
 
     public void UpdateBulletText()
     {
         if (bullet_text != null)
         {
-            bullet_text.text = "# of bullets: " + bulletCount;
+            if (has_bullet)
+            {
+                bullet_text.text = "# of bullet: 1";
+            }
+            else
+            {
+                bullet_text.text = "# of bullet: 0";
+            }
             bullet_text.gameObject.SetActive(true);
         }
     }
-
-    //public void UpdateBulletText()
-    //{
-    //    if (bullet_text != null)
-    //    {
-    //        if (has_bullet)
-    //        {
-    //            bullet_text.text = "# of bullet: 1";
-    //        }
-    //        else
-    //        {
-    //            bullet_text.text = "# of bullet: 0";
-    //        }
-    //        bullet_text.gameObject.SetActive(true);
-    //    }
-    //}
 
     //if it is game over, destroy the player, freeze the time and update the text
     public void GameOver()
@@ -246,7 +228,7 @@ public class PlayerEat : MonoBehaviour
         CancelInvoke("CheckEnemy");
 
         ms.StopGenerating();
-        //ms.DestroyPlayerBullet();
+        ms.DestroyPlayerBullet();
 
         result_text.text = "Game Over!";
         result_text.gameObject.SetActive(true);
@@ -255,7 +237,6 @@ public class PlayerEat : MonoBehaviour
         gameObject.SetActive(false);
 
         Time.timeScale = 0f;
-        EndRound();
     }
     // If win the game, stop generating anything and update the winning text
     public void WinGame()
@@ -270,7 +251,6 @@ public class PlayerEat : MonoBehaviour
         restart_button.gameObject.SetActive(true);
 
         Time.timeScale = 0f;
-        EndRound();
     }
 
     public void RestartGame()
@@ -285,7 +265,7 @@ public class PlayerEat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         currentHealth = maxHealth;
         UpdateHealthUI();
         UpdateExperienceUI();
@@ -299,12 +279,5 @@ public class PlayerEat : MonoBehaviour
         ms = ObjectGenerator.ins;
 
         ms.players.Add(gameObject);
-        analyticsManager = FindObjectOfType<AnalyticsManager>();
-    }
-
-
-    public void EndRound()
-    {
-        analyticsManager.EndRound();
     }
 }

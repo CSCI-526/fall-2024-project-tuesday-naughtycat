@@ -13,10 +13,9 @@ public class PlayerEat : MonoBehaviour
     public Transform player;
     public Text result_text;
     public Button restart_button;
-    //public bool eat_ammo = false;
+    public bool eat_ammo = false;
     public Text bullet_text;
-    //private bool has_bullet = false;
-    public int bulletCount = 0;
+    private bool has_bullet = false;
 
     public int maxHealth = 10;
     public int currentHealth;
@@ -102,27 +101,23 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
-                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
-
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
 
                         //GainExperience(1); 
-                        //break;  
+                        break;
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                        bulletCount += 1;
-                        UpdateBulletText();
-                        //ms.CreateBullet();
-                        //eat_ammo = true;
-                        //break;
+                        ms.CreateBullet();
+                        eat_ammo = true;
+                        break;
                     }
                 }
 
@@ -136,7 +131,7 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         // Log that this enemy was absorbed
-                        analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
+                        FindObjectOfType<GameManager>().EnemyDefeated(false); // Pass false to indicate the enemy was absorbed
 
                         GainExperience(10);
                         //continue;  
@@ -167,6 +162,7 @@ public class PlayerEat : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+
             GameOver();
         }
     }
@@ -202,42 +198,33 @@ public class PlayerEat : MonoBehaviour
     }
 
     //update the bullet text if get or use the bullet
-    //public void AddBullet()
-    //{
-    //    has_bullet = true;
-    //    UpdateBulletText();
-    //}
+    public void AddBullet()
+    {
+        has_bullet = true;
+        UpdateBulletText();
+    }
 
-    //public void RemoveBullet()
-    //{
-    //    has_bullet = false;
-    //    UpdateBulletText();
-    //}
+    public void RemoveBullet()
+    {
+        has_bullet = false;
+        UpdateBulletText();
+    }
 
     public void UpdateBulletText()
     {
         if (bullet_text != null)
         {
-            bullet_text.text = "# of bullets: " + bulletCount;
+            if (has_bullet)
+            {
+                bullet_text.text = "# of bullet: 1";
+            }
+            else
+            {
+                bullet_text.text = "# of bullet: 0";
+            }
             bullet_text.gameObject.SetActive(true);
         }
     }
-
-    //public void UpdateBulletText()
-    //{
-    //    if (bullet_text != null)
-    //    {
-    //        if (has_bullet)
-    //        {
-    //            bullet_text.text = "# of bullet: 1";
-    //        }
-    //        else
-    //        {
-    //            bullet_text.text = "# of bullet: 0";
-    //        }
-    //        bullet_text.gameObject.SetActive(true);
-    //    }
-    //}
 
     //if it is game over, destroy the player, freeze the time and update the text
     public void GameOver()
@@ -246,7 +233,7 @@ public class PlayerEat : MonoBehaviour
         CancelInvoke("CheckEnemy");
 
         ms.StopGenerating();
-        //ms.DestroyPlayerBullet();
+        ms.DestroyPlayerBullet();
 
         result_text.text = "Game Over!";
         result_text.gameObject.SetActive(true);

@@ -2,25 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using TMPro;
+using TMPro; 
 
 
 public class EnemyHealth : MonoBehaviour
 {
     public int currentHealth;
-    public TextMeshProUGUI healthText;
-    public bool hasBeenShot = false;
-
+    public TextMeshProUGUI healthText; 
+    
 
     void Start()
     {
         currentHealth = Mathf.RoundToInt(transform.localScale.x);
-
-        healthText = GetComponentInChildren<TextMeshProUGUI>(true);
+        
+        healthText = GetComponentInChildren<TextMeshProUGUI>(true); 
         UpdateHealthText();
     }
 
-
+   
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -32,7 +31,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-
+    
     void UpdateHealthText()
     {
         if (healthText != null)
@@ -41,11 +40,11 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-
+    
     void Die()
     {
-
-        Destroy(gameObject);
+        
+        Destroy(gameObject);  
     }
 }
 

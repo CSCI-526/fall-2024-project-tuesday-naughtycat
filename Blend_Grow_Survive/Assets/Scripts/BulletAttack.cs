@@ -90,6 +90,8 @@ public class BulletAttack : MonoBehaviour
     private Rigidbody2D rb;
     ObjectGenerator generator;
 
+    AnalyticsManager analyticsManager;
+
     void Start()
     {
         start_position = transform.position;
@@ -98,6 +100,8 @@ public class BulletAttack : MonoBehaviour
 
         // Set the bullet's velocity in the upward direction
         rb.velocity = transform.up * bullet_speed;
+
+        analyticsManager = FindObjectOfType<AnalyticsManager>();
     }
 
     void LateUpdate()
@@ -130,6 +134,15 @@ public class BulletAttack : MonoBehaviour
 
                 if (enemyHealth.currentHealth <= 0)
                 {
+                    //here if the enemy is hit, enemiesShot+1, but if the same enemy is hit again, enemiesShot will not increase
+                    // Check if the enemy was hit by a bullet before, and if not, increment enemiesShot
+                    if (!enemyHealth.hasBeenShot)
+                    {
+                        enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
+                        analyticsManager.EnemyShot(); // Increment enemiesShot
+                    }
+                    //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
+                    analyticsManager.EnemyDefeated();
                     Destroy(collision.gameObject);
                     generator.RemoveObject(collision.gameObject, generator.created_enemies);
                     FindObjectOfType<PlayerEat>().GainExperience(10);
@@ -147,5 +160,6 @@ public class BulletAttack : MonoBehaviour
             Debug.Log("Bullet hit the wall and got destroyed.");
             Destroy(gameObject);
         }
+
     }
 }
