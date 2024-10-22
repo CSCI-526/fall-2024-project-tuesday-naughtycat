@@ -21,7 +21,6 @@ public class BulletAttack : MonoBehaviour
         // Raycast to detect if the bullet is close to an enemy
         // If the ray hit an enemy, destory the enemy and remove it from the Created Enemies list
         // After that, destory the bullet itself
-        // Win the game if there are no enemies left
         Physics2D.SyncTransforms();
         transform.Translate(Vector3.up * bullet_speed * Time.deltaTime);
 
