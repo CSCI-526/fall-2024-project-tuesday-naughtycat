@@ -13,9 +13,10 @@ public class PlayerEat : MonoBehaviour
     public Transform player;
     public Text result_text;
     public Button restart_button;
-    public bool eat_ammo = false;
+    //public bool eat_ammo = false;
     public Text bullet_text;
-    private bool has_bullet = false;
+    //private bool has_bullet = false;
+    public int bulletCount = 0;
 
     public int maxHealth = 10; 
     public int currentHealth;  
@@ -99,23 +100,27 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
+                    Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
+
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
                        
                         //GainExperience(1); 
-                        break;  
+                        //break;  
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                        ms.CreateBullet();
-                        eat_ammo = true;
-                         break;  
+                        bulletCount += 1;
+                        UpdateBulletText();
+                        //ms.CreateBullet();
+                        //eat_ammo = true;
+                         //break;
                     }
                 }
                  
@@ -193,33 +198,42 @@ public void UpdateExperienceUI()
     }
 
     //update the bullet text if get or use the bullet
-    public void AddBullet()
-    {
-        has_bullet = true;
-        UpdateBulletText();
-    }
+    //public void AddBullet()
+    //{
+    //    has_bullet = true;
+    //    UpdateBulletText();
+    //}
 
-    public void RemoveBullet()
-    {
-        has_bullet = false;
-        UpdateBulletText();
-    }
+    //public void RemoveBullet()
+    //{
+    //    has_bullet = false;
+    //    UpdateBulletText();
+    //}
 
     public void UpdateBulletText()
     {
         if (bullet_text != null)
         {
-            if (has_bullet)
-            {
-                bullet_text.text = "# of bullet: 1";
-            }
-            else
-            {
-                bullet_text.text = "# of bullet: 0";
-            }
+            bullet_text.text = "# of bullets: " + bulletCount;
             bullet_text.gameObject.SetActive(true);
         }
     }
+
+    //public void UpdateBulletText()
+    //{
+    //    if (bullet_text != null)
+    //    {
+    //        if (has_bullet)
+    //        {
+    //            bullet_text.text = "# of bullet: 1";
+    //        }
+    //        else
+    //        {
+    //            bullet_text.text = "# of bullet: 0";
+    //        }
+    //        bullet_text.gameObject.SetActive(true);
+    //    }
+    //}
 
     //if it is game over, destroy the player, freeze the time and update the text
     public void GameOver()
@@ -228,7 +242,7 @@ public void UpdateExperienceUI()
         CancelInvoke("CheckEnemy");
 
         ms.StopGenerating();
-        ms.DestroyPlayerBullet();
+        //ms.DestroyPlayerBullet();
 
         result_text.text = "Game Over!";
         result_text.gameObject.SetActive(true);

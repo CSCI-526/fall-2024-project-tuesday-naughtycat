@@ -110,7 +110,7 @@ public class ObjectGenerator : MonoBehaviour
     {
         return new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
     }
-
+/*
     public void CreateBullet()
     {
         players[0].GetComponent<PlayerEat>().AddBullet();
@@ -120,7 +120,7 @@ public class ObjectGenerator : MonoBehaviour
     {
         players[0].GetComponent<PlayerEat>().RemoveBullet();
     }
-
+*/
     // add the gameobject to created_objects
     public void AddObject(GameObject m, List<GameObject> created_objects)
     {
