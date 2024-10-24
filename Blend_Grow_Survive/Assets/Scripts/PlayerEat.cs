@@ -175,7 +175,7 @@ public class PlayerEat : MonoBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = "Health : " + Mathf.RoundToInt(transform.localScale.x);
+            healthText.text = "" + Mathf.RoundToInt(transform.localScale.x);
         }
     }
 
@@ -252,6 +252,7 @@ public class PlayerEat : MonoBehaviour
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
 
+        healthText.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
         Time.timeScale = 0f;
@@ -268,6 +269,8 @@ public class PlayerEat : MonoBehaviour
         result_text.text = "You Win!";
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
+
+        healthText.gameObject.SetActive(false);
 
         Time.timeScale = 0f;
         EndRound();
