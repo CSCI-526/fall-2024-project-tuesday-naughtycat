@@ -252,6 +252,7 @@ public class PlayerEat : MonoBehaviour
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
 
+        healthText.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
         Time.timeScale = 0f;
@@ -268,7 +269,7 @@ public class PlayerEat : MonoBehaviour
         result_text.text = "You Win!";
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
-
+        healthText.gameObject.SetActive(false);
         Time.timeScale = 0f;
         EndRound();
     }
