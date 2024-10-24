@@ -175,7 +175,7 @@ public class PlayerEat : MonoBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = "Health : " + Mathf.RoundToInt(transform.localScale.x);
+            healthText.text = "" + Mathf.RoundToInt(transform.localScale.x);
         }
     }
 
