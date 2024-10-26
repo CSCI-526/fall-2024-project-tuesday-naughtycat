@@ -55,7 +55,7 @@ public class PlayerShoot : MonoBehaviour
             GameObject bullet_instance = Instantiate(bullet, bullet_start_point.position, player.transform.rotation);
             Rigidbody2D rb = bullet_instance.GetComponent<Rigidbody2D>();
             rb.velocity = direction * bullet_speed;
-            //has_shot = true;
+            has_shot = true;
         }
 
     }
