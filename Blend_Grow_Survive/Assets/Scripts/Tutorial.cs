@@ -7,12 +7,11 @@ public class Tutorial : MonoBehaviour
 {
     public GameObject food;
     public Text hintText;
-    public GameObject enemy;
     public GameObject ammo;
     // Start is called before the first frame update
     void Start()
     {
-        //ammo.gameObject.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -25,12 +24,21 @@ public class Tutorial : MonoBehaviour
 
         if (GameObject.Find("Food") == null && GameObject.Find("Food (1)") == null && GameObject.Find("Food (2)") == null)
         {
-            hintText.text = "Go to the ammo. ->";
-            //ammo.gameObject.SetActive(true);
+
+            hintText.text = "Go to the ammo. ->\nUse the spacebar to speedup.";
+
             if (GameObject.Find("ammo") == null)
             {
-                hintText.text = "Now there is an enemy.";
-                enemy.gameObject.SetActive(true);
+                hintText.text = "Now there is an enemy towards you.\nLeft click to shot ammo or swallow others when your size is larger.";
+
+                List<GameObject> created_enemies = ObjectGenerator.ins.getEnemy();
+                GameObject firstEnemy = created_enemies[0];
+                firstEnemy.gameObject.SetActive(true);
+                //Debug.Log("enemy tag: " + created_enemies[0].gameObject.tag);
+                if (!firstEnemy)
+                {
+                    hintText.text = "You have destroyed an enemy.\nAdded 10 EXP. More enemies are coming...";
+                }
             }
         }
 

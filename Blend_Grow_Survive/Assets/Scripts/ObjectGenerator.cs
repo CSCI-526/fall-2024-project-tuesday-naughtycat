@@ -36,6 +36,26 @@ public class ObjectGenerator : MonoBehaviour
     public List<GameObject> created_bullet = new List<GameObject>();
     public GameObject bullet;
     public float bullet_offset = 1f;
+
+    public int isTutorial;
+
+    public List<GameObject> getEnemy()
+    {
+        return created_enemies;
+    }
+
+    public GameObject[] getEnemyArr()
+    {
+        GameObject[] aaa = new GameObject[created_enemies.Count];
+        for (int i = 0; i < created_enemies.Count; i++)
+        {
+            aaa[i] = created_enemies[i];
+        }
+        
+        return aaa;
+        
+    }
+
     private void Start()
     {
         // Create 5 enemies with random position and size at the beginning
@@ -45,8 +65,18 @@ public class ObjectGenerator : MonoBehaviour
             {
                 Vector2 Position = GetRandomValidPositionForEnemy();
                 GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-                float randomSize = Random.Range(1.0f, 3.0f);
-                m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+                if (isTutorial == 0)
+                {
+                    float randomSize = Random.Range(1.0f, 3.0f);
+                    m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+                } else
+                {
+                    m.transform.localScale = new Vector3(1, 1, 1);
+                    m.gameObject.SetActive(false);
+                    //m.gameObject.name = "tutorial enemy";
+
+                }
+                
                 AddObject(m, created_enemies);
             }
         }
