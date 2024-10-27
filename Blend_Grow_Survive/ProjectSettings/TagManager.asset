@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Mass
   - Ammo
+  - Wall
   layers:
   - Default
   - TransparentFX

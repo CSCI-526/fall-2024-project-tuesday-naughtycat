@@ -35,7 +35,7 @@ public class Actions : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (transform.localScale.x <= 1)
         {
@@ -43,5 +43,6 @@ public class Actions : MonoBehaviour
         }
         //decrease the size of the player after each frame
         transform.localScale -= new Vector3(reduce_unit, reduce_unit, reduce_unit) * Time.deltaTime;
+        FindObjectOfType<PlayerEat>().UpdateHealthUI();
     }
 }

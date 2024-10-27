@@ -13,13 +13,24 @@ public class PlayerEat : MonoBehaviour
     public Transform player;
     public Text result_text;
     public Button restart_button;
-    public bool eat_ammo = false;
+    //public bool eat_ammo = false;
     public Text bullet_text;
-    private bool has_bullet = false;
+    //private bool has_bullet = false;
+    public int bulletCount = 0;
 
-    public TextMeshProUGUI hpText;
+
+    //public TextMeshProUGUI hpText;
     public TextMeshProUGUI expText;
     public TextMeshProUGUI coinText;
+
+    public int maxHealth = 10;
+    public int currentHealth;
+    public int experience = 0;
+
+    public Text healthText;
+    //public Text experienceText;
+
+    AnalyticsManager analyticsManager;
 
     public void UpdateFood()
     {
@@ -96,7 +107,6 @@ public class PlayerEat : MonoBehaviour
             {
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
-                    // Destroy the object first to prevent multiple calls
                     Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
                     PlayerGrow();
@@ -104,93 +114,116 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        GameManager.instance.AddHP(5);
-                        hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
+                        Destroy(m.gameObject);
+
+                        //GainExperience(1); 
+                        //break;  
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
-                    
-                        ms.CreateBullet();
-                        eat_ammo = true;
+                        bulletCount += 1;
+                        UpdateBulletText();
+                        //ms.CreateBullet();
+                        //eat_ammo = true;
+                        //break;
                     }
                 }
+
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-                    float distance = Vector2.Distance(transform.position, m.position);
-                    float overlap = (playerRadius + objectRadius) - distance;
-
-                    // If the player's size is smaller than the enemy's size
-                    if (transform.localScale.x < m.localScale.x)
-                    {
-                        // Check if the overlap is less than 50% of the player's radius
-                        if (overlap < playerRadius / 2)
-                        {
-                            GameManager.instance.DeductHP(20);
-                            Debug.Log("HP deducted by 20%");
-                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
-                        }
-                        else
-                        {
-                            // If more than 50% overlap, game over
-                            GameOver();
-                            Debug.Log("Game Over! Enemy overlapped more than 50%.");
-                            hpText.text = "HP: " + GameManager.instance.playerHP.ToString();
-                        }
-                    }
-                    else
+                    // Compare sizes between player and enemy
+                    if (transform.localScale.x > m.localScale.x)
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
-                        GameManager.instance.AddEXP(10);
-                        GameManager.instance.AddCoins(Random.Range(20, 30));
-                        expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
-                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
-                        if (ms.created_enemies.Count == 0)
+                        //GameManager.instance.AddEXP(10);
+                        //expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
+                        // Log that this enemy was absorbed
+                        analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
+
+                        GameManager.instance.AddCoins(Random.Range(20, 30));
+                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+                        GainExperience(10);
+                        //continue;  
+                        if (experience >= 100)
                         {
                             WinGame();
                         }
+                        continue;
+                    }
+                    else
+                    {
+                        GameOver();
                     }
                 }
             }
         }
     }
 
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        UpdateHealthUI();
+
+        if (currentHealth <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    public void UpdateHealthUI()
+    {
+        if (healthText != null)
+        {
+            healthText.text = "" + Mathf.RoundToInt(transform.localScale.x);
+        }
+    }
+
+
+    public void GainExperience(int xp)
+    {
+        experience += xp;
+        UpdateExperienceUI();
+    }
+
+    public void UpdateExperienceUI()
+    {
+        if (expText != null)
+        {
+            expText.text = "Exp : " + experience;
+        }
+    }
+
     // If the player eat the food or enemy, the player will grow the size
     void PlayerGrow()
     {
-        transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+
+        transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
     }
 
     //update the bullet text if get or use the bullet
-    public void AddBullet()
-    {
-        has_bullet = true;
-        UpdateBulletText();
-    }
+    //public void AddBullet()
+    //{
+    //    has_bullet = true;
+    //    UpdateBulletText();
+    //}
 
-    public void RemoveBullet()
-    {
-        has_bullet = false;
-        UpdateBulletText();
-    }
+    //public void RemoveBullet()
+    //{
+    //    has_bullet = false;
+    //    UpdateBulletText();
+    //}
 
     public void UpdateBulletText()
     {
         if (bullet_text != null)
         {
-            if (has_bullet)
-            {
-                bullet_text.text = "# of bullet: 1";
-            }
-            else
-            {
-                bullet_text.text = "# of bullet: 0";
-            }
+            bullet_text.text = "# of bullets: " + bulletCount;
             bullet_text.gameObject.SetActive(true);
         }
     }
@@ -202,15 +235,17 @@ public class PlayerEat : MonoBehaviour
         CancelInvoke("CheckEnemy");
 
         ms.StopGenerating();
-        ms.DestroyPlayerBullet();
+        //ms.DestroyPlayerBullet();
 
         result_text.text = "Game Over!";
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
 
+        healthText.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
         Time.timeScale = 0f;
+        EndRound();
     }
     // If win the game, stop generating anything and update the winning text
     public void WinGame()
@@ -224,7 +259,10 @@ public class PlayerEat : MonoBehaviour
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
 
+        healthText.gameObject.SetActive(false);
+
         Time.timeScale = 0f;
+        EndRound();
     }
 
     //GameManager.instance.ResetCoins();
@@ -232,8 +270,6 @@ public class PlayerEat : MonoBehaviour
     {
         Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
         Time.timeScale = 1;
-        GameManager.instance.ResetHP();
-        GameManager.instance.ResetEXP();
 
         // Reset the upgraded bullet properties upon restart of the game
         GameManager.instance.ResetBulletProperties();
@@ -250,6 +286,11 @@ public class PlayerEat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        currentHealth = maxHealth;
+        UpdateHealthUI();
+        UpdateExperienceUI();
+
         UpdateFood();
         UpdateEnemy();
         UpdateAmmo();
@@ -259,5 +300,12 @@ public class PlayerEat : MonoBehaviour
         ms = ObjectGenerator.ins;
 
         ms.players.Add(gameObject);
+        analyticsManager = FindObjectOfType<AnalyticsManager>();
+    }
+
+
+    public void EndRound()
+    {
+        analyticsManager.EndRound();
     }
 }

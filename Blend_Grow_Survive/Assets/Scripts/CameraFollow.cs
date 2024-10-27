@@ -8,8 +8,8 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset;    
 
     public float zoom_factor = 2f;  
-    public float min_zoom = 3f;     
-    public float max_zoom = 7f;    
+    public float min_zoom = 7f;
+    public float max_zoom = 14f;
 
     private Camera cam; 
     // Start is called before the first frame update

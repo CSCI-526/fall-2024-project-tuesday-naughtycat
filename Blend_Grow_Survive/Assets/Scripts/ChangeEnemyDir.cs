@@ -6,21 +6,18 @@ public class ChangeEnemyDir : MonoBehaviour
 {
     public float enemy_speed;
     private Vector3 target_position;
+    [SerializeField]
+    public Transform player;
     // Start is called before the first frame update
     void Start()
     {
-        SetRandomTargetPosition();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        // move the enemy to the target position, if it reaches the target position, set the next target position
-        transform.position = Vector3.MoveTowards(transform.position, target_position, enemy_speed* Time.deltaTime);
-        if (Vector3.Distance(transform.position, target_position) < 0.1f)
-        {
-            SetRandomTargetPosition();
-        }
+        MoveTowardPlayer();
     }
     // randomly generate the target position for the enemy
     void SetRandomTargetPosition()
@@ -29,5 +26,29 @@ public class ChangeEnemyDir : MonoBehaviour
         float randomY = Random.Range(-10, 10);
 
         target_position = new Vector3(randomX, randomY, transform.position.z); 
+    }
+
+    void MoveTowardPlayer()
+    {
+        if (player != null)
+        {
+           
+            Vector2 direction = (player.position - transform.position).normalized;
+
+            
+            //transform.position += direction * enemy_speed * Time.deltaTime;
+            GetComponent<Rigidbody2D>().position += direction * enemy_speed * Time.deltaTime;
+
+            float followDistance = 100f; 
+            if (Vector3.Distance(transform.position, player.position) > followDistance)
+            {
+              
+                SetRandomTargetPosition();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Player reference is null in MoveTowardPlayer.");
+        }
     }
 }

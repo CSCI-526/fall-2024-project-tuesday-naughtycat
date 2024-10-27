@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int playerHP = 100;
-    public int playerEXP = 0;
+    //public int playerEXP = 0;
     public int playerCoins = 0;
 
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI expText;
+    //public TextMeshProUGUI hpText;
+    //public TextMeshProUGUI expText;
     public TextMeshProUGUI coinText;
 
     public GameObject bullet;
@@ -64,14 +64,14 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Update references is being called");
         // Find the UI elements in the scene and update the references
-        hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
-        expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
+        //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
+        //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
 
         // Update the UI to show the current values immediately
         UpdateCoinText();
-        UpdateEXPText();
-        UpdateHpText();
+        //UpdateEXPText();
+        //UpdateHpText();
     }
 
     // Method to add HP
@@ -107,21 +107,21 @@ public class GameManager : MonoBehaviour
     }
 
     // Method to add EXP when an enemy is defeated
-    public void AddEXP(int expAmount)
-    {
-        playerEXP += expAmount;
-        playerEXP = Mathf.Clamp(playerEXP, 0, 100);
-        Debug.Log("Current EXP: " + playerEXP);
-        UpdateEXPText();
-    }
+    //public void AddEXP(int expAmount)
+    //{
+    //    playerEXP += expAmount;
+    //    playerEXP = Mathf.Clamp(playerEXP, 0, 100);
+    //    Debug.Log("Current EXP: " + playerEXP);
+    //    UpdateEXPText();
+    //}
 
     // Reset EXP when restarting the game
-    public void ResetEXP()
-    {
-        playerEXP = 0;
-        Debug.Log("EXP reset to: " + playerEXP);
+    //public void ResetEXP()
+    //{
+    //    playerEXP = 0;
+    //    Debug.Log("EXP reset to: " + playerEXP);
         
-    }
+    //}
     // COINS------
     // Method to add coins upon defeating an enemy
     public void AddCoins(int coinAmount)
@@ -152,21 +152,21 @@ public class GameManager : MonoBehaviour
     //    UpdateCoinText();
     //    Debug.Log("Coins reset to: " + playerCoins);
     //}
-    private void UpdateHpText()
-    {
-        if (hpText != null)
-        {
-            hpText.text = "HP: " + playerHP.ToString();
-        }
-    }
+    //private void UpdateHpText()
+    //{
+    //    if (hpText != null)
+    //    {
+    //        hpText.text = "HP: " + playerHP.ToString();
+    //    }
+    //}
 
-    private void UpdateEXPText()
-    {
-        if (expText != null)
-        {
-            expText.text = "EXP: " + playerEXP.ToString();
-        }
-    }
+    //private void UpdateEXPText()
+    //{
+    //    if (expText != null)
+    //    {
+    //        expText.text = "EXP: " + playerEXP.ToString();
+    //    }
+    //}
 
     private void UpdateCoinText()
     {
