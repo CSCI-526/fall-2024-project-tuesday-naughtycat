@@ -32,12 +32,16 @@ public class Tutorial : MonoBehaviour
                 hintText.text = "Now there is an enemy towards you.\nLeft click to shot ammo or swallow others when your size is larger.";
 
                 List<GameObject> created_enemies = ObjectGenerator.ins.getEnemy();
-                GameObject firstEnemy = created_enemies[0];
-                firstEnemy.gameObject.SetActive(true);
-                //Debug.Log("enemy tag: " + created_enemies[0].gameObject.tag);
-                if (!firstEnemy)
+                if (created_enemies.Count > 0)
                 {
-                    hintText.text = "You have destroyed an enemy.\nAdded 10 EXP. More enemies are coming...";
+                    GameObject firstEnemy = created_enemies[0];
+                    firstEnemy.gameObject.SetActive(true);
+
+                    // Check if firstEnemy is destroyed or inactive
+                    if (!firstEnemy)
+                    {
+                        hintText.text = "You have destroyed an enemy.\nAdded 10 EXP. More enemies are coming...";
+                    }
                 }
             }
         }

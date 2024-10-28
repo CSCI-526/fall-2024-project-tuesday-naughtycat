@@ -138,6 +138,10 @@ public class ObjectGenerator : MonoBehaviour
 
     private Vector2 GetRandomValidPositionForEnemy()
     {
+        if (isTutorial == 1)
+        {
+            return new Vector2(15, 15);
+        }
         return new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
     }
 /*
