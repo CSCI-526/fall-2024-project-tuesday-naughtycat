@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class BulletAttack : MonoBehaviour
 {
-    public float bullet_speed = 5f; 
-    public float max_distance = 4f;  
+    public float bullet_speed = 5f;
+    public float max_distance = 4f;
     public LayerMask enemy_layer_mask;
     private Rigidbody2D rb;
-    private Vector3 start_position; 
+    private Vector3 start_position;
     //public LayerMask collision_layer_mask;
     ObjectGenerator generator;
 
@@ -29,31 +29,31 @@ public class BulletAttack : MonoBehaviour
         // Destroy the bullet if it exceeds the maximum distance
         if (Vector3.Distance(start_position, transform.position) >= max_distance)
         {
-            Destroy(gameObject);  
+            Destroy(gameObject);
         }
 
-//        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, bullet_speed * Time.deltaTime, enemy_layer_mask);
-//        if (hit.collider != null)
-//        {
-//            if (hit.collider.CompareTag("Enemy"))
-//            {
-//                Destroy(hit.collider.gameObject);
-//                generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
-//                Destroy(gameObject);
-//                GameManager.instance.AddEXP(5);
-//                if (generator.created_enemies.Count == 0)
-//                {
-//                    FindObjectOfType<PlayerEat>().WinGame();
-//                }
-//            }
-//=======
-//            Destroy(gameObject);
+        //        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, bullet_speed * Time.deltaTime, enemy_layer_mask);
+        //        if (hit.collider != null)
+        //        {
+        //            if (hit.collider.CompareTag("Enemy"))
+        //            {
+        //                Destroy(hit.collider.gameObject);
+        //                generator.RemoveObject(hit.collider.gameObject, generator.created_enemies);
+        //                Destroy(gameObject);
+        //                GameManager.instance.AddEXP(5);
+        //                if (generator.created_enemies.Count == 0)
+        //                {
+        //                    FindObjectOfType<PlayerEat>().WinGame();
+        //                }
+        //            }
+        //=======
+        //            Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Check for collision with Enemy
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("Boss"))
         {
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
@@ -102,3 +102,76 @@ public class BulletAttack : MonoBehaviour
 
     }
 }
+// using UnityEngine;
+
+// public class BulletAttack : MonoBehaviour
+// {
+//     public float bullet_speed = 5f;
+//     public float max_distance = 4f;
+//     public LayerMask enemy_layer_mask;
+//     private Rigidbody2D rb;
+//     private Vector3 start_position;
+//     ObjectGenerator generator;
+//     AnalyticsManager analyticsManager;
+
+//     void Start()
+//     {
+//         start_position = transform.position;
+//         generator = ObjectGenerator.ins;
+//         rb = GetComponent<Rigidbody2D>();
+
+//         // Set the bullet's velocity in the upward direction
+//         rb.velocity = transform.up * bullet_speed;
+
+//         analyticsManager = FindObjectOfType<AnalyticsManager>();
+//     }
+
+//     void LateUpdate()
+//     {
+//         if (Vector3.Distance(start_position, transform.position) >= max_distance)
+//         {
+//             Destroy(gameObject);
+//         }
+//     }
+
+//     void OnTriggerEnter2D(Collider2D collision)
+//     {
+//         if (collision.CompareTag("Enemy") || collision.CompareTag("Boss"))
+//         {
+//             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
+//             if (enemyHealth != null)
+//             {
+//                 if (!enemyHealth.hasBeenShot)
+//                 {
+//                     enemyHealth.hasBeenShot = true;
+//                     analyticsManager.EnemyShot();
+//                 }
+
+//                 enemyHealth.TakeDamage(1); // Reduce health
+//                 Debug.Log("Boss/Enemy took damage!");
+
+//                 if (enemyHealth.currentHealth <= 0)
+//                 {
+//                     analyticsManager.EnemyDefeated();
+//                     if (collision.CompareTag("Boss"))
+//                     {
+//                         FindObjectOfType<PlayerEat>().WinGame(); // Win the game if the boss is defeated
+//                     }
+//                     else
+//                     {
+//                         generator.RemoveObject(collision.gameObject, generator.created_enemies);
+//                         FindObjectOfType<PlayerEat>().GainExperience(10);
+//                         GameManager.instance.AddCoins(Random.Range(200, 300));
+//                     }
+//                     Destroy(collision.gameObject); // Destroy the enemy/boss
+//                 }
+//             }
+//             Destroy(gameObject); // Destroy the bullet
+//         }
+//         else if (collision.CompareTag("Wall"))
+//         {
+//             Debug.Log("Bullet hit the wall and got destroyed.");
+//             Destroy(gameObject);
+//         }
+//     }
+// }

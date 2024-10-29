@@ -10,6 +10,7 @@ public class PlayerEat : MonoBehaviour
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
+    public GameObject boss;
     public Transform player;
     public Text result_text;
     public Button restart_button;
@@ -17,6 +18,9 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     //private bool has_bullet = false;
     public int bulletCount = 0;
+
+    // boss inactive
+    public bool bossActivated = false;
 
 
     //public TextMeshProUGUI hpText;
@@ -45,6 +49,11 @@ public class PlayerEat : MonoBehaviour
     public void UpdateAmmo()
     {
         ammos = GameObject.FindGameObjectsWithTag("Ammo");
+    }
+
+    public void UpdateBoss()
+    {
+        boss = GameObject.FindGameObjectWithTag("Boss");
     }
 
     public void RemoveObject(GameObject Object)
@@ -91,6 +100,81 @@ public class PlayerEat : MonoBehaviour
     // check winning condition
     //check size comparison between player and enemy, if player is smaller, lose the game, else player eat enemy
     //check if player collide with the food/bullet, if yes, destroy the food/bullet
+    // public void CheckGameObject(GameObject[] Object)
+    // {
+    //     for (int i = 0; i < Object.Length; i++)
+    //     {
+    //         if (Object[i] == null)
+    //         {
+    //             continue;
+    //         }
+    //         Transform m = Object[i].transform;
+    //         float playerRadius = transform.localScale.x / 2;
+    //         float objectRadius = m.localScale.x / 2;
+
+    //         if (Vector2.Distance(transform.position, m.position) <= playerRadius + objectRadius)
+    //         {
+    //             if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
+    //             {
+    //                 Destroy(m.gameObject);
+    //                 RemoveObject(m.gameObject);
+    //                 PlayerGrow();
+
+    //                 if (m.gameObject.CompareTag("Food"))
+    //                 {
+    //                     ms.RemoveObject(m.gameObject, ms.created_food);
+    //                     Destroy(m.gameObject);
+
+    //                     //GainExperience(1); 
+    //                     //break;  
+    //                 }
+    //                 else
+    //                 {
+    //                     ms.RemoveObject(m.gameObject, ms.created_ammos);
+    //                     Destroy(m.gameObject);
+    //                     bulletCount += 1;
+    //                     UpdateBulletText();
+    //                     //ms.CreateBullet();
+    //                     //eat_ammo = true;
+    //                     //break;
+    //                 }
+    //             }
+
+    //             else if (m.gameObject.CompareTag("Enemy"))
+    //             {
+    //                 // Compare sizes between player and enemy
+    //                 if (transform.localScale.x > m.localScale.x)
+    //                 {
+    //                     RemoveObject(m.gameObject);
+    //                     PlayerGrow();
+    //                     ms.RemoveObject(m.gameObject, ms.created_enemies);
+    //                     Destroy(m.gameObject);
+
+    //                     //GameManager.instance.AddEXP(10);
+    //                     //expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
+    //                     // Log that this enemy was absorbed
+    //                     analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
+
+    //                     GameManager.instance.AddCoins(Random.Range(20, 30));
+    //                     coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+    //                     GainExperience(10);
+    //                     //continue;  
+    //                     if (experience >= 100)
+    //                     {
+    //                         WinGame();
+    //                     }
+    //                     continue;
+    //                 }
+    //                 else
+    //                 {
+    //                     GameOver();
+    //                 }
+    //             }
+
+    //         }
+    //     }
+    // }
+
     public void CheckGameObject(GameObject[] Object)
     {
         for (int i = 0; i < Object.Length; i++)
@@ -114,53 +198,77 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Food"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        Destroy(m.gameObject);
-
-                        //GainExperience(1); 
-                        //break;  
                     }
                     else
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
-                        Destroy(m.gameObject);
                         bulletCount += 1;
                         UpdateBulletText();
-                        //ms.CreateBullet();
-                        //eat_ammo = true;
-                        //break;
                     }
                 }
-
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-                    // Compare sizes between player and enemy
                     if (transform.localScale.x > m.localScale.x)
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
+                        Destroy(m.gameObject); // Destroy immediately upon eating
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
-                        Destroy(m.gameObject);
 
-                        //GameManager.instance.AddEXP(10);
-                        //expText.text = "EXP: " + GameManager.instance.playerEXP.ToString();
-                        // Log that this enemy was absorbed
-                        analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
+                        analyticsManager.EnemyDefeated();
 
                         GameManager.instance.AddCoins(Random.Range(20, 30));
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
                         GainExperience(10);
-                        //continue;  
+
                         if (experience >= 100)
                         {
                             WinGame();
                         }
-                        continue;
                     }
                     else
                     {
                         GameOver();
                     }
                 }
+                else if (m.gameObject.CompareTag("Boss"))
+                {
+                    if (transform.localScale.x > m.localScale.x)
+                    {
+                        PlayerGrow();
+                        Destroy(m.gameObject); // Destroy the boss immediately
+                        Debug.Log("Boss defeated!");
+                        WinGame();
+                    }
+                    else
+                    {
+                        GameOver();
+                        Debug.Log("Player defeated by the boss!");
+                    }
+                }
+            }
+        }
+    }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            Transform bossTransform = collision.gameObject.transform;
+
+            // Compare sizes between player and boss
+            if (transform.localScale.x > bossTransform.localScale.x)
+            {
+                PlayerGrow();               // Player grows by eating the boss
+                Destroy(collision.gameObject); // Destroy the boss
+                Debug.Log("Boss defeated!");
+                WinGame();                  // End the game as the player wins
+            }
+            else
+            {
+                GameOver();                 // Player is defeated by the boss
+                Debug.Log("Player defeated by the boss!");
             }
         }
     }
@@ -189,6 +297,11 @@ public class PlayerEat : MonoBehaviour
     {
         experience += xp;
         UpdateExperienceUI();
+        // Check if experience is 100 or more and the boss hasn't been activated yet
+        if (experience >= 10 && !bossActivated)
+        {
+            ActivateBoss();
+        }
     }
 
     public void UpdateExperienceUI()
@@ -204,6 +317,13 @@ public class PlayerEat : MonoBehaviour
     {
 
         transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
+    }
+    // Function to activate the boss
+    public void ActivateBoss()
+    {
+        bossActivated = true; // Ensure the boss is only activated once
+        boss.SetActive(true); // Make the boss visible in the game
+        Debug.Log("Boss has appeared!");
     }
 
     //update the bullet text if get or use the bullet
@@ -301,6 +421,12 @@ public class PlayerEat : MonoBehaviour
 
         ms.players.Add(gameObject);
         analyticsManager = FindObjectOfType<AnalyticsManager>();
+
+        // Set the boss to inactive at the start of the game
+        if (boss != null)
+        {
+            boss.SetActive(false);
+        }
     }
 
 

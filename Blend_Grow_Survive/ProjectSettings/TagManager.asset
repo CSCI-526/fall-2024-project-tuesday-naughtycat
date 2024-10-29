@@ -9,6 +9,7 @@ TagManager:
   - Mass
   - Ammo
   - Wall
+  - Boss
   layers:
   - Default
   - TransparentFX
