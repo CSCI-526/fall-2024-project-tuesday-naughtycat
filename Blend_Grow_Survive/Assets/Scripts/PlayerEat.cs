@@ -7,6 +7,19 @@ using UnityEngine.SceneManagement;
 public class PlayerEat : MonoBehaviour
 {
 
+    #region instance 
+    public static PlayerEat ins;
+
+    private void Awake()
+    {
+        if (ins == null)
+        {
+            ins = this;
+        }
+    }
+    #endregion
+
+
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
@@ -44,6 +57,31 @@ public class PlayerEat : MonoBehaviour
     public void UpdateAmmo()
     {
         ammos = GameObject.FindGameObjectsWithTag("Ammo");
+        // ammos = ObjectGenerator.ins.getAmmoArr();
+        // don't use this one! Ammo is created manually, not by Object generator
+        // getting it from object generator will prevent payer from eating it
+    }
+
+    public void UpdateTutorialAmmo()
+    {
+        int oldAmmoNum = ammos.Length;
+        GameObject[] tutorialAmmo = GameObject.FindGameObjectsWithTag("tutorialAmmo");
+        int newAmmoNum = oldAmmoNum + tutorialAmmo.Length;
+
+        GameObject[] newAmmo = new GameObject[newAmmoNum];
+
+        for (int i = 0; i < oldAmmoNum; i++)
+        {
+            newAmmo[i] = ammos[i];
+        }
+        int j = 0;
+        for (int i = oldAmmoNum; i < newAmmoNum; i++)
+        {
+            newAmmo[i] = tutorialAmmo[j];
+            j++;
+        }
+
+        ammos = newAmmo;
     }
 
     public void RemoveObject(GameObject Object)
@@ -298,6 +336,7 @@ public class PlayerEat : MonoBehaviour
         UpdateFood();
         UpdateEnemy();
         UpdateAmmo();
+        //UpdateTutorialAmmo();
         InvokeRepeating("Check", 0, 0.1f);
         InvokeRepeating("CheckEnemy", 0, 0.1f);
         InvokeRepeating("CheckAmmo", 0, 0.1f);
@@ -311,5 +350,10 @@ public class PlayerEat : MonoBehaviour
     public void EndRound()
     {
         analyticsManager.EndRound();
+    }
+
+    void Update()
+    {
+        UpdateAmmo();
     }
 }

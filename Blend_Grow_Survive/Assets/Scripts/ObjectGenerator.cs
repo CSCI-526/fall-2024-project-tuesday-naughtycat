@@ -51,33 +51,67 @@ public class ObjectGenerator : MonoBehaviour
         {
             aaa[i] = created_enemies[i];
         }
-        
         return aaa;
-        
+    }
+
+    public GameObject[] getAmmoArr()
+    {
+        GameObject[] aaa = new GameObject[created_ammos.Count];
+        for (int i = 0; i < created_ammos.Count; i++)
+        {
+            aaa[i] = created_ammos[i];
+        }
+        return aaa;
+    }
+
+    public void changeMaxEnemy(int maxNum)
+    {
+        max_enemies = maxNum;
+    }
+
+    public int getMaxEnemy()
+    {
+        return max_enemies;
     }
 
     private void Start()
     {
-        // Create 5 enemies with random position and size at the beginning
-        for (int i = 0; i < 5; i++)
+        if (isTutorial == 1) // tutorial mode
         {
-            if (created_enemies.Count < max_enemies)
+            Vector2 Position = GetRandomValidPositionForEnemy();
+            GameObject m = Instantiate(enemy, Position, Quaternion.identity);
+            m.transform.localScale = new Vector3(1, 1, 1);
+            m.gameObject.SetActive(false);
+            AddObject(m, created_enemies);
+
+            Vector2 Position2 = new Vector2(12, 16);
+            GameObject m2 = Instantiate(enemy, Position2, Quaternion.identity);
+            m2.transform.localScale = new Vector3(2, 2, 1);
+            m2.gameObject.SetActive(false);
+            AddObject(m2, created_enemies);
+
+            Vector2 Position3 = new Vector2(-11, -13);
+            GameObject m3 = Instantiate(enemy, Position3, Quaternion.identity);
+            m3.transform.localScale = new Vector3(1, 1, 1);
+            m3.gameObject.SetActive(false);
+            AddObject(m3, created_enemies);
+
+
+        }
+        else
+        {
+            // Create 5 enemies with random position and size at the beginning
+            for (int i = 0; i < 5; i++)
             {
-                Vector2 Position = GetRandomValidPositionForEnemy();
-                GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-                if (isTutorial == 0)
+                if (created_enemies.Count < max_enemies)
                 {
+                    Vector2 Position = GetRandomValidPositionForEnemy();
+                    GameObject m = Instantiate(enemy, Position, Quaternion.identity);
                     float randomSize = Random.Range(1.0f, 3.0f);
                     m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
-                } else
-                {
-                    m.transform.localScale = new Vector3(1, 1, 1);
-                    m.gameObject.SetActive(false);
-                    //m.gameObject.name = "tutorial enemy";
 
+                    AddObject(m, created_enemies);
                 }
-                
-                AddObject(m, created_enemies);
             }
         }
         StartCoroutine(CreateFood());
