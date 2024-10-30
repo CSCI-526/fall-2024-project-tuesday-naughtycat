@@ -217,7 +217,7 @@ public class PlayerEat : MonoBehaviour
 
                         analyticsManager.EnemyDefeated();
 
-                        GameManager.instance.AddCoins(Random.Range(20, 30));
+                        GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
                         GainExperience(10);
 

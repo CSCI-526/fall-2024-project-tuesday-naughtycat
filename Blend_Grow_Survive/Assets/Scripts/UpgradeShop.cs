@@ -9,7 +9,7 @@ public class UpgradeShop : MonoBehaviour
     public Button bulletDamageButton;
     public Button bulletPenetrationButton;
     public Button reloadSpeedButton;
-    public Button healthRegenerationButton;
+    public Button shrinkResistanceButton;
     public Button maxHealthButton;
     public Button movementSpeedButton;
     public Button bodyDamageButton;
@@ -23,7 +23,7 @@ public class UpgradeShop : MonoBehaviour
         bulletDamageButton.onClick.AddListener(() => UpgradeGun("Damage"));
         bulletPenetrationButton.onClick.AddListener(() => UpgradeGun("Penetration"));
         reloadSpeedButton.onClick.AddListener(() => UpgradeGun("Reload"));
-        healthRegenerationButton.onClick.AddListener(() => UpgradeStat("Regenerate"));
+        shrinkResistanceButton.onClick.AddListener(() => UpgradeStat("ShrinkResistance"));
         maxHealthButton.onClick.AddListener(() => UpgradeStat("MaxHealth"));
         movementSpeedButton.onClick.AddListener(() => UpgradeStat("MovementSpeed"));
         bodyDamageButton.onClick.AddListener(() => UpgradeStat("BodyDamage"));
@@ -77,7 +77,7 @@ public class UpgradeShop : MonoBehaviour
         int cost = 0;
         switch (statType)
         {
-            case "Regenerate":
+            case "ShrinkResistance":
                 cost = 10;
                 break;
             case "MaxHealth":

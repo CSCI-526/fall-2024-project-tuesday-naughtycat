@@ -60,6 +60,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        //AudioListener[] listeners = FindObjectsOfType<AudioListener>();
+        //if (listeners.Length > 1)
+        //{
+        //    Debug.Log("Number of AudioListeners: " + listeners.Length);
+        //    for (int i = 0; i < listeners.Length; i++)
+        //    {
+        //        Debug.Log("AudioListener found on: " + listeners[i].gameObject.name);
+        //    }
+        //}
+    }
+
     public void UpdateReferences()
     {
         Debug.Log("Update references is being called");
@@ -217,12 +230,6 @@ public class GameManager : MonoBehaviour
     {
         switch (statType)
         {
-            case "Regenerate":
-                break;
-            case "MaxHealth":
-                AddHP(5);
-                Debug.Log("HP Upgraded");
-                break;
             case "MovementSpeed":
                 // Implement speed upgrade
                 PlayerMovements pm = FindObjectOfType<PlayerMovements>();
@@ -232,6 +239,19 @@ public class GameManager : MonoBehaviour
                     pm.speed += 0.5f;
                     Debug.Log("Speed Upgraded");
                 }
+                break;
+            case "ShrinkResistance":
+                Actions pa = FindObjectOfType<Actions>();
+                if (pa != null)
+                {
+                    Debug.Log("Shrink Rate currently" + pa.shrink_rate);
+                    pa.shrink_rate -= 0.01f;
+                    Debug.Log("Shrink Rate Upgraded");
+                }
+                break;
+            case "MaxHealth":
+                AddHP(5);
+                Debug.Log("HP Upgraded");
                 break;
             case "BodyDamage":
                 break;
