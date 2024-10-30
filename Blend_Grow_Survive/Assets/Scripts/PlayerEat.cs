@@ -146,7 +146,7 @@ public class PlayerEat : MonoBehaviour
                         // Log that this enemy was absorbed
                         analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
 
-                        GameManager.instance.AddCoins(Random.Range(20, 30));
+                        GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
                         GainExperience(10);
                         //continue;  

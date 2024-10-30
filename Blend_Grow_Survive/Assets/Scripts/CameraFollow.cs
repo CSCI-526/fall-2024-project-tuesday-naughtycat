@@ -11,11 +11,23 @@ public class CameraFollow : MonoBehaviour
     public float min_zoom = 7f;
     public float max_zoom = 14f;
 
-    private Camera cam; 
+    private Camera cam;
+    private static int instanceCount = 0;
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main; 
+        instanceCount++;
+        Debug.Log("CameraFollow instance count: " + instanceCount);
+        cam = Camera.main;
+        Debug.Log("Camera target: " + (target != null ? target.name : "null"));
+        //AudioListener[] listeners = FindObjectsOfType<AudioListener>();
+        //if (listeners.Length > 1)
+        //{
+        //    for (int i = 1; i < listeners.Length; i++)
+        //    {
+        //        Destroy(listeners[i].gameObject);
+        //    }
+        //}
     }
 
     // Update is called once per frame

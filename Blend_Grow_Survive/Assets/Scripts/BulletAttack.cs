@@ -83,7 +83,7 @@ public class BulletAttack : MonoBehaviour
                     Destroy(collision.gameObject);
                     generator.RemoveObject(collision.gameObject, generator.created_enemies);
                     FindObjectOfType<PlayerEat>().GainExperience(10);
-                    GameManager.instance.AddCoins(Random.Range(200, 300));
+                    GameManager.instance.AddCoins(2);
                     //FindObjectOfType<PlayerEat>().coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
                     if (FindObjectOfType<PlayerEat>().experience >= 100)
                     {
