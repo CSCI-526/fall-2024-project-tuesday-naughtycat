@@ -21,8 +21,8 @@ public class ObjectGenerator : MonoBehaviour
     public GameObject food;
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
-    public int max_food = 1000;
-    public float create_food_time = 0.05f;
+    public int max_food = 200;
+    public float create_food_time = 0.03f;
     public float create_enemy_time = 3.0f;
     public Vector2 pos;
     public GameObject enemy;
@@ -158,16 +158,16 @@ public class ObjectGenerator : MonoBehaviour
 
     private Vector2 GetRandomFoodPosition()
     {
-        if (Random.value < 0.85f)  // 80% chance to be within 15x15
+        if (Random.value < 0.7f)  // 80% chance to be within 15x15
         {
-            return new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+            return new Vector2(Random.Range(-25f, 25f), Random.Range(-25f, 25f));
         }
         else  // 20% chance to be outside 15x15 within 50x50
         {
-            Vector2 pos = new Vector2(Random.Range(-25f, 25f), Random.Range(-25f, 25f));
-            while (Mathf.Abs(pos.x) <= 5f && Mathf.Abs(pos.y) <= 5f)
+            Vector2 pos = new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
+            while (Mathf.Abs(pos.x) <= 25f && Mathf.Abs(pos.y) <= 25f)
             {
-                pos = new Vector2(Random.Range(-25f, 25f), Random.Range(-25f, 25f));
+                pos = new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
             }
             return pos;
         }
@@ -175,23 +175,37 @@ public class ObjectGenerator : MonoBehaviour
 
     private Vector2 GetRandomValidPositionForEnemy()
     {
+        Vector2 playerPosition = transform.position; // Get the player's current position
+        float minimumDistanceFromPlayer = 10f; // Set minimum distance from player to avoid overlap
+
+        Vector2 spawnPosition;
+
         if (isTutorial == 1)
         {
-            return new Vector2(15, 15);
+            spawnPosition = new Vector2(15, 15);
         }
-        return new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
-    }
-/*
-    public void CreateBullet()
-    {
-        players[0].GetComponent<PlayerEat>().AddBullet();
+        else
+        {
+            do
+            {
+                spawnPosition = new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
+            } while (Vector2.Distance(spawnPosition, playerPosition) < minimumDistanceFromPlayer);
+        }
+
+        return spawnPosition;
     }
 
-    public void DestroyPlayerBullet()
-    {
-        players[0].GetComponent<PlayerEat>().RemoveBullet();
-    }
-*/
+    /*
+        public void CreateBullet()
+        {
+            players[0].GetComponent<PlayerEat>().AddBullet();
+        }
+
+        public void DestroyPlayerBullet()
+        {
+            players[0].GetComponent<PlayerEat>().RemoveBullet();
+        }
+    */
     // add the gameobject to created_objects
     public void AddObject(GameObject m, List<GameObject> created_objects)
     {

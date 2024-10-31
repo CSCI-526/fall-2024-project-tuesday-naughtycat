@@ -2199,8 +2199,8 @@ MonoBehaviour:
   food: {fileID: 3099519083497924173, guid: dca3b7dc8414c1e4a95da416b1b600de, type: 3}
   players: []
   created_food: []
-  max_food: 50
-  create_food_time: 0.5
+  max_food: 100
+  create_food_time: 0.1
   create_enemy_time: 5
   pos: {x: 25, y: 8}
   enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
@@ -3097,7 +3097,7 @@ MonoBehaviour:
   food: {fileID: 3099519083497924173, guid: dca3b7dc8414c1e4a95da416b1b600de, type: 3}
   throw_circle: {fileID: 3099519083497924173, guid: 6bede3e66d4124df5bbbdb30179d3012, type: 3}
   position: {fileID: 678039801}
-  reduce_unit: 0.1
+  reduce_unit: 0.05
 --- !u!114 &2032329669
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class Actions : MonoBehaviour
     public GameObject food;
     public GameObject throw_circle;
     public Transform position;
-    public float reduce_unit = 0.1f;
+    public float reduce_unit = 0.05f;
     PlayerEat player_eat;
     ObjectGenerator generator;
 
