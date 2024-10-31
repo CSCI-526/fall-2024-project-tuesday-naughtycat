@@ -7,14 +7,15 @@ using TMPro;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int currentHealth;
+    public float currentHealth;
     public TextMeshProUGUI healthText;
     public bool hasBeenShot = false;
 
 
     void Start()
     {
-        currentHealth = Mathf.RoundToInt(transform.localScale.x);
+        currentHealth = transform.localScale.x;
+        //currentHealth = Mathf.RoundToInt(transform.localScale.x);
 
         healthText = GetComponentInChildren<TextMeshProUGUI>(true);
         UpdateHealthText();
@@ -37,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = currentHealth.ToString();
+            healthText.text = Mathf.RoundToInt(currentHealth * 10).ToString();
         }
     }
 

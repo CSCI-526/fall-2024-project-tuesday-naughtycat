@@ -769,7 +769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: -0.000030517578}
+  m_AnchoredPosition: {x: 70.3, y: -0.000030517578}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &608248770
@@ -2213,6 +2213,7 @@ MonoBehaviour:
   created_bullet: []
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
   bullet_offset: 1
+  isTutorial: 0
 --- !u!4 &1603899290
 Transform:
   m_ObjectHideFlags: 0
