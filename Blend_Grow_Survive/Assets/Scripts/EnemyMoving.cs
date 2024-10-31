@@ -25,6 +25,7 @@ public class EnemyMoving : MonoBehaviour
         Vector3 direction = (player.position - transform.position).normalized;
 
         // Move the enemy towards the player
+       
         transform.position += direction * moveSpeed * Time.deltaTime;
     }
 }

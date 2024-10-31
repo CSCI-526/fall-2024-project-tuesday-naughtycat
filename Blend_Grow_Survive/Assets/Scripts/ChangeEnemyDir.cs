@@ -11,6 +11,7 @@ public class ChangeEnemyDir : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemy_speed = Random.Range(0.5f, 5.0f);
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -35,8 +36,10 @@ public class ChangeEnemyDir : MonoBehaviour
            
             Vector2 direction = (player.position - transform.position).normalized;
 
-            
+
             //transform.position += direction * enemy_speed * Time.deltaTime;
+
+            
             GetComponent<Rigidbody2D>().position += direction * enemy_speed * Time.deltaTime;
 
             float followDistance = 100f; 

@@ -143,9 +143,12 @@ public class ObjectGenerator : MonoBehaviour
 
             if (created_enemies.Count < max_enemies)
             {
+                
                 Vector2 Position = GetRandomValidPositionForEnemy();
                 GameObject m = Instantiate(enemy, Position, Quaternion.identity);
                 float randomSize = Random.Range(1.0f, 4.0f);
+                
+
                 m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
                 AddObject(m, created_enemies);
