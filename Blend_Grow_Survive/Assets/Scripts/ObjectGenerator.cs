@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class ObjectGenerator : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class ObjectGenerator : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
     public int max_food = 200;
+    public int max_ammo = 200;
     public float create_food_time = 0.03f;
     public float create_enemy_time = 3.0f;
+    public float create_ammo_time = 0.03f;
     public Vector2 pos;
     public GameObject enemy;
     public GameObject healthBarPrefab;
+    public GameObject ammo;
     public int max_enemies = 50;
     public List<GameObject> created_enemies = new List<GameObject>();
     public Vector2 enemy_size_range;
@@ -116,6 +120,7 @@ public class ObjectGenerator : MonoBehaviour
         }
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
+        StartCoroutine(CreateAmmo());
     }
 
     // If the number of food less than max_food, keep creating food
@@ -129,6 +134,20 @@ public class ObjectGenerator : MonoBehaviour
                 Vector2 Position = GetRandomFoodPosition();
                 GameObject m = Instantiate(food, Position, Quaternion.identity);
                 AddObject(m, created_food);
+            }
+        }
+    }
+    public IEnumerator CreateAmmo()
+    {
+        while (true)
+        {
+            yield return new WaitForSecondsRealtime(create_ammo_time);
+            if (created_ammos.Count < max_ammo)
+            {
+                
+                Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
+                GameObject m = Instantiate(ammo, Position, Quaternion.identity);
+                
             }
         }
     }
@@ -164,14 +183,18 @@ public class ObjectGenerator : MonoBehaviour
         }
         else  // 20% chance to be outside 15x15 within 50x50
         {
-            Vector2 pos = new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
-            while (Mathf.Abs(pos.x) <= 25f && Mathf.Abs(pos.y) <= 25f)
+            Vector2 pos = new Vector2(Random.Range(-48f, 48f), Random.Range(-48f, 48f));
+            while (Mathf.Abs(pos.x) <= 25f || Mathf.Abs(pos.y) <= 25f)
             {
-                pos = new Vector2(Random.Range(-50f, 50f), Random.Range(-50f, 50f));
+                pos = new Vector2(Random.Range(-48f, 48f), Random.Range(-48f, 48f));
             }
             return pos;
         }
     }
+
+    
+
+
 
     private Vector2 GetRandomValidPositionForEnemy()
     {

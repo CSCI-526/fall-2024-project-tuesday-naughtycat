@@ -146,21 +146,24 @@ public class PlayerEat : MonoBehaviour
                 {
                     Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
-                    PlayerGrow();
+                    
 
                     if (m.gameObject.CompareTag("Food"))
                     {
+                        PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
+                        
 
                         //GainExperience(1); 
                         //break;  
                     }
-                    else
+                    if (m.gameObject.CompareTag("Ammo"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Destroy(m.gameObject);
                         bulletCount += 1;
+                        
                         UpdateBulletText();
                         //ms.CreateBullet();
                         //eat_ammo = true;
