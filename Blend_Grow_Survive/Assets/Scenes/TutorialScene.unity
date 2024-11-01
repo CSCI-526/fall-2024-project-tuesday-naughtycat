@@ -1358,7 +1358,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: -0.000030517578}
+  m_AnchoredPosition: {x: 72.2, y: -0.000030517578}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &608248770
@@ -3222,14 +3222,22 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   max_food: 0
+<<<<<<< HEAD
   max_ammo: 200
+=======
+  max_ammo: 0
+>>>>>>> 83c3134230d99f78d44a66a4120c4b809831aa65
   create_food_time: 0.5
   create_enemy_time: 5
   create_ammo_time: 0.03
   pos: {x: 25, y: 8}
   enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
   healthBarPrefab: {fileID: 0}
+<<<<<<< HEAD
   ammo: {fileID: 0}
+=======
+  ammo: {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
+>>>>>>> 83c3134230d99f78d44a66a4120c4b809831aa65
   max_enemies: 0
   created_enemies: []
   enemy_size_range: {x: 0, y: 0}
