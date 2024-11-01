@@ -84,7 +84,7 @@ public class ObjectGenerator : MonoBehaviour
         {
             Vector2 Position = GetRandomValidPositionForEnemy();
             GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-            m.transform.localScale = new Vector3(1, 1, 1);
+            m.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m.gameObject.SetActive(false);
             AddObject(m, created_enemies);
 
@@ -96,7 +96,7 @@ public class ObjectGenerator : MonoBehaviour
 
             Vector2 Position3 = new Vector2(-11, -13);
             GameObject m3 = Instantiate(enemy, Position3, Quaternion.identity);
-            m3.transform.localScale = new Vector3(1, 1, 1);
+            m3.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m3.gameObject.SetActive(false);
             AddObject(m3, created_enemies);
 
