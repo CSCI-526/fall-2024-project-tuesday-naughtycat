@@ -5,103 +5,110 @@ using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    public GameObject food;
     public Text hintText;
-    public GameObject ammo;
+    public GameObject tutorialAmmo;
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy;
-    private GameObject tutorialAmmo;
 
-    // Start is called before the first frame update
     void Start()
     {
-        /*
-        tutorialAmmo = GameObject.FindGameObjectsWithTag("tutorialAmmo");
-        for (int i = 0; i < tutorialAmmo.Length; i++)
-        {
-            tutorialAmmo[i].gameObject.SetActive(false);
-        }
-        */
-
-        //Debug.Log("Type is: " + GameObject.Find("newAmmo").GetType());
         tutorialAmmo = GameObject.Find("newAmmo");
-        tutorialAmmo.SetActive(false);
-        //Debug.Log("ammo: " + GameObject.FindGameObjectsWithTag("Ammo").Length);
-
+        tutorialAmmo.SetActive(false); // Initially hide tutorial ammo
+        DisplayHint("Eat food to grow!");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (status == 0)
+        switch (status)
         {
-            if (GameObject.Find("Food") == null || GameObject.Find("Food (1)") == null || GameObject.Find("Food (2)") == null)
-            {
-                hintText.text = "Your size has been grown.";
-            }
-
-            if (GameObject.Find("Food") == null && GameObject.Find("Food (1)") == null && GameObject.Find("Food (2)") == null)
-            {
-
-                hintText.text = "Go to the ammo. ->\nUse the spacebar to speedup.";
-
-                if (GameObject.Find("ammo") == null)
-                {
-                    //ObjectGenerator.ins.changeMaxEnemy(1);
-                    //Debug.Log("max enemy is: " + ObjectGenerator.ins.getMaxEnemy());
-                    hintText.text = "Now there is an enemy towards you.\nLeft click to shot ammo or swallow others when your size is larger.";
-
-                    List<GameObject> created_enemies = ObjectGenerator.ins.getEnemy();
-                    firstEnemy = created_enemies[0];
-                    firstEnemy.gameObject.SetActive(true);
-                    //Debug.Log(created_enemies.Count + "-- created_enemies.Count");
-                    status = 1;
-                }
-            }
-
+            case 0:
+                CheckFoodConsumption();
+                break;
+            case 1:
+                ShowAmmoHint();
+                break;
+            case 2:
+                ActivateFirstEnemy();
+                break;
+            case 3:
+                CheckFirstEnemyDefeat();
+                break;
+            case 4:
+                ActivateSecondAndThirdEnemies();
+                break;
+            case 5:
+                CheckAllEnemiesDefeated();
+                break;
+            default:
+                EndTutorial();
+                break;
         }
+    }
 
-        if (status == 1)
+    private void CheckFoodConsumption()
+    {
+        if (!GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
         {
-            if (!firstEnemy)
-            {
-                status = 2;
-                hintText.text = "You have destroyed an enemy.\nAdded 10 EXP. More enemies are coming...";
-                /*
-                for (int i = 0; i < tutorialAmmo.Length; i++)
-                {
-                    tutorialAmmo[i].gameObject.SetActive(true);
-                }
-                //PlayerEat.ins.UpdateTutorialAmmo();
-                */
-                tutorialAmmo.SetActive(true);
-            }
+            status++;
+            DisplayHint("Grab the ammo ahead!");
         }
+    }
 
-        //first enemy is over
-        if (status == 2)
+    private void ShowAmmoHint()
+    {
+        if (!GameObject.Find("ammo"))
         {
-            
-            List<GameObject> created_enemies = ObjectGenerator.ins.getEnemy();
-            secondEnemy = created_enemies[0];
-            secondEnemy.gameObject.SetActive(true);
-            thirdEnemy = created_enemies[1];
-            thirdEnemy.gameObject.SetActive(true);
-            Debug.Log("third enemy: " + thirdEnemy);
-            status = 3;
+            DisplayHint("Enemy ahead! Left-click to shoot or swallow if you're larger.");
+            status++;
         }
+    }
 
-        if (status == 3)
+    private void ActivateFirstEnemy()
+    {
+        firstEnemy = ObjectGenerator.ins.getEnemy()[0];
+        firstEnemy.SetActive(true);
+        status++;
+    }
+
+    private void CheckFirstEnemyDefeat()
+    {
+        if (!firstEnemy)
         {
-            if (!secondEnemy && !thirdEnemy)
-            {
-                hintText.text = "Tutorial ends here! Click 'back' to main page.";
-                status = 4;
-            }
+            DisplayHint("Great! You gained 10 EXP. More enemies ahead...");
+            tutorialAmmo.SetActive(true); // Show extra ammo after first enemy defeat
+            status++;
         }
+    }
 
+    private void ActivateSecondAndThirdEnemies()
+    {
+        var enemies = ObjectGenerator.ins.getEnemy();
+        if (enemies.Count >= 2)
+        {
+            secondEnemy = enemies[0];
+            thirdEnemy = enemies[1];
+            secondEnemy.SetActive(true);
+            thirdEnemy.SetActive(true);
+            status++;
+        }
+    }
 
+    private void CheckAllEnemiesDefeated()
+    {
+        if (!secondEnemy && !thirdEnemy)
+        {
+            status++;
+        }
+    }
 
+    private void EndTutorial()
+    {
+        DisplayHint("Tutorial complete! Click 'Back' to return to main menu.");
+    }
+
+    private void DisplayHint(string message)
+    {
+        hintText.text = message;
     }
 }
