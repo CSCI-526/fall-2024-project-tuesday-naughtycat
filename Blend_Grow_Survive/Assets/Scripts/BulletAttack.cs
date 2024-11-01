@@ -134,7 +134,7 @@ public class BulletAttack : MonoBehaviour
                 // Reduce enemy size
                 float sizeReduction = 1.0f;
                 Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
-                float minScale = 0.8f;
+                float minScale = 1.0f;
                 newScale.x = Mathf.Max(newScale.x, minScale);
                 newScale.y = Mathf.Max(newScale.y, minScale);
                 enemyHealth.transform.localScale = newScale;
