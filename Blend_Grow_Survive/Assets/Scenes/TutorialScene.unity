@@ -2575,8 +2575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.9, y: 217.8}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -695, y: 447}
+  m_SizeDelta: {x: 369.61, y: 72.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1083743883
 MonoBehaviour:
@@ -2600,11 +2600,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 23
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 43
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3222,11 +3222,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   max_food: 0
+  max_ammo: 200
   create_food_time: 0.5
   create_enemy_time: 5
+  create_ammo_time: 0.03
   pos: {x: 25, y: 8}
   enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
   healthBarPrefab: {fileID: 0}
+  ammo: {fileID: 0}
   max_enemies: 0
   created_enemies: []
   enemy_size_range: {x: 0, y: 0}
@@ -3817,7 +3820,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -285.5, y: -213}
+  m_AnchoredPosition: {x: 13, y: -321}
   m_SizeDelta: {x: 69.7, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907111574

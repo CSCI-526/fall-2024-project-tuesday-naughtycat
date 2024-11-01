@@ -225,6 +225,22 @@ public class PlayerEat : MonoBehaviour
         }
     }
 
+    public string GenProgressBar(int score)
+    {
+        
+        string barText = "EXP: ";
+        for (int i = 0; i < score; i++)
+        {
+            barText += "█";
+        }
+        for (int i = 0; i < 10 - score; i++)
+        {
+            barText += "░";
+        }
+        //Debug.Log("score: " + score + "      text:" + barText);
+        return barText;
+    }
+
 
     public void GainExperience(int xp)
     {
@@ -236,7 +252,8 @@ public class PlayerEat : MonoBehaviour
     {
         if (experienceText != null)
         {
-            experienceText.text = "Exp : " + experience;
+            //experienceText.text = "Exp : " + experience;
+            experienceText.text = GenProgressBar(experience/10);
         }
     }
 
