@@ -27,4 +27,15 @@ public class BossMoving : MonoBehaviour
       // Move the enemy towards the player
       transform.position += direction * moveSpeed * Time.deltaTime;
    }
+
+
+   private void OnCollisionEnter2D(Collision2D collision)
+   {
+      // Check if the object the boss collided with is a wall
+      if (collision.gameObject.CompareTag("Wall"))
+      {
+         Destroy(collision.gameObject); // Destroy the wall
+         Debug.Log("Boss destroyed a wall!");
+      }
+   }
 }

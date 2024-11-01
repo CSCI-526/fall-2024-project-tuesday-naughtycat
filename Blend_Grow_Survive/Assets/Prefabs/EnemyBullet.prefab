@@ -183,4 +183,4 @@ MonoBehaviour:
   max_distance: 30
   player_layer_mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
