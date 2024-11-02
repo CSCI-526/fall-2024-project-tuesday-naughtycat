@@ -82,7 +82,7 @@ public class ObjectGenerator : MonoBehaviour
     {
         if (isTutorial == 1) // tutorial mode
         {
-            Vector2 Position = GetRandomValidPositionForEnemy();
+            Vector2 Position = new Vector2(12, 16);
             GameObject m = Instantiate(enemy, Position, Quaternion.identity);
             m.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m.gameObject.SetActive(false);
@@ -100,7 +100,17 @@ public class ObjectGenerator : MonoBehaviour
             m3.gameObject.SetActive(false);
             AddObject(m3, created_enemies);
 
+            Vector2 Position4 = new Vector2(14, -13);
+            GameObject m4 = Instantiate(enemy, Position4, Quaternion.identity);
+            m4.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
+            m4.gameObject.SetActive(false);
+            AddObject(m4, created_enemies);
 
+            Vector2 Position5 = new Vector2(-14, 15);
+            GameObject m5 = Instantiate(enemy, Position5, Quaternion.identity);
+            m5.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
+            m5.gameObject.SetActive(false);
+            AddObject(m5, created_enemies);
         }
         else
         {
@@ -191,10 +201,6 @@ public class ObjectGenerator : MonoBehaviour
             return pos;
         }
     }
-
-    
-
-
 
     private Vector2 GetRandomValidPositionForEnemy()
     {

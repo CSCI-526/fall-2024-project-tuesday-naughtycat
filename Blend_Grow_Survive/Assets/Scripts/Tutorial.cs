@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public class Tutorial : MonoBehaviour
 {
     public Text hintText;
-    public GameObject tutorialAmmo;
+    public GameObject ammo, tutorialAmmo;
 
     private int status = 0;
-    private GameObject firstEnemy, secondEnemy, thirdEnemy;
+    private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
 
     void Start()
     {
+        ammo = GameObject.Find("ammo");
+        ammo.SetActive(false);
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false); // Initially hide tutorial ammo
-        DisplayHint("Eat food to grow!");
+        DisplayHint("Use WSAD to find food!");
     }
 
     void Update()
@@ -26,18 +28,24 @@ public class Tutorial : MonoBehaviour
                 CheckFoodConsumption();
                 break;
             case 1:
-                ShowAmmoHint();
-                break;
-            case 2:
                 ActivateFirstEnemy();
                 break;
-            case 3:
+            case 2:
                 CheckFirstEnemyDefeat();
                 break;
+            case 3:
+                ShowAmmoHint();
+                break;
             case 4:
-                ActivateSecondAndThirdEnemies();
+                ActivateSecondEnemy();
                 break;
             case 5:
+                CheckSecondEnemyDefeat();
+                break;
+            case 6:
+                ActivateOtherEnemies();
+                break;
+            case 7:
                 CheckAllEnemiesDefeated();
                 break;
             default:
@@ -51,7 +59,7 @@ public class Tutorial : MonoBehaviour
         if (!GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
         {
             status++;
-            DisplayHint("Grab the ammo ahead!");
+            DisplayHint("Incoming! Swallow it!");
         }
     }
 
@@ -59,7 +67,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!GameObject.Find("ammo"))
         {
-            DisplayHint("Enemy ahead! Left-click to shoot or swallow if you're larger.");
+            DisplayHint("Enemy ahead! Left-click to shoot!");
             status++;
         }
     }
@@ -75,28 +83,47 @@ public class Tutorial : MonoBehaviour
     {
         if (!firstEnemy)
         {
-            DisplayHint("Great! You gained 10 EXP. More enemies ahead...");
+            DisplayHint("Great! You gained 10 EXP. Now grab the ammo!");
+            ammo.SetActive(true);
+            status++;
+        }
+    }
+
+    private void ActivateSecondEnemy()
+    {
+        secondEnemy = ObjectGenerator.ins.getEnemy()[1];
+        secondEnemy.SetActive(true);
+        status++;
+    }
+
+    private void CheckSecondEnemyDefeat()
+    {
+        if (!secondEnemy)
+        {
+            DisplayHint("Perfect! Now use the combo of swallow and shoot!");
             tutorialAmmo.SetActive(true); // Show extra ammo after first enemy defeat
             status++;
         }
     }
 
-    private void ActivateSecondAndThirdEnemies()
+    private void ActivateOtherEnemies()
     {
         var enemies = ObjectGenerator.ins.getEnemy();
-        if (enemies.Count >= 2)
+        if (enemies.Count >= 3)
         {
-            secondEnemy = enemies[0];
-            thirdEnemy = enemies[1];
-            secondEnemy.SetActive(true);
+            thirdEnemy = enemies[0];
+            fourthEnemy = enemies[1];
+            fifthEnemy = enemies[2];
             thirdEnemy.SetActive(true);
+            fourthEnemy.SetActive(true);
+            fifthEnemy.SetActive(true);
             status++;
         }
     }
 
     private void CheckAllEnemiesDefeated()
     {
-        if (!secondEnemy && !thirdEnemy)
+        if (!thirdEnemy && !fourthEnemy && !fifthEnemy)
         {
             status++;
         }
