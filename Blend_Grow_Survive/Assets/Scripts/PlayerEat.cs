@@ -410,17 +410,28 @@ public class PlayerEat : MonoBehaviour
     //GameManager.instance.ResetCoins();
     public void RestartGame()
     {
-        Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
+        
+        //Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
         Time.timeScale = 1;
 
-        // Reset the upgraded bullet properties upon restart of the game
-        GameManager.instance.ResetBulletProperties();
+        if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") == 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
 
-        // Reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Reset the upgraded bullet properties upon restart of the game
+            GameManager.instance.ResetBulletProperties();
 
-        GameManager.instance.UpdateReferences();
-        Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
+            // Reload the current scene
+
+            GameManager.instance.UpdateReferences();
+            Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
+        }    
+        
+        
 
     }
 
