@@ -8,6 +8,7 @@ public class Actions : MonoBehaviour
     public GameObject throw_circle;
     public Transform position;
     public float reduce_unit = 0.05f;
+    public float shrink_rate = 0.1f;
     PlayerEat player_eat;
     ObjectGenerator generator;
 
@@ -42,7 +43,7 @@ public class Actions : MonoBehaviour
             return;
         }
         //decrease the size of the player after each frame
-        transform.localScale -= new Vector3(reduce_unit, reduce_unit, reduce_unit) * Time.deltaTime;
+        transform.localScale -= new Vector3(shrink_rate, shrink_rate, shrink_rate) * Time.deltaTime;
         FindObjectOfType<PlayerEat>().UpdateHealthUI();
     }
 }

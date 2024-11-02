@@ -22,11 +22,11 @@ public class ObjectGenerator : MonoBehaviour
     public GameObject food;
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
-    public int max_food = 200;
-    public int max_ammo = 200;
-    public float create_food_time = 0.03f;
-    public float create_enemy_time = 3.0f;
-    public float create_ammo_time = 0.03f;
+    public int max_food = 100;
+    public int max_ammo = 15;
+    public float create_food_time = 0.1f;
+    public float create_enemy_time = 5.0f;
+    public float create_ammo_time = 2f;
     public Vector2 pos;
     public GameObject enemy;
     public GameObject healthBarPrefab;
@@ -260,6 +260,12 @@ public class ObjectGenerator : MonoBehaviour
     public void StopGenerating()
     {
         StopAllCoroutines();
+    }
+
+    public void StartGenerating()
+    {
+        StartCoroutine(CreateFood());
+        StartCoroutine(CreateEnemy());
     }
 
     public void OnDrawGizmosSelected()

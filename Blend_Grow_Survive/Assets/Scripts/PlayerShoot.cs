@@ -16,22 +16,24 @@ public class PlayerShoot : MonoBehaviour
     private Vector2 mouse_position;
     private Vector2 direction;
     PlayerEat player_eat;
-    
+    UpgradePanelToggle upgradePanelToggle;
+
     void Start()
     {
         //myGun.transform.SetParent(transform);
         player_eat = GetComponent<PlayerEat>();
         generator = ObjectGenerator.ins;
         generator.players.Add(gameObject);
+
+        upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
+        // check if this is needed!!!! my branch did not have this code
         currentGun = gun.transform.GetChild(currentGunIndex).GetComponent<Gun>();
-        
     }
     void LateUpdate()
     {
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
-        //if (Input.GetMouseButtonDown(0) && player_eat.eat_ammo)
-        if (Input.GetMouseButtonDown(0) && player_eat.bulletCount > 0)
+        if (Input.GetMouseButtonDown(0) && player_eat.bulletCount > 0 && (upgradePanelToggle == null || !upgradePanelToggle.IsPanelOpen()))
         {
             Shoot();
             //currentGun.Shoot();

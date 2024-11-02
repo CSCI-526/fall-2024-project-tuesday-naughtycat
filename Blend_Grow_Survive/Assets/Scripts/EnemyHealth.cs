@@ -45,8 +45,8 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-
         Destroy(gameObject);
+        // add the logic of adding coins to the player when this happens
     }
 }
 

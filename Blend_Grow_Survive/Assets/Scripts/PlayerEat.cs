@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class PlayerEat : MonoBehaviour
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
+    public GameObject boss;
     public Transform player;
     public Text result_text;
     public Button restart_button;
@@ -30,6 +32,14 @@ public class PlayerEat : MonoBehaviour
     public Text bullet_text;
     //private bool has_bullet = false;
     public int bulletCount = 0;
+    public BackgroundColorChanger backgroundColorChanger;
+    // boss inactive
+    public bool bossActivated = false;
+    //public BossMessageController bossMessageController;
+
+    //public TextMeshProUGUI hpText;
+    
+    public TextMeshProUGUI coinText;
 
     public int maxHealth = 10;
     public int currentHealth;
@@ -84,6 +94,11 @@ public class PlayerEat : MonoBehaviour
         ammos = newAmmo;
     }
 
+    public void UpdateBoss()
+    {
+        boss = GameObject.FindGameObjectWithTag("Boss");
+    }
+
     public void RemoveObject(GameObject Object)
     {
         List<GameObject> ObjectList = new List<GameObject>();
@@ -125,9 +140,6 @@ public class PlayerEat : MonoBehaviour
         CheckGameObject(ammos);
     }
 
-    // check winning condition
-    //check size comparison between player and enemy, if player is smaller, lose the game, else player eat enemy
-    //check if player collide with the food/bullet, if yes, destroy the food/bullet
     public void CheckGameObject(GameObject[] Object)
     {
         for (int i = 0; i < Object.Length; i++)
@@ -161,48 +173,75 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Ammo"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
-                        Destroy(m.gameObject);
                         bulletCount += 1;
                         
                         UpdateBulletText();
-                        //ms.CreateBullet();
-                        //eat_ammo = true;
-                        //break;
                     }
                 }
-
                 else if (m.gameObject.CompareTag("Enemy"))
                 {
-                    // Compare sizes between player and enemy
                     if (transform.localScale.x > m.localScale.x)
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
                         PlayerGrow();
                         
+                        Destroy(m.gameObject); // Destroy immediately upon eating
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
-                        Destroy(m.gameObject);
-                        // Log that this enemy was absorbed
-                        analyticsManager.EnemyDefeated(); // Pass false to indicate the enemy was absorbed
 
+                        analyticsManager.EnemyDefeated();
+
+                        GameManager.instance.AddCoins(2);
+                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+                        
                         GainExperience(10);
-                        //continue;  
-                        if (experience >= 100)
-                        {
-                            WinGame();
-                        }
-                        continue;
+
+                        // if (experience >= 100)
+                        // {
+                        //     WinGame();
+                        // }
                     }
                     else
                     {
-
-                        //TakeDamage(1); 
-                        //if (currentHealth <= 0)
-                        //{
                         GameOver();
-                        //}
                     }
                 }
+                else if (m.gameObject.CompareTag("Boss"))
+                {
+                    if (transform.localScale.x > m.localScale.x)
+                    {
+                        PlayerGrow();
+                        Destroy(m.gameObject); // Destroy the boss immediately
+                        Debug.Log("Boss defeated!");
+                        WinGame();
+                    }
+                    else
+                    {
+                        GameOver();
+                        Debug.Log("Player defeated by the boss!");
+                    }
+                }
+            }
+        }
+    }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            Transform bossTransform = collision.gameObject.transform;
+            if (transform.localScale.x > bossTransform.localScale.x)
+            {
+                PlayerGrow();
+                Destroy(collision.gameObject);
+                Debug.Log("Boss defeated!");
+                WinGame();
+            }
+            else
+            {
+                GameOver();
+                Debug.Log("Player defeated by the boss!");
             }
         }
     }
@@ -248,12 +287,18 @@ public class PlayerEat : MonoBehaviour
     {
         experience += xp;
         UpdateExperienceUI();
+        // Check if experience is 100 or more and the boss hasn't been activated yet
+        if (experience >= 100)
+        {
+            ActivateBoss();
+        }
     }
 
     public void UpdateExperienceUI()
     {
         if (experienceText != null)
         {
+            
             //experienceText.text = "Exp : " + experience;
             experienceText.text = GenProgressBar(experience/10);
         }
@@ -264,6 +309,45 @@ public class PlayerEat : MonoBehaviour
     {
 
         transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
+    }
+    // Function to activate the boss
+    public void ActivateBoss()
+    {
+        Debug.Log("Activating Boss...");
+        bossActivated = true; // Ensure the boss is only activated once
+        boss.SetActive(true); // Make the boss visible in the game
+        Debug.Log("Boss has appeared!");
+
+
+        if (boss != null)
+        {
+            boss.SetActive(true); // Make the boss visible in the game
+            Debug.Log("Boss has appeared!");
+        }
+        else
+        {
+            Debug.LogError("Boss GameObject is not assigned in PlayerEat script.");
+        }
+        backgroundColorChanger = FindObjectOfType<BackgroundColorChanger>();
+
+        if (backgroundColorChanger != null)
+        {
+            backgroundColorChanger.ChangeToPink();
+        }
+        else
+        {
+            Debug.LogWarning("BackgroundColorChanger is not assigned in PlayerEat script.");
+        }
+
+        // // Display the boss message
+        // if (bossMessageController != null)
+        // {
+        //     bossMessageController.ShowBossMessage();
+        // }
+        // else
+        // {
+        //     Debug.LogError("BossMessageController reference is missing in PlayerEat script.");
+        // }
     }
 
     //update the bullet text if get or use the bullet
@@ -287,22 +371,6 @@ public class PlayerEat : MonoBehaviour
             bullet_text.gameObject.SetActive(true);
         }
     }
-
-    //public void UpdateBulletText()
-    //{
-    //    if (bullet_text != null)
-    //    {
-    //        if (has_bullet)
-    //        {
-    //            bullet_text.text = "# of bullet: 1";
-    //        }
-    //        else
-    //        {
-    //            bullet_text.text = "# of bullet: 0";
-    //        }
-    //        bullet_text.gameObject.SetActive(true);
-    //    }
-    //}
 
     //if it is game over, destroy the player, freeze the time and update the text
     public void GameOver()
@@ -339,12 +407,21 @@ public class PlayerEat : MonoBehaviour
         EndRound();
     }
 
+    //GameManager.instance.ResetCoins();
     public void RestartGame()
     {
+        Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
         Time.timeScale = 1;
+
+        // Reset the upgraded bullet properties upon restart of the game
+        GameManager.instance.ResetBulletProperties();
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        GameManager.instance.UpdateReferences();
+        Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
+
     }
 
     ObjectGenerator ms;
@@ -367,6 +444,12 @@ public class PlayerEat : MonoBehaviour
 
         ms.players.Add(gameObject);
         analyticsManager = FindObjectOfType<AnalyticsManager>();
+
+        // Set the boss to inactive at the start of the game
+        if (boss != null)
+        {
+            boss.SetActive(false);
+        }
     }
 
 
