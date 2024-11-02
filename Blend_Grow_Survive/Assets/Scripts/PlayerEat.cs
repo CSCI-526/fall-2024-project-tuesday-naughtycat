@@ -7,6 +7,20 @@ using TMPro;
 
 public class PlayerEat : MonoBehaviour
 {
+
+    #region instance 
+    public static PlayerEat ins;
+
+    private void Awake()
+    {
+        if (ins == null)
+        {
+            ins = this;
+        }
+    }
+    #endregion
+
+
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
@@ -24,7 +38,7 @@ public class PlayerEat : MonoBehaviour
     //public BossMessageController bossMessageController;
 
     //public TextMeshProUGUI hpText;
-    public TextMeshProUGUI expText;
+    
     public TextMeshProUGUI coinText;
 
     public int maxHealth = 10;
@@ -32,7 +46,7 @@ public class PlayerEat : MonoBehaviour
     public int experience = 0;
 
     public Text healthText;
-    //public Text experienceText;
+    public Text experienceText;
 
     AnalyticsManager analyticsManager;
 
@@ -43,12 +57,41 @@ public class PlayerEat : MonoBehaviour
 
     public void UpdateEnemy()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        // find object with tag cannot find disabled objects, use it carefully
+        // when dealing with tutorial scene because we disabled the enemy once
+        // the scene starts 
+        enemies = ObjectGenerator.ins.getEnemyArr();
     }
 
     public void UpdateAmmo()
     {
         ammos = GameObject.FindGameObjectsWithTag("Ammo");
+        // ammos = ObjectGenerator.ins.getAmmoArr();
+        // don't use this one! Ammo is created manually, not by Object generator
+        // getting it from object generator will prevent payer from eating it
+    }
+
+    public void UpdateTutorialAmmo()
+    {
+        int oldAmmoNum = ammos.Length;
+        GameObject[] tutorialAmmo = GameObject.FindGameObjectsWithTag("tutorialAmmo");
+        int newAmmoNum = oldAmmoNum + tutorialAmmo.Length;
+
+        GameObject[] newAmmo = new GameObject[newAmmoNum];
+
+        for (int i = 0; i < oldAmmoNum; i++)
+        {
+            newAmmo[i] = ammos[i];
+        }
+        int j = 0;
+        for (int i = oldAmmoNum; i < newAmmoNum; i++)
+        {
+            newAmmo[i] = tutorialAmmo[j];
+            j++;
+        }
+
+        ammos = newAmmo;
     }
 
     public void UpdateBoss()
@@ -115,16 +158,23 @@ public class PlayerEat : MonoBehaviour
                 {
                     Destroy(m.gameObject);
                     RemoveObject(m.gameObject);
-                    PlayerGrow();
+                    
 
                     if (m.gameObject.CompareTag("Food"))
                     {
+                        PlayerGrow();
                         ms.RemoveObject(m.gameObject, ms.created_food);
+                        Destroy(m.gameObject);
+                        
+
+                        //GainExperience(1); 
+                        //break;  
                     }
-                    else
+                    if (m.gameObject.CompareTag("Ammo"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         bulletCount += 1;
+                        
                         UpdateBulletText();
                     }
                 }
@@ -134,6 +184,8 @@ public class PlayerEat : MonoBehaviour
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
+                        PlayerGrow();
+                        
                         Destroy(m.gameObject); // Destroy immediately upon eating
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
 
@@ -141,6 +193,7 @@ public class PlayerEat : MonoBehaviour
 
                         GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+                        
                         GainExperience(10);
 
                         // if (experience >= 100)
@@ -208,8 +261,25 @@ public class PlayerEat : MonoBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = "" + Mathf.RoundToInt(transform.localScale.x);
+            //healthText.text = "" + Mathf.RoundToInt(transform.localScale.x);
+            healthText.text = "" + Mathf.RoundToInt((transform.localScale.x * 10)).ToString();
         }
+    }
+
+    public string GenProgressBar(int score)
+    {
+        
+        string barText = "EXP: ";
+        for (int i = 0; i < score; i++)
+        {
+            barText += "█";
+        }
+        for (int i = 0; i < 10 - score; i++)
+        {
+            barText += "░";
+        }
+        //Debug.Log("score: " + score + "      text:" + barText);
+        return barText;
     }
 
 
@@ -226,9 +296,11 @@ public class PlayerEat : MonoBehaviour
 
     public void UpdateExperienceUI()
     {
-        if (expText != null)
+        if (experienceText != null)
         {
-            expText.text = "Exp : " + experience;
+            
+            //experienceText.text = "Exp : " + experience;
+            experienceText.text = GenProgressBar(experience/10);
         }
     }
 
@@ -330,9 +402,7 @@ public class PlayerEat : MonoBehaviour
         result_text.text = "You Win!";
         result_text.gameObject.SetActive(true);
         restart_button.gameObject.SetActive(true);
-
         healthText.gameObject.SetActive(false);
-
         Time.timeScale = 0f;
         EndRound();
     }
@@ -366,6 +436,7 @@ public class PlayerEat : MonoBehaviour
         UpdateFood();
         UpdateEnemy();
         UpdateAmmo();
+        //UpdateTutorialAmmo();
         InvokeRepeating("Check", 0, 0.1f);
         InvokeRepeating("CheckEnemy", 0, 0.1f);
         InvokeRepeating("CheckAmmo", 0, 0.1f);
@@ -385,5 +456,10 @@ public class PlayerEat : MonoBehaviour
     public void EndRound()
     {
         analyticsManager.EndRound();
+    }
+
+    void Update()
+    {
+        UpdateAmmo();
     }
 }

@@ -10,8 +10,8 @@ public class ObjectForce : MonoBehaviour
     public float RandomRotation = 10f;
     public float RandomeForce = 3f;
     // Boundary limits
-    private float boundaryX = 10f;
-    private float boundaryY = 10f;
+    private float boundaryX = 48f;
+    private float boundaryY = 48f;
 
     // Start is called before the first frame update
     void Start()

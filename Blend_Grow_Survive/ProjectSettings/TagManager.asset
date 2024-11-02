@@ -9,6 +9,7 @@ TagManager:
   - Mass
   - Ammo
   - Wall
+  - tutorialAmmo
   - Boss
   layers:
   - Default
