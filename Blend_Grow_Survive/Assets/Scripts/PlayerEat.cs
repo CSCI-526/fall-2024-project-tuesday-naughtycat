@@ -178,6 +178,8 @@ public class PlayerEat : MonoBehaviour
                     {
                         RemoveObject(m.gameObject);
                         PlayerGrow();
+                        PlayerGrow();
+                        
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
                         Destroy(m.gameObject);
                         // Log that this enemy was absorbed

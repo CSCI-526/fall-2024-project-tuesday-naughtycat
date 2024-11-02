@@ -11,7 +11,7 @@ public class ChangeEnemyDir : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemy_speed = Random.Range(0.5f, 5.0f);
+        enemy_speed = Random.Range(0.5f, 9.0f);
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
