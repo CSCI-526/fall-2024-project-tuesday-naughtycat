@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     public int playerHP = 100;
     //public int playerEXP = 0;
     public int playerCoins = 0;
+    public int leftEnemy = 10;
 
     //public TextMeshProUGUI hpText;
     //public TextMeshProUGUI expText;
     public TextMeshProUGUI coinText;
+    public TextMeshProUGUI leftEnemyText;
 
     public GameObject bullet;
     private BulletAttack bulletAttack;
@@ -80,9 +82,12 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
+        leftEnemy = 10;
+        leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
 
         // Update the UI to show the current values immediately
         UpdateCoinText();
+        UpdateLeftEnemyText();
         //UpdateEXPText();
         //UpdateHpText();
     }
@@ -188,6 +193,20 @@ public class GameManager : MonoBehaviour
             Debug.Log("These are the curent amount of playercoins" + playerCoins);
             coinText.text = "Coins: " + playerCoins.ToString();
         }
+    }
+
+    private void UpdateLeftEnemyText()
+    {
+        if (leftEnemyText != null)
+        {
+            leftEnemyText.text = "Left Enemies: " + leftEnemy.ToString();
+        }
+    }
+
+    public void ReduceLeftEnemy()
+    {
+        leftEnemy -= 1;
+        UpdateLeftEnemyText();
     }
 
     // UPGRADES-------

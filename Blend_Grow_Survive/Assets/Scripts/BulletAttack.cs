@@ -82,6 +82,7 @@ public class BulletAttack : MonoBehaviour
                     //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
                     analyticsManager.EnemyDefeated();
 
+                    GameManager.instance.ReduceLeftEnemy();
                     if (collision.CompareTag("Boss"))
                     {
                         // Player wins the game if the boss is defeated
