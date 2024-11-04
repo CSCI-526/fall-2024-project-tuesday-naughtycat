@@ -7,6 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    private ObjectGenerator objectGenerator;
     public int playerHP = 100;
     //public int playerEXP = 0;
     public int playerCoins = 0;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        objectGenerator = FindObjectOfType<ObjectGenerator>();
         Debug.Log("GameManager Start: playerCoins = " + playerCoins);
         UpdateCoinText();
         Debug.Log("GameManager: Start called. Current coins: " + playerCoins);
@@ -187,6 +189,23 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("These are the curent amount of playercoins" + playerCoins);
             coinText.text = "Coins: " + playerCoins.ToString();
+        }
+    }
+
+    //WaveCHECKER
+    public void CheckWaveCompletion()
+    {
+        objectGenerator = FindObjectOfType<ObjectGenerator>();
+        if (objectGenerator != null)
+        {
+            if (objectGenerator.created_enemies.Count == 0 && !objectGenerator.IsWaveActive)
+            {
+                objectGenerator.OnWaveCleared();
+            }
+        }
+        else
+        {
+            Debug.LogError("ObjectGenerator instance not found! it is here");
         }
     }
 
