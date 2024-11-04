@@ -20,7 +20,6 @@ public class PlayerEat : MonoBehaviour
     }
     #endregion
 
-
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
@@ -184,7 +183,7 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Ammo"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
-                        bulletCount += 1;
+                        bulletCount += 60;
 
                         UpdateBulletText();
                     }
@@ -204,20 +203,22 @@ public class PlayerEat : MonoBehaviour
 
                         GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
-
                         GainExperience(10);
 
-                        // if (experience >= 100)
-                        // {
-                        //     WinGame();
-                        // }
+                        if (GameManager.instance != null)
+                        {
+                            GameManager.instance.CheckWaveCompletion();
+                        }
+                        else
+                        {
+                            Debug.LogError("GameManager instance not found!");
+                        }
                     }
                     else
                     {
                         GameOver();
                     }
                 }
-
                 else if (m.gameObject.CompareTag("EnemyArcher"))
                 {
                     if (transform.localScale.x > m.localScale.x)
@@ -233,13 +234,16 @@ public class PlayerEat : MonoBehaviour
 
                         GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
-
                         GainExperience(10);
 
-                        // if (experience >= 100)
-                        // {
-                        //     WinGame();
-                        // }
+                        if (GameManager.instance != null)
+                        {
+                            GameManager.instance.CheckWaveCompletion();
+                        }
+                        else
+                        {
+                            Debug.LogError("GameManager instance not found!");
+                        }
                     }
                     else
                     {
@@ -343,10 +347,10 @@ public class PlayerEat : MonoBehaviour
         experience += xp;
         UpdateExperienceUI();
         // Check if experience is 100 or more and the boss hasn't been activated yet
-        if (experience >= 100)
-        {
-            ActivateBoss();
-        }
+        //if (experience >= 300)
+        //{
+        //    ActivateBoss();
+        //}
     }
 
     public void UpdateExperienceUI()

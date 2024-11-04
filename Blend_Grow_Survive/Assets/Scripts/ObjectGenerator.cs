@@ -47,6 +47,23 @@ public class ObjectGenerator : MonoBehaviour
 
     public int isTutorial;
 
+    // Wave and level properties
+    public int currentWave = 1;
+    public int enemiesPerWave = 10;
+    private int currentWaveEnemies = 0;
+    private bool isWaveActive = false;
+    private PlayerEat bosscaller;
+
+    // Define enemy size ranges per level
+    private Vector2 level1SizeRange = new Vector2(1.0f, 2.0f);
+    private Vector2 level2SizeRange = new Vector2(2.0f, 3.0f);
+
+    // created to acccess the the waveactive variable without allowing to change it
+    public bool IsWaveActive
+    {
+        get { return isWaveActive; }
+    }
+
     public List<GameObject> getEnemy()
     {
         return created_enemies;
@@ -118,19 +135,21 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
+            // starting the first level wave
+            StartNextWave();
             // Create 5 enemies with random position and size at the beginning
-            for (int i = 0; i < 5; i++)
-            {
-                if (created_enemies.Count < max_enemies)
-                {
-                    Vector2 Position = GetRandomValidPositionForEnemy();
-                    GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-                    float randomSize = Random.Range(1.0f, 3.0f);
-                    m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    if (created_enemies.Count < max_enemies)
+            //    {
+            //        Vector2 Position = GetRandomValidPositionForEnemy();
+            //        GameObject m = Instantiate(enemy, Position, Quaternion.identity);
+            //        float randomSize = Random.Range(1.0f, 3.0f);
+            //        m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
 
-                    AddObject(m, created_enemies);
-                }
-            }
+            //        AddObject(m, created_enemies);
+            //    }
+            //}
         }
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
@@ -210,18 +229,72 @@ public class ObjectGenerator : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(create_enemy_time);
 
-            if (created_enemies.Count < max_enemies)
+            // Only create enemies if the wave is active and has not reached its limit
+            if (isWaveActive && currentWaveEnemies < enemiesPerWave && created_enemies.Count < max_enemies)
             {
-
                 Vector2 Position = GetRandomValidPositionForEnemy();
                 GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-                float randomSize = Random.Range(1.0f, 4.0f);
 
+                //setting enemy size according to the wave level it currently is
+                float randomSize;
+                if (currentWave == 1)
+                {
+                    randomSize = Random.Range(level1SizeRange.x, level1SizeRange.y);
+                    Debug.Log("Spawning Enemies of only size range " + level1SizeRange.x + level1SizeRange.y);
+                }
+                else if (currentWave == 2)
+                {
+                    randomSize = Random.Range(level2SizeRange.x, level2SizeRange.y);
+                    Debug.Log("Spawning Enemies of only size range " + level2SizeRange.x + level2SizeRange.y);
+                }
+                else
+                {
+                    randomSize = Random.Range(3.0f, 5.0f); // Default if levels go beyond 2
+                    Debug.Log("Now enemies will only be of size 3-5");
+                }
 
-                m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
-
+                m.transform.localScale = new Vector3(randomSize, randomSize, 1);
                 AddObject(m, created_enemies);
+                currentWaveEnemies++;
+
+                Debug.Log("Spawned Enemy " + currentWaveEnemies + " for Wave " + currentWave);
+
+                // Stop spawning if we reached the limit for the current wave
+                if (currentWaveEnemies >= enemiesPerWave)
+                {
+                    isWaveActive = false;
+                    Debug.Log("Reached maximum enemies for Wave " + currentWave);
+                }
             }
+        }
+    }
+
+    public void StartNextWave()
+    {
+        currentWaveEnemies = 0;
+        isWaveActive = true;
+        Debug.Log("Starting Wave " + currentWave);
+    }
+
+    // Called when all enemies in the wave are cleared
+    public void OnWaveCleared()
+    {
+        Debug.Log("Wave " + currentWave + " Cleared!");
+        if (currentWave == 1)
+        {
+            currentWave = 2; // Move to level 2
+            StartNextWave(); // Start the next wave with level 2 enemies
+        }
+        else if (currentWave == 2)
+        {
+            currentWave = 3;
+            StartNextWave();
+        }
+        else
+        {
+            Debug.Log("BOSS TIME!!");
+            bosscaller = FindObjectOfType<PlayerEat>();
+            bosscaller.ActivateBoss();
         }
     }
 

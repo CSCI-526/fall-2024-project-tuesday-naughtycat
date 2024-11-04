@@ -90,12 +90,13 @@ public class BulletAttack : MonoBehaviour
                     else
                     {
                         // Handle enemy defeat
-                        generator.RemoveObject(collision.gameObject, generator.created_enemies);
-                        FindObjectOfType<PlayerEat>().GainExperience(10);
+                        Debug.Log("COming homeeeeeee");
+                        //generator.RemoveObject(collision.gameObject, generator.created_enemies);
+                        FindObjectOfType<PlayerEat>().GainExperience(5);
                         GameManager.instance.AddCoins(2);
                     }
 
-                    Destroy(collision.gameObject); // Destroy the enemy/boss
+                    //Destroy(collision.gameObject); // Destroy the enemy/boss
                 }
             }
             Destroy(gameObject);
