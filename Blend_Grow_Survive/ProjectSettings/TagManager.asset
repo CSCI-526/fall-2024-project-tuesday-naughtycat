@@ -11,6 +11,7 @@ TagManager:
   - Wall
   - tutorialAmmo
   - Boss
+  - EnemyArcher
   layers:
   - Default
   - TransparentFX

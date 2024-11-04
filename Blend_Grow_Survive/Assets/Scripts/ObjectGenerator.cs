@@ -9,6 +9,9 @@ public class ObjectGenerator : MonoBehaviour
 
     #region instance 
     public static ObjectGenerator ins;
+    public float enemyArcherSpawnInterval = 5f;
+    private Coroutine enemyArcherSpawnCoroutine;
+    public GameObject enemyArcherPrefab; // Assign the EnemyArcher prefab in the Inspector
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class ObjectGenerator : MonoBehaviour
 
     public List<GameObject> created_ammos = new List<GameObject>();
     public List<GameObject> created_bullet = new List<GameObject>();
+    public List<GameObject> created_enemyArchers = new List<GameObject>();
     public GameObject bullet;
     public float bullet_offset = 1f;
 
@@ -150,6 +154,42 @@ public class ObjectGenerator : MonoBehaviour
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
         StartCoroutine(CreateAmmo());
+        StartSpawningEnemyArchers();
+    }
+    public int max_enemyArchers = 10;
+
+    void SpawnEnemyArcher()
+    {
+        if (created_enemyArchers.Count < max_enemyArchers)
+        {
+            Vector2 spawnPosition = GetRandomSpawnPosition();
+            GameObject enemyArcher = Instantiate(enemyArcherPrefab, spawnPosition, Quaternion.identity);
+            created_enemyArchers.Add(enemyArcher);
+        }
+    }
+    public void StartSpawningEnemyArchers()
+    {
+        if (enemyArcherSpawnCoroutine == null)
+        {
+            enemyArcherSpawnCoroutine = StartCoroutine(SpawnEnemyArchers());
+        }
+    }
+
+    IEnumerator SpawnEnemyArchers()
+    {
+        while (true)
+        {
+            SpawnEnemyArcher();
+            yield return new WaitForSeconds(enemyArcherSpawnInterval);
+        }
+    }
+
+    Vector2 GetRandomSpawnPosition()
+    {
+        // Implement logic to get a random spawn position within game bounds
+        float x = Random.Range(-10f, 10f); // Adjust bounds as needed
+        float y = Random.Range(-5f, 5f); // Adjust bounds as needed
+        return new Vector2(x, y);
     }
 
     // If the number of food less than max_food, keep creating food
@@ -173,10 +213,10 @@ public class ObjectGenerator : MonoBehaviour
             yield return new WaitForSecondsRealtime(create_ammo_time);
             if (created_ammos.Count < max_ammo)
             {
-                
+
                 Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
                 GameObject m = Instantiate(ammo, Position, Quaternion.identity);
-                
+
             }
         }
     }
