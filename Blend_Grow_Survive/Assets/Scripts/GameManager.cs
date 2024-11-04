@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour
     //public int playerEXP = 0;
     public int playerCoins = 0;
     public int leftEnemy = 10;
+    public int level = 1;
 
     //public TextMeshProUGUI hpText;
     //public TextMeshProUGUI expText;
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI leftEnemyText;
+    public TextMeshProUGUI levelText;
 
     public GameObject bullet;
     private BulletAttack bulletAttack;
@@ -85,9 +87,13 @@ public class GameManager : MonoBehaviour
         leftEnemy = 10;
         leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
 
+        level = 1;
+        levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+
         // Update the UI to show the current values immediately
         UpdateCoinText();
         UpdateLeftEnemyText();
+        UpdateLevelText();
         //UpdateEXPText();
         //UpdateHpText();
     }
@@ -197,16 +203,37 @@ public class GameManager : MonoBehaviour
 
     private void UpdateLeftEnemyText()
     {
-        if (leftEnemyText != null)
+        if (level < 3)
         {
-            leftEnemyText.text = "Left Enemies: " + leftEnemy.ToString();
+            leftEnemyText.text = "Left Enemies: " + leftEnemy.ToString() + "/ 10";
+        } else
+        {
+            leftEnemyText.enabled = false;
         }
     }
 
     public void ReduceLeftEnemy()
     {
         leftEnemy -= 1;
+        if (leftEnemy == 0)
+        {
+            leftEnemy = 10;
+            level += 1;
+            UpdateLevelText();
+        }
         UpdateLeftEnemyText();
+    }
+
+    private void UpdateLevelText()
+    {
+        if (level == 3)
+        {
+            levelText.text = "boss!";
+        } else
+        {
+            levelText.text = "Level " + level.ToString();
+        }
+        
     }
 
     // UPGRADES-------
