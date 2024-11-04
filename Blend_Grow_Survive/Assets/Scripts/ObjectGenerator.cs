@@ -60,15 +60,6 @@ public class ObjectGenerator : MonoBehaviour
         get { return isWaveActive; }
     }
 
-    //CODE TO CHANGE ENEMY SIZE
-    //Vector2 Position = new Vector2(12, 16);
-    //GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-    //m.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
-    //m.gameObject.SetActive(false);
-    //        AddObject(m, created_enemies);
-
-
-
     public List<GameObject> getEnemy()
     {
         return created_enemies;
