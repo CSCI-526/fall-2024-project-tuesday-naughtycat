@@ -10,18 +10,18 @@ public class EnemyShoot : MonoBehaviour
     private float shooting_timer = 0f;
 
     // Check if this enemy is the boss
-    private bool isBoss;
+    private bool canShoot;
 
     void Start()
     {
-        // Verify if this GameObject is the boss by checking the tag
-        isBoss = gameObject.CompareTag("Boss");
+        // Allow shooting for Boss and EnemyArcher
+        canShoot = gameObject.CompareTag("Boss") || gameObject.CompareTag("EnemyArcher");
     }
 
     void Update()
     {
         // Only allow the boss to shoot
-        if (isBoss)
+        if (canShoot)
         {
             shooting_timer += Time.deltaTime;
             if (shooting_timer >= shooting_interval)

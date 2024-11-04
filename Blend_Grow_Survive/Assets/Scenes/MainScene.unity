@@ -1011,6 +1011,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bbc041fbdb64f4abf680b5d720345e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyArcherSpawnInterval: 5
+  enemyArcherPrefab: {fileID: 7928638507455134860, guid: 57a5b7198f581465c910d7a486d5f3d0, type: 3}
   food: {fileID: 3099519083497924173, guid: dca3b7dc8414c1e4a95da416b1b600de, type: 3}
   players: []
   created_food: []
@@ -1029,9 +1031,11 @@ MonoBehaviour:
   enemy_speed: 0
   created_ammos: []
   created_bullet: []
+  created_enemyArchers: []
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
   bullet_offset: 1
   isTutorial: 0
+  max_enemyArchers: 10
 --- !u!1 &576302119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2241,9 +2245,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b526f89938ef4638b0d7d719f11b832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  food: []
-  enemies: []
-  ammos: []
+  food:
+  - {fileID: 3099519083497924173, guid: dca3b7dc8414c1e4a95da416b1b600de, type: 3}
+  enemies:
+  - {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
+  ammos:
+  - {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
+  enemyArcher:
+  - {fileID: 7928638507455134860, guid: 57a5b7198f581465c910d7a486d5f3d0, type: 3}
   boss: {fileID: 907539286}
   player: {fileID: 1020997018}
   result_text: {fileID: 959201867}
