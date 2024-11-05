@@ -269,7 +269,7 @@ public class PlayerEat : MonoBehaviour
         }
     }
 
-    public string GenProgressBar(int score)
+    public string GenProgressBar(int score, int totalScore)
     {
         
         string barText = "EXP: ";
@@ -277,7 +277,7 @@ public class PlayerEat : MonoBehaviour
         {
             barText += "█";
         }
-        for (int i = 0; i < 10 - score; i++)
+        for (int i = 0; i < totalScore - score; i++)
         {
             barText += "░";
         }
@@ -301,9 +301,16 @@ public class PlayerEat : MonoBehaviour
     {
         if (experienceText != null)
         {
-            
+
             //experienceText.text = "Exp : " + experience;
-            experienceText.text = GenProgressBar(experience/10);
+            if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") == 0)
+            {
+                experienceText.text = GenProgressBar(experience / 10, 5);
+            }
+            else
+            {
+                experienceText.text = GenProgressBar(experience / 10, 10);
+            }
         }
     }
 
