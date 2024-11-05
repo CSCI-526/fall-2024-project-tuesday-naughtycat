@@ -1011,8 +1011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bbc041fbdb64f4abf680b5d720345e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyArcherSpawnInterval: 5
-  enemyArcherPrefab: {fileID: 7928638507455134860, guid: 57a5b7198f581465c910d7a486d5f3d0, type: 3}
   food: {fileID: 3099519083497924173, guid: dca3b7dc8414c1e4a95da416b1b600de, type: 3}
   players: []
   created_food: []
@@ -1023,6 +1021,7 @@ MonoBehaviour:
   create_ammo_time: 2
   pos: {x: 25, y: 8}
   enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
+  enemyArcherPrefab: {fileID: 7928638507455134860, guid: 57a5b7198f581465c910d7a486d5f3d0, type: 3}
   healthBarPrefab: {fileID: 0}
   ammo: {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
   max_enemies: 10
@@ -1031,11 +1030,12 @@ MonoBehaviour:
   enemy_speed: 0
   created_ammos: []
   created_bullet: []
-  created_enemyArchers: []
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
   bullet_offset: 1
   isTutorial: 0
-  max_enemyArchers: 10
+  currentWave: 1
+  enemiesPerWave: 10
+  enemyArcherSpawnChance: 0.3
 --- !u!1 &576302119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2312,7 +2312,7 @@ MonoBehaviour:
   throw_circle: {fileID: 3099519083497924173, guid: 6bede3e66d4124df5bbbdb30179d3012, type: 3}
   position: {fileID: 1244618564}
   reduce_unit: 0.05
-  shrink_rate: 0.1
+  shrink_rate: 0.05
 --- !u!58 &1020997023
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2402,7 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d229fc35107154791af6be49cdb1826c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minScale: 0.5
+  minScale: 0.9
 --- !u!1 &1057127498
 GameObject:
   m_ObjectHideFlags: 0
