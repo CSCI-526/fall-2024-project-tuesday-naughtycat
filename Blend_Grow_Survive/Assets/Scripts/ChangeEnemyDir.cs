@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChangeEnemyDir : MonoBehaviour
 {
@@ -11,7 +12,14 @@ public class ChangeEnemyDir : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemy_speed = Random.Range(0.5f, 9.0f);
+        if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") == 0)
+        {
+            enemy_speed = 2f;
+        }
+        else
+        {
+            enemy_speed = Random.Range(0.5f, 9.0f);
+        }
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
