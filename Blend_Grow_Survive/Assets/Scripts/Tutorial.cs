@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Tutorial : MonoBehaviour
 {
     public Text hintText;
-    public GameObject ammo, tutorialAmmo, upgradePanel;
+    public GameObject ammo, tutorialAmmo, upgradePanel, tutorialPlayer, hpText;
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
@@ -194,6 +194,10 @@ public class Tutorial : MonoBehaviour
 
     private void EndTutorial()
     {
+        tutorialPlayer = GameObject.Find("Player");
+        tutorialPlayer.SetActive(false);
+        hpText = GameObject.Find("hpText");
+        hpText.SetActive(false);
         DisplayHint("Tutorial complete! Click 'Back' to return to main menu.");
     }
 
