@@ -60,4 +60,14 @@ public class PlayerHealth : MonoBehaviour
             playerEat.GameOver(); // End the game if player health reaches zero
         }
     }
+
+    // if health is lower than 1, player will die
+    // if player is dead, game over
+    public void Die(int health)
+    {
+        if (currentHealth < 1)
+        {
+            Die();
+        }
+    }
 }

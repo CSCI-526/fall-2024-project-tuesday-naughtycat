@@ -53,7 +53,7 @@ public class BulletAttack : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // Check for collision with Enemy
-        if (collision.CompareTag("Enemy") || collision.CompareTag("Boss"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("Boss") || collision.CompareTag("EnemyArcher"))
         {
             EnemyHealth enemyHealth = collision.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
@@ -91,12 +91,13 @@ public class BulletAttack : MonoBehaviour
                     else
                     {
                         // Handle enemy defeat
-                        generator.RemoveObject(collision.gameObject, generator.created_enemies);
-                        FindObjectOfType<PlayerEat>().GainExperience(10);
+                        Debug.Log("COming homeeeeeee");
+                        //generator.RemoveObject(collision.gameObject, generator.created_enemies);
+                        FindObjectOfType<PlayerEat>().GainExperience(5);
                         GameManager.instance.AddCoins(2);
                     }
 
-                    Destroy(collision.gameObject); // Destroy the enemy/boss
+                    //Destroy(collision.gameObject); // Destroy the enemy/boss
                 }
             }
             Destroy(gameObject);

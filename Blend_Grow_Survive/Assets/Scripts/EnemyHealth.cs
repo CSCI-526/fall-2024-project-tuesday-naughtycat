@@ -45,6 +45,18 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        Debug.Log("Enemy has died");
+        ObjectGenerator.ins.RemoveObject(gameObject, ObjectGenerator.ins.created_enemies);
+        //checking if this enemy was the last enemy of the current wave or not
+        if (GameManager.instance != null)
+        {
+            Debug.Log("Coming in here");
+            GameManager.instance.CheckWaveCompletion();
+        }
+        else
+        {
+            Debug.LogError("GameManager instance not found!");
+        }
         Destroy(gameObject);
         // add the logic of adding coins to the player when this happens
     }

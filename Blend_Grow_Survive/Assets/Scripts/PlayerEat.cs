@@ -20,10 +20,10 @@ public class PlayerEat : MonoBehaviour
     }
     #endregion
 
-
     public GameObject[] food;
     public GameObject[] enemies;
     public GameObject[] ammos;
+    public GameObject[] enemyArcher;
     public GameObject boss;
     public Transform player;
     public Text result_text;
@@ -38,7 +38,7 @@ public class PlayerEat : MonoBehaviour
     //public BossMessageController bossMessageController;
 
     //public TextMeshProUGUI hpText;
-    
+
     public TextMeshProUGUI coinText;
 
     public int maxHealth = 10;
@@ -102,6 +102,11 @@ public class PlayerEat : MonoBehaviour
     }
 
     /*
+    public void UpdateEnemyArcher()
+    {
+        enemyArcher = GameObject.FindGameObjectsWithTag("EnemyArcher");
+    }
+
     public void RemoveObject(GameObject Object)
     {
         List<GameObject> ObjectList = new List<GameObject>();
@@ -145,6 +150,11 @@ public class PlayerEat : MonoBehaviour
         CheckGameObject(ammos);
     }
 
+    public void CheckEnemyArcher()
+    {
+        CheckGameObject(enemyArcher);
+    }
+
     public void CheckGameObject(GameObject[] Object)
     {
         for (int i = 0; i < Object.Length; i++)
@@ -163,15 +173,15 @@ public class PlayerEat : MonoBehaviour
                 {
                     Destroy(m.gameObject);
                     //RemoveObject(m.gameObject);
-                    
+
 
                     if (m.gameObject.CompareTag("Food"))
                     {
                         PlayerGrow();
                         Debug.Log("eat food");
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        //Destroy(m.gameObject);
-                        
+                        Destroy(m.gameObject);
+
 
                         //GainExperience(1); 
                         //break;  
@@ -181,7 +191,7 @@ public class PlayerEat : MonoBehaviour
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Debug.Log("eat ammo");
                         bulletCount += 1;
-                        
+
                         UpdateBulletText();
                     }
                 }
@@ -192,7 +202,7 @@ public class PlayerEat : MonoBehaviour
                         //RemoveObject(m.gameObject);
                         PlayerGrow();
                         PlayerGrow();
-                        
+
                         Destroy(m.gameObject); // Destroy immediately upon eating
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
 
@@ -202,13 +212,48 @@ public class PlayerEat : MonoBehaviour
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
                         GameManager.instance.ReduceLeftEnemy();
-                        
+
                         GainExperience(10);
 
-                        // if (experience >= 100)
-                        // {
-                        //     WinGame();
-                        // }
+                        if (GameManager.instance != null)
+                        {
+                            GameManager.instance.CheckWaveCompletion();
+                        }
+                        else
+                        {
+                            Debug.LogError("GameManager instance not found!");
+                        }
+                    }
+                    else
+                    {
+                        GameOver();
+                    }
+                }
+                else if (m.gameObject.CompareTag("EnemyArcher"))
+                {
+                    if (transform.localScale.x > m.localScale.x)
+                    {
+                        //fRemoveObject(m.gameObject);
+                        PlayerGrow();
+                        PlayerGrow();
+
+                        Destroy(m.gameObject); // Destroy immediately upon eating
+                        ms.RemoveObject(m.gameObject, ms.created_enemies);
+
+                        analyticsManager.EnemyDefeated();
+
+                        GameManager.instance.AddCoins(2);
+                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+                        GainExperience(10);
+
+                        if (GameManager.instance != null)
+                        {
+                            GameManager.instance.CheckWaveCompletion();
+                        }
+                        else
+                        {
+                            Debug.LogError("GameManager instance not found!");
+                        }
                     }
                     else
                     {
@@ -254,6 +299,21 @@ public class PlayerEat : MonoBehaviour
                 Debug.Log("Player defeated by the boss!");
             }
         }
+
+        else if (collision.gameObject.CompareTag("EnemyArcher"))
+        {
+            // Logic for when the player collides directly with an EnemyArcher
+            Transform archerTransform = collision.gameObject.transform;
+            if (transform.localScale.x > archerTransform.localScale.x) // Player eats EnemyArcher
+            {
+                PlayerGrow();
+                Destroy(collision.gameObject);
+            }
+            else // EnemyArcher eats player
+            {
+                GameOver();
+            }
+        }
     }
 
     public void TakeDamage(int damage)
@@ -278,7 +338,7 @@ public class PlayerEat : MonoBehaviour
 
     public string GenProgressBar(int score, int totalScore)
     {
-        
+
         string barText = "EXP: ";
         for (int i = 0; i < score; i++)
         {
@@ -298,10 +358,10 @@ public class PlayerEat : MonoBehaviour
         experience += xp;
         UpdateExperienceUI();
         // Check if experience is 100 or more and the boss hasn't been activated yet
-        if (experience >= 100)
-        {
-            ActivateBoss();
-        }
+        //if (experience >= 300)
+        //{
+        //    ActivateBoss();
+        //}
     }
 
     public void UpdateExperienceUI()
@@ -427,7 +487,7 @@ public class PlayerEat : MonoBehaviour
     //GameManager.instance.ResetCoins();
     public void RestartGame()
     {
-        
+
         //Debug.Log("Before restarting, playerCoins: " + GameManager.instance.playerCoins);
         Time.timeScale = 1;
 
@@ -446,9 +506,9 @@ public class PlayerEat : MonoBehaviour
 
             GameManager.instance.UpdateReferences();
             Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
-        }    
-        
-        
+        }
+
+
 
     }
 
@@ -468,6 +528,7 @@ public class PlayerEat : MonoBehaviour
         InvokeRepeating("Check", 0, 0.1f);
         InvokeRepeating("CheckEnemy", 0, 0.1f);
         InvokeRepeating("CheckAmmo", 0, 0.1f);
+        InvokeRepeating("CheckEnemyArcher", 0, 0.1f);
         ms = ObjectGenerator.ins;
 
         ms.players.Add(gameObject);

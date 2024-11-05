@@ -7,6 +7,7 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    private ObjectGenerator objectGenerator;
     public int playerHP = 100;
     //public int playerEXP = 0;
     public int playerCoins = 0;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        objectGenerator = FindObjectOfType<ObjectGenerator>();
         Debug.Log("GameManager Start: playerCoins = " + playerCoins);
         UpdateCoinText();
         Debug.Log("GameManager: Start called. Current coins: " + playerCoins);
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour
     {
         playerHP -= hpAmount;
         Debug.Log("Current HP: " + playerHP);
-        
+
         // If HP falls to 0 or below, end the game
         if (playerHP <= 0)
         {
@@ -127,7 +129,7 @@ public class GameManager : MonoBehaviour
     {
         playerHP = 100;
         Debug.Log("HP reset to: " + playerHP);
-        
+
     }
 
     // Method to add EXP when an enemy is defeated
@@ -144,7 +146,7 @@ public class GameManager : MonoBehaviour
     //{
     //    playerEXP = 0;
     //    Debug.Log("EXP reset to: " + playerEXP);
-        
+
     //}
     // COINS------
     // Method to add coins upon defeating an enemy
@@ -160,13 +162,13 @@ public class GameManager : MonoBehaviour
     {
         if (playerCoins >= coinAmount)
         {
-            playerCoins -= coinAmount;   
+            playerCoins -= coinAmount;
             Debug.Log("Coins spent: " + coinAmount + ". Remaining Coins: " + playerCoins);
-            UpdateCoinText();   
-            return true;   
+            UpdateCoinText();
+            return true;
         }
-        Debug.Log("Not enough coins to Buy! :(, Come back soon Champ!");   
-        return false;   
+        Debug.Log("Not enough coins to Buy! :(, Come back soon Champ!");
+        return false;
     }
 
     //Reset coins upon newgame
@@ -206,7 +208,8 @@ public class GameManager : MonoBehaviour
         if (level < 3)
         {
             leftEnemyText.text = "Left Enemies: " + leftEnemy.ToString() + "/ 10";
-        } else
+        }
+        else
         {
             leftEnemyText.enabled = false;
         }
@@ -229,11 +232,29 @@ public class GameManager : MonoBehaviour
         if (level == 3)
         {
             levelText.text = "boss!";
-        } else
+        }
+        else
         {
             levelText.text = "Level " + level.ToString();
         }
-        
+
+    }
+
+    //WaveCHECKER
+    public void CheckWaveCompletion()
+    {
+        objectGenerator = FindObjectOfType<ObjectGenerator>();
+        if (objectGenerator != null)
+        {
+            if (objectGenerator.created_enemies.Count == 0 && !objectGenerator.IsWaveActive)
+            {
+                objectGenerator.OnWaveCleared();
+            }
+        }
+        else
+        {
+            Debug.LogError("ObjectGenerator instance not found! it is here");
+        }
     }
 
     // UPGRADES-------
@@ -255,7 +276,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Gun Speed Upgraded");
                 break;
 
-            case "Range": 
+            case "Range":
                 Debug.Log("Bullet max distance CURRENTLY: " + bulletAttack.max_distance);
                 bulletAttack.max_distance += 2f;
                 Debug.Log("Bullet max distance upgraded to: " + bulletAttack.max_distance);
