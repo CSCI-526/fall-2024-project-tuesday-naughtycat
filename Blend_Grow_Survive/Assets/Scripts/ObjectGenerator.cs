@@ -157,7 +157,8 @@ public class ObjectGenerator : MonoBehaviour
                 
                 Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
                 GameObject m = Instantiate(ammo, Position, Quaternion.identity);
-                
+                AddObject(m, created_ammos);
+
             }
         }
     }
@@ -244,7 +245,7 @@ public class ObjectGenerator : MonoBehaviour
             if (players.Count > 0)
             {
                 PlayerEat pp = players[0].GetComponent<PlayerEat>();
-                pp.AddObject(m);
+                //pp.AddObject(m);
             }
         }
     }
@@ -258,7 +259,7 @@ public class ObjectGenerator : MonoBehaviour
             if (players.Count > 0)
             {
                 PlayerEat pp = players[0].GetComponent<PlayerEat>();
-                pp.RemoveObject(m);
+                //pp.RemoveObject(m);
             }
         }
     }

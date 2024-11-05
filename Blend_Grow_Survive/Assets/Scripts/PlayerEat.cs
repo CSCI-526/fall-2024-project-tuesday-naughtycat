@@ -66,8 +66,9 @@ public class PlayerEat : MonoBehaviour
 
     public void UpdateAmmo()
     {
+
         ammos = GameObject.FindGameObjectsWithTag("Ammo");
-        // ammos = ObjectGenerator.ins.getAmmoArr();
+        //ammos = ObjectGenerator.ins.getAmmoArr();
         // don't use this one! Ammo is created manually, not by Object generator
         // getting it from object generator will prevent payer from eating it
     }
@@ -99,6 +100,7 @@ public class PlayerEat : MonoBehaviour
         boss = GameObject.FindGameObjectWithTag("Boss");
     }
 
+    /*
     public void RemoveObject(GameObject Object)
     {
         List<GameObject> ObjectList = new List<GameObject>();
@@ -124,6 +126,8 @@ public class PlayerEat : MonoBehaviour
 
         food = ObjectList.ToArray();
     }
+
+    */
 
 
     public void Check()
@@ -157,14 +161,15 @@ public class PlayerEat : MonoBehaviour
                 if (m.gameObject.CompareTag("Food") || m.gameObject.CompareTag("Ammo"))
                 {
                     Destroy(m.gameObject);
-                    RemoveObject(m.gameObject);
+                    //RemoveObject(m.gameObject);
                     
 
                     if (m.gameObject.CompareTag("Food"))
                     {
                         PlayerGrow();
+                        Debug.Log("eat food");
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        Destroy(m.gameObject);
+                        //Destroy(m.gameObject);
                         
 
                         //GainExperience(1); 
@@ -173,6 +178,7 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Ammo"))
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
+                        Debug.Log("eat ammo");
                         bulletCount += 1;
                         
                         UpdateBulletText();
@@ -182,7 +188,7 @@ public class PlayerEat : MonoBehaviour
                 {
                     if (transform.localScale.x > m.localScale.x)
                     {
-                        RemoveObject(m.gameObject);
+                        //RemoveObject(m.gameObject);
                         PlayerGrow();
                         PlayerGrow();
                         
@@ -482,5 +488,7 @@ public class PlayerEat : MonoBehaviour
     void Update()
     {
         UpdateAmmo();
+        UpdateFood();
+        UpdateEnemy();
     }
 }

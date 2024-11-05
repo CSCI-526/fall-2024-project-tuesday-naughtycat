@@ -847,8 +847,10 @@ MonoBehaviour:
   playerHP: 100
   playerCoins: 0
   leftEnemy: 10
+  level: 1
   coinText: {fileID: 1739464017}
   leftEnemyText: {fileID: 0}
+  levelText: {fileID: 0}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
 --- !u!1 &362127511
 GameObject:
@@ -1156,7 +1158,7 @@ MonoBehaviour:
   max_ammo: 15
   create_food_time: 0.1
   create_enemy_time: 5
-  create_ammo_time: 2
+  create_ammo_time: 0.1
   pos: {x: 25, y: 8}
   enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
   healthBarPrefab: {fileID: 0}
