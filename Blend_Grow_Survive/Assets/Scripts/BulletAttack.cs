@@ -71,13 +71,13 @@ public class BulletAttack : MonoBehaviour
                 // Reduce enemy size
                 float sizeReduction = 1.0f;
                 Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
-                float minScale = 0.8f;
+                float minScale = 0.6f;
                 newScale.x = Mathf.Max(newScale.x, minScale);
                 newScale.y = Mathf.Max(newScale.y, minScale);
                 enemyHealth.transform.localScale = newScale;
 
 
-                if (enemyHealth.currentHealth <= 0)
+                if (enemyHealth.currentHealth < 0.1)
                 {
                     //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
                     analyticsManager.EnemyDefeated();

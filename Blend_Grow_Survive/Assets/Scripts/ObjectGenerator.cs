@@ -123,7 +123,6 @@ public class ObjectGenerator : MonoBehaviour
                     GameObject m = Instantiate(enemy, Position, Quaternion.identity);
                     float randomSize = Random.Range(1.0f, 3.0f);
                     m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
-
                     AddObject(m, created_enemies);
                 }
             }
