@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
-
         leftEnemy = 10;
         leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
 
