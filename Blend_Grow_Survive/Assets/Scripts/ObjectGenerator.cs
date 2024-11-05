@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using Unity.Burst.CompilerServices;
 
 public class ObjectGenerator : MonoBehaviour
 {
@@ -141,6 +142,13 @@ public class ObjectGenerator : MonoBehaviour
             if (created_food.Count < max_food)
             {
                 Vector2 Position = GetRandomFoodPosition();
+                Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
+                while (hit != null)
+                {
+                    Position = GetRandomFoodPosition();
+                    hit = Physics2D.OverlapCircle(Position, 0.5f);
+                }
+
                 GameObject m = Instantiate(food, Position, Quaternion.identity);
                 AddObject(m, created_food);
             }
@@ -155,6 +163,15 @@ public class ObjectGenerator : MonoBehaviour
             {
                 
                 Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
+                Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
+                while (hit != null)
+                {
+                    Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
+                    hit = Physics2D.OverlapCircle(Position, 0.5f);
+                }
+
+
+
                 GameObject m = Instantiate(ammo, Position, Quaternion.identity);
                 AddObject(m, created_ammos);
 
