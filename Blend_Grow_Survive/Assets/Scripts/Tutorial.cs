@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Tutorial : MonoBehaviour
 {
     public Text hintText;
-    public GameObject ammo, tutorialAmmo;
+    public GameObject ammo, tutorialAmmo, upgradePanel;
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
@@ -18,6 +18,8 @@ public class Tutorial : MonoBehaviour
         ammo.SetActive(false);
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false);
+        upgradePanel = GameObject.Find("UpgradePanel"); // Assuming you have an upgrade panel in the scene
+        upgradePanel.SetActive(false); // Initially hide the upgrade panel
         DisplayHint("Use WSAD to find food!");
     }
 
@@ -54,6 +56,12 @@ public class Tutorial : MonoBehaviour
                 break;
             case 9:
                 CheckAllEnemiesDefeated();
+                break;
+            case 10:
+                PromptUpgrade();
+                break;
+            case 11:
+                WaitForUpgrade();
                 break;
             default:
                 EndTutorial();
@@ -150,6 +158,28 @@ public class Tutorial : MonoBehaviour
     {
         if (!thirdEnemy && !fourthEnemy && !fifthEnemy)
         {
+            DisplayHint("Press 'B' to open the upgrade system.");
+            status++;
+        }
+    }
+
+    private void PromptUpgrade()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            upgradePanel.SetActive(true);
+            DisplayHint("Upgrade one skill for 10 points.");
+            status++;
+        }
+    }
+
+    private void WaitForUpgrade()
+    {
+        DisplayHint("Upgrade one skill for 10 points.");
+
+        if (GameManager.instance.playerCoins == 0)
+        {
+            upgradePanel.SetActive(false);
             status++;
         }
     }
