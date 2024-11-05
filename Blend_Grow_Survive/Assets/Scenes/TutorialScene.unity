@@ -6529,6 +6529,7 @@ MonoBehaviour:
   hintText: {fileID: 675446402}
   ammo: {fileID: 0}
   tutorialAmmo: {fileID: 0}
+  upgradePanel: {fileID: 1844454757}
 --- !u!1001 &2051879932
 PrefabInstance:
   m_ObjectHideFlags: 0

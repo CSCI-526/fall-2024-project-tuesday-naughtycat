@@ -18,8 +18,8 @@ public class Tutorial : MonoBehaviour
         ammo.SetActive(false);
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false);
-        upgradePanel = GameObject.Find("UpgradePanel"); // Assuming you have an upgrade panel in the scene
-        upgradePanel.SetActive(false); // Initially hide the upgrade panel
+        upgradePanel = GameObject.Find("UpgradePanel");
+        //upgradePanel.SetActive(false);
         DisplayHint("Use WSAD to find food!");
     }
 
@@ -62,6 +62,9 @@ public class Tutorial : MonoBehaviour
                 break;
             case 11:
                 WaitForUpgrade();
+                break;
+            case 12:
+                PromptCloseUpgrade();
                 break;
             default:
                 EndTutorial();
@@ -167,7 +170,6 @@ public class Tutorial : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            upgradePanel.SetActive(true);
             DisplayHint("Upgrade one skill for 10 points.");
             status++;
         }
@@ -175,11 +177,17 @@ public class Tutorial : MonoBehaviour
 
     private void WaitForUpgrade()
     {
-        DisplayHint("Upgrade one skill for 10 points.");
-
         if (GameManager.instance.playerCoins == 0)
         {
-            upgradePanel.SetActive(false);
+            DisplayHint("Press 'B' to close the upgrade system.");
+            status++;
+        }
+    }
+
+    private void PromptCloseUpgrade()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
             status++;
         }
     }

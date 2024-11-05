@@ -61,7 +61,8 @@ public class PlayerEat : MonoBehaviour
         // find object with tag cannot find disabled objects, use it carefully
         // when dealing with tutorial scene because we disabled the enemy once
         // the scene starts 
-        enemies = ObjectGenerator.ins.getEnemyArr();
+        //enemies = ObjectGenerator.ins.getEnemyArr();
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     public void UpdateAmmo()
