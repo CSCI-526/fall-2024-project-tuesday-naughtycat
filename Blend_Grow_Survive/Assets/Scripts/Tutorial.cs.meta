@@ -3,7 +3,10 @@ guid: 0643bf590974a4c1497d3cae3842c33c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - hintText: {instanceID: 0}
+  - ammo: {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
+  - tutorialAmmo: {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -10,13 +10,14 @@ public class Tutorial : MonoBehaviour
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
+    private bool hasUsedEscape = false;
 
     void Start()
     {
         ammo = GameObject.Find("ammo");
         ammo.SetActive(false);
         tutorialAmmo = GameObject.Find("newAmmo");
-        tutorialAmmo.SetActive(false); // Initially hide tutorial ammo
+        tutorialAmmo.SetActive(false);
         DisplayHint("Use WSAD to find food!");
     }
 
@@ -34,18 +35,24 @@ public class Tutorial : MonoBehaviour
                 CheckFirstEnemyDefeat();
                 break;
             case 3:
-                ShowAmmoHint();
+                CheckEscapePress();
                 break;
             case 4:
-                ActivateSecondEnemy();
+                RequireEscapeFunction();
                 break;
             case 5:
-                CheckSecondEnemyDefeat();
+                ShowAmmoHint();
                 break;
             case 6:
-                ActivateOtherEnemies();
+                ActivateSecondEnemy();
                 break;
             case 7:
+                CheckSecondEnemyDefeat();
+                break;
+            case 8:
+                ActivateOtherEnemies();
+                break;
+            case 9:
                 CheckAllEnemiesDefeated();
                 break;
             default:
@@ -63,15 +70,6 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    private void ShowAmmoHint()
-    {
-        if (!GameObject.Find("ammo"))
-        {
-            DisplayHint("Enemy ahead! Left-click to shoot!");
-            status++;
-        }
-    }
-
     private void ActivateFirstEnemy()
     {
         firstEnemy = ObjectGenerator.ins.getEnemy()[0];
@@ -83,8 +81,35 @@ public class Tutorial : MonoBehaviour
     {
         if (!firstEnemy)
         {
-            DisplayHint("Great! You gained 10 EXP. Now grab the ammo!");
+            DisplayHint("You gained 10 EXP. Press spacebar to escape!");
+            status++; // Move to the next state to wait for escape
+        }
+    }
+
+    private void CheckEscapePress()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            hasUsedEscape = true;
+            DisplayHint("Great! Now grab the ammo!");
+            status++;
+        }
+    }
+
+    private void RequireEscapeFunction()
+    {
+        if (hasUsedEscape)
+        {
             ammo.SetActive(true);
+            status++;
+        }
+    }
+
+    private void ShowAmmoHint()
+    {
+        if (!GameObject.Find("ammo"))
+        {
+            DisplayHint("Enemy ahead! Left-click to shoot!");
             status++;
         }
     }
@@ -101,7 +126,7 @@ public class Tutorial : MonoBehaviour
         if (!secondEnemy)
         {
             DisplayHint("Perfect! Now use the combo of swallow and shoot!");
-            tutorialAmmo.SetActive(true); // Show extra ammo after first enemy defeat
+            tutorialAmmo.SetActive(true);
             status++;
         }
     }
