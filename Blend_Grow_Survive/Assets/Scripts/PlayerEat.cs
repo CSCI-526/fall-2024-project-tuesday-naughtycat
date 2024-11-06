@@ -444,7 +444,7 @@ public class PlayerEat : MonoBehaviour
     {
         if (bullet_text != null)
         {
-            bullet_text.text = "# of bullets: " + bulletCount;
+            bullet_text.text = "Bullets: " + bulletCount;
             bullet_text.gameObject.SetActive(true);
         }
     }
