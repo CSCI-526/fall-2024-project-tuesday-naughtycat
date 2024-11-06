@@ -11,14 +11,14 @@ public class GameManager : MonoBehaviour
     public int playerHP = 100;
     //public int playerEXP = 0;
     public int playerCoins = 0;
-    public int leftEnemy = 10;
-    public int level = 1;
+    //public int leftEnemy = 10;
+    //public int level = 1;
 
     //public TextMeshProUGUI hpText;
     //public TextMeshProUGUI expText;
     public TextMeshProUGUI coinText;
-    public TextMeshProUGUI leftEnemyText;
-    public TextMeshProUGUI levelText;
+    //public TextMeshProUGUI leftEnemyText;
+    //public TextMeshProUGUI levelText;
 
     public GameObject bullet;
     private BulletAttack bulletAttack;
@@ -86,16 +86,16 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
-        leftEnemy = 10;
-        leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
+        //leftEnemy = 10;
+        //leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
 
-        level = 1;
-        levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+        //level = 1;
+        //levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
 
         // Update the UI to show the current values immediately
         UpdateCoinText();
-        UpdateLeftEnemyText();
-        UpdateLevelText();
+        //UpdateLeftEnemyText();
+        //UpdateLevelText();
         //UpdateEXPText();
         //UpdateHpText();
     }
@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
             coinText.text = "Coins: " + playerCoins.ToString();
         }
     }
-
+    /*
     private void UpdateLeftEnemyText()
     {
         if (level < 3)
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
             leftEnemyText.enabled = false;
         }
     }
-
+    
     public void ReduceLeftEnemy()
     {
         leftEnemy -= 1;
@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour
         }
         UpdateLeftEnemyText();
     }
-
+    
     private void UpdateLevelText()
     {
         if (level == 3)
@@ -239,6 +239,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    */
 
     //WaveCHECKER
     public void CheckWaveCompletion()

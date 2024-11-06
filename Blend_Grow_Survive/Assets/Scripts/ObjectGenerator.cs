@@ -51,6 +51,8 @@ public class ObjectGenerator : MonoBehaviour
     private bool isWaveActive = false;
     private PlayerEat bosscaller;
 
+    public TextMeshProUGUI levelText;
+
     // Define enemy size ranges per level
     private Vector2 level1SizeRange = new Vector2(1.0f, 2.0f);
     private Vector2 level2SizeRange = new Vector2(2.0f, 3.0f);
@@ -271,6 +273,23 @@ public class ObjectGenerator : MonoBehaviour
 
     public void StartNextWave()
     {
+        levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+        if (currentWave < 3)
+        {
+            levelText.text = "Level " + currentWave.ToString();
+        }
+        else
+        {
+            levelText.text = "Boss!";
+        }
+        StartCoroutine(HideLevelTextAfterDelay(1f));
+        
+    }
+
+    IEnumerator HideLevelTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        levelText.enabled = false; // Disable the text component
         currentWaveEnemies = 0;
         isWaveActive = true;
         Debug.Log("Starting Wave " + currentWave);

@@ -211,7 +211,7 @@ public class PlayerEat : MonoBehaviour
                         GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
-                        GameManager.instance.ReduceLeftEnemy();
+                        //GameManager.instance.ReduceLeftEnemy();
 
                         GainExperience(10);
 
@@ -267,7 +267,7 @@ public class PlayerEat : MonoBehaviour
                         PlayerGrow();
                         Destroy(m.gameObject); // Destroy the boss immediately
                         Debug.Log("Boss defeated!");
-                        GameManager.instance.ReduceLeftEnemy();
+                        //GameManager.instance.ReduceLeftEnemy();
                         WinGame();
                     }
                     else
