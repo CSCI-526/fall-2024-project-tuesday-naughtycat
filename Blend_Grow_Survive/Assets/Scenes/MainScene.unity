@@ -846,8 +846,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: 100
   playerCoins: 0
-  leftEnemy: 10
-  level: 1
   coinText: {fileID: 1739464017}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
 --- !u!1 &362127511
@@ -3066,7 +3064,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '# of bullets: 0'
+  m_Text: 'Bullets: 0'
 --- !u!222 &1195715705
 CanvasRenderer:
   m_ObjectHideFlags: 0
