@@ -58,7 +58,7 @@ public class ObjectGenerator : MonoBehaviour
     private Vector2 level2SizeRange = new Vector2(3.0f, 6.0f);
 
     // Enemy Archer spawn chance
-    public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
+    //public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
 
     // Created to access the isWaveActive variable without allowing to change it
     public bool IsWaveActive
@@ -234,22 +234,22 @@ public class ObjectGenerator : MonoBehaviour
                 }
                 else
                 {
-                    randomSize = Random.Range(3.0f, 5.0f); // Default if levels go beyond 2
-                    Debug.Log("Now enemies will only be of size 3-5");
+                    randomSize = Random.Range(4.0f, 7.0f); // Default if levels go beyond 2
+                    Debug.Log("Now enemies will only be of size 4-7");
                 }
-                if (currentWaveEnemies > 7 && currentWave == 2) {
-                    m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
-                    Debug.Log("Spawned Enemy Archer----------------");
-                    AddObject(m, created_enemies);
-                    currentWaveEnemies++;   
-                }
-                else {
-                    m.transform.localScale = new Vector3(randomSize, randomSize, 1);
-                    AddObject(m, created_enemies);
-                    currentWaveEnemies++;
+                //if (currentWaveEnemies > 7 && currentWave == 2) {
+                //    m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
+                //    Debug.Log("Spawned Enemy Archer----------------");
+                //    AddObject(m, created_enemies);
+                //    currentWaveEnemies++;   
+                //}
+                //else {
+                m.transform.localScale = new Vector3(randomSize, randomSize, 1);
+                AddObject(m, created_enemies);
+                currentWaveEnemies++;
 
-                    Debug.Log("Spawned Enemy " + currentWaveEnemies + " for Wave " + currentWave);
-                }
+                Debug.Log("Spawned Enemy " + currentWaveEnemies + " for Wave " + currentWave);
+                //}
                 
                 // Stop spawning if we reached the limit for the current wave
                 if (currentWaveEnemies >= enemiesPerWave)
