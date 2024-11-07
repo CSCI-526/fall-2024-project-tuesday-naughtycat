@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
@@ -194,11 +195,14 @@ public class Tutorial : MonoBehaviour
 
     private void EndTutorial()
     {
+        /*
         tutorialPlayer = GameObject.Find("Player");
         tutorialPlayer.SetActive(false);
         hpText = GameObject.Find("hpText");
         hpText.SetActive(false);
         DisplayHint("Tutorial complete! Click 'Back' to return to main menu.");
+        */
+        ChangeScene.switchScene("MainScene");
     }
 
     private void DisplayHint(string message)
