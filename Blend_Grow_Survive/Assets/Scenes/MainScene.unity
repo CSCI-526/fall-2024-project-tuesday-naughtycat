@@ -1170,9 +1170,17 @@ MonoBehaviour:
   bullet_offset: 1
   isTutorial: 0
   currentWave: 1
-  enemiesPerWave: 10
+  waveDefinitions:
+  - waveNumber: 1
+    normalEnemies: 10
+    archerEnemies: 0
+  - waveNumber: 2
+    normalEnemies: 7
+    archerEnemies: 3
+  - waveNumber: 3
+    normalEnemies: 5
+    archerEnemies: 5
   levelText: {fileID: 0}
-  enemyArcherSpawnChance: 0.3
 --- !u!1 &576302119
 GameObject:
   m_ObjectHideFlags: 0
