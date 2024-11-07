@@ -54,8 +54,8 @@ public class ObjectGenerator : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     // Define enemy size ranges per level
-    private Vector2 level1SizeRange = new Vector2(1.0f, 2.0f);
-    private Vector2 level2SizeRange = new Vector2(2.0f, 3.0f);
+    private Vector2 level1SizeRange = new Vector2(1.0f, 3.0f);
+    private Vector2 level2SizeRange = new Vector2(3.0f, 6.0f);
 
     // Enemy Archer spawn chance
     public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
@@ -137,29 +137,12 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
-            // Create 5 enemies with random position and size at the beginning
-            for (int i = 0; i < 5; i++)
-            {
-                if (created_enemies.Count < max_enemies)
-                {
-                    Vector2 Position = GetRandomValidPositionForEnemy();
-                    GameObject m = Instantiate(enemy, Position, Quaternion.identity);
-                    float randomSize = Random.Range(1.0f, 3.0f);
-                    m.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
-                    AddObject(m, created_enemies);
-                }
-            }
-            // Your tutorial setup code here...
+            // Starting the first level wave
+            StartNextWave();
         }
-        // else
-        // {
-        //     // Starting the first level wave
-        StartNextWave();
-        //}
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
         StartCoroutine(CreateAmmo());
-        // Removed StartSpawningEnemyArchers();
     }
 
     // If the number of food is less than max_food, keep creating food
@@ -219,43 +202,41 @@ public class ObjectGenerator : MonoBehaviour
             if (isWaveActive && currentWaveEnemies < enemiesPerWave && created_enemies.Count < max_enemies)
             {
                 Vector2 Position = GetRandomValidPositionForEnemy();
-                GameObject m;
+                GameObject m = Instantiate(enemy, Position, Quaternion.identity);
 
-                // Check if we're in wave 2 to spawn EnemyArchers
-                if (currentWave == 2 && Random.value < enemyArcherSpawnChance)
+                //>>>>>>>>>>>>>>>>Problem
+                //// Check if we're in wave 2 to spawn EnemyArchers
+                //if (currentWave == 2 && Random.value < enemyArcherSpawnChance)
+                //{
+                //    // Spawn an enemy archer
+                //    m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
+                //    Debug.Log("Spawned Enemy Archer");
+                //}
+                //else
+                //{
+                //    // Spawn a regular enemy
+                //    m = Instantiate(enemy, Position, Quaternion.identity);
+                //>>>>>>>>>>>>>>>>Problem
+
+                // Setting enemy size according to the wave level it currently is
+                float randomSize;
+                if (currentWave == 1)
                 {
-                    // Spawn an enemy archer
-                    m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
-                    Debug.Log("Spawned Enemy Archer");
+                    randomSize = Random.Range(level1SizeRange.x, level1SizeRange.y);
+                    Debug.Log("Spawning Enemies of size range " + level1SizeRange.x + " to " + level1SizeRange.y);
+                }
+                else if (currentWave == 2)
+                {
+                    randomSize = Random.Range(level2SizeRange.x, level2SizeRange.y);
+                    Debug.Log("Spawning Enemies of size range " + level2SizeRange.x + " to " + level2SizeRange.y);
                 }
                 else
                 {
-                    // Spawn a regular enemy
-                    m = Instantiate(enemy, Position, Quaternion.identity);
-
-                    // Setting enemy size according to the current wave level
-                    float randomSize;
-                    if (currentWave == 1)
-                    {
-                        randomSize = Random.Range(level1SizeRange.x, level1SizeRange.y);
-                        Debug.Log("Spawning Enemies of size range " + level1SizeRange.x + " to " + level1SizeRange.y);
-                    }
-                    else if (currentWave == 2)
-                    {
-                        randomSize = Random.Range(level2SizeRange.x, level2SizeRange.y);
-                        Debug.Log("Spawning Enemies of size range " + level2SizeRange.x + " to " + level2SizeRange.y);
-                    }
-                    else
-                    {
-                        randomSize = Random.Range(3.0f, 5.0f); // Default if levels go beyond 2
-                        Debug.Log("Now enemies will only be of size 3-5");
-                    }
-
-                    m.transform.localScale = new Vector3(randomSize, randomSize, 1);
-                    Debug.Log("Spawned Regular Enemy");
+                    randomSize = Random.Range(3.0f, 5.0f); // Default if levels go beyond 2
+                    Debug.Log("Now enemies will only be of size 3-5");
                 }
 
-                // Add the enemy to the list and notify PlayerEat script
+                m.transform.localScale = new Vector3(randomSize, randomSize, 1);
                 AddObject(m, created_enemies);
                 currentWaveEnemies++;
 
@@ -273,6 +254,9 @@ public class ObjectGenerator : MonoBehaviour
 
     public void StartNextWave()
     {
+        currentWaveEnemies = 0;
+        isWaveActive = true;
+        Debug.Log("Starting Wave " + currentWave);
         levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (currentWave < 3)
         {
@@ -283,7 +267,6 @@ public class ObjectGenerator : MonoBehaviour
             levelText.text = "Boss!";
         }
         StartCoroutine(HideLevelTextAfterDelay(1f));
-        
     }
 
     IEnumerator HideLevelTextAfterDelay(float delay)
@@ -306,15 +289,14 @@ public class ObjectGenerator : MonoBehaviour
         }
         else if (currentWave == 2)
         {
-            // Proceed directly to the boss battle after wave 2
-            Debug.Log("BOSS TIME!!");
-            bosscaller = FindObjectOfType<PlayerEat>();
-            bosscaller.ActivateBoss();
+            currentWave = 3;
+            StartNextWave();
         }
         else
         {
-            // If you have more waves, you can handle them here
-            Debug.Log("All waves completed!");
+            Debug.Log("BOSS TIME!!");
+            bosscaller = FindObjectOfType<PlayerEat>();
+            bosscaller.ActivateBoss();
         }
     }
 

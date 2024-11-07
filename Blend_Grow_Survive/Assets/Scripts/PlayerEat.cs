@@ -217,6 +217,7 @@ public class PlayerEat : MonoBehaviour
 
                         if (GameManager.instance != null)
                         {
+                            Debug.Log("Checking if wave is complete or not");
                             GameManager.instance.CheckWaveCompletion();
                         }
                         else
@@ -229,37 +230,37 @@ public class PlayerEat : MonoBehaviour
                         GameOver();
                     }
                 }
-                else if (m.gameObject.CompareTag("EnemyArcher"))
-                {
-                    if (transform.localScale.x > m.localScale.x)
-                    {
-                        //fRemoveObject(m.gameObject);
-                        PlayerGrow();
-                        PlayerGrow();
+                //else if (m.gameObject.CompareTag("EnemyArcher"))
+                //{
+                //    if (transform.localScale.x > m.localScale.x)
+                //    {
+                //        //fRemoveObject(m.gameObject);
+                //        PlayerGrow();
+                //        PlayerGrow();
 
-                        Destroy(m.gameObject); // Destroy immediately upon eating
-                        ms.RemoveObject(m.gameObject, ms.created_enemies);
+                //        Destroy(m.gameObject); // Destroy immediately upon eating
+                //        ms.RemoveObject(m.gameObject, ms.created_enemies);
 
-                        analyticsManager.EnemyDefeated();
+                //        analyticsManager.EnemyDefeated();
 
-                        GameManager.instance.AddCoins(2);
-                        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
-                        GainExperience(10);
+                //        GameManager.instance.AddCoins(2);
+                //        coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
+                //        GainExperience(10);
 
-                        if (GameManager.instance != null)
-                        {
-                            GameManager.instance.CheckWaveCompletion();
-                        }
-                        else
-                        {
-                            Debug.LogError("GameManager instance not found!");
-                        }
-                    }
-                    else
-                    {
-                        GameOver();
-                    }
-                }
+                //        if (GameManager.instance != null)
+                //        {
+                //            GameManager.instance.CheckWaveCompletion();
+                //        }
+                //        else
+                //        {
+                //            Debug.LogError("GameManager instance not found!");
+                //        }
+                //    }
+                //    else
+                //    {
+                //        GameOver();
+                //    }
+                //}
                 else if (m.gameObject.CompareTag("Boss"))
                 {
                     if (transform.localScale.x > m.localScale.x)
@@ -357,11 +358,6 @@ public class PlayerEat : MonoBehaviour
     {
         experience += xp;
         UpdateExperienceUI();
-        // Check if experience is 100 or more and the boss hasn't been activated yet
-        //if (experience >= 300)
-        //{
-        //    ActivateBoss();
-        //}
     }
 
     public void UpdateExperienceUI()
