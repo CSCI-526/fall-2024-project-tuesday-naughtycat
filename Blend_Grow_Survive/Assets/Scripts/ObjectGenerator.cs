@@ -274,13 +274,16 @@ public class ObjectGenerator : MonoBehaviour
 
     public void StartNextWave()
     {
+        levelText.enabled = true;
         if (currentWave < 3)
         {
             levelText.text = "Level " + currentWave.ToString();
+            Debug.Log("Level " + currentWave);
         }
         else
         {
             levelText.text = "Boss!";
+            Debug.Log("Boss!");
         }
         StartCoroutine(HideLevelTextAfterDelay(1f));
         
