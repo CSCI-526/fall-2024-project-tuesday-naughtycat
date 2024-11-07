@@ -103,6 +103,7 @@ public class ObjectGenerator : MonoBehaviour
 
     private void Start()
     {
+        levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (isTutorial == 1) // tutorial mode
         {
             Vector2 Position = new Vector2(9, 9);
@@ -273,7 +274,6 @@ public class ObjectGenerator : MonoBehaviour
 
     public void StartNextWave()
     {
-        levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (currentWave < 3)
         {
             levelText.text = "Level " + currentWave.ToString();
@@ -284,17 +284,18 @@ public class ObjectGenerator : MonoBehaviour
         }
         StartCoroutine(HideLevelTextAfterDelay(1f));
         
-    }
-
-    IEnumerator HideLevelTextAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        levelText.enabled = false; // Disable the text component
         currentWaveEnemies = 0;
         isWaveActive = true;
         Debug.Log("Starting Wave " + currentWave);
-    }
 
+    }
+    
+    IEnumerator HideLevelTextAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        levelText.enabled = false;
+    }
+    
     // Called when all enemies in the wave are cleared
     public void OnWaveCleared()
     {
@@ -398,6 +399,7 @@ public class ObjectGenerator : MonoBehaviour
 
     public void StartGenerating()
     {
+        StartCoroutine(HideLevelTextAfterDelay(1f));
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
     }
