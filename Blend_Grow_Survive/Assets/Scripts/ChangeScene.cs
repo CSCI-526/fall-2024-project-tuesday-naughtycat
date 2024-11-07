@@ -10,12 +10,12 @@ public class ChangeScene : MonoBehaviour
     public static void switchScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
-
     }
 
     public static void ResetCoin()
     {
         GameManager.instance.playerCoins = 0;
+        ObjectGenerator.ins.created_enemies = null;
 
     }
     // Start is called before the first frame update

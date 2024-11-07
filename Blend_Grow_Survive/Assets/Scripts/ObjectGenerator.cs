@@ -226,7 +226,7 @@ public class ObjectGenerator : MonoBehaviour
                 {
                     // Spawn an enemy archer
                     m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
-                    Debug.Log("Spawned Enemy Archer");
+                    Debug.Log("Spawned Enemy Archer----------------");
                 }
                 else
                 {
