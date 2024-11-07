@@ -208,7 +208,7 @@ public class PlayerEat : MonoBehaviour
 
                         analyticsManager.EnemyDefeated();
 
-                        GameManager.instance.AddCoins(2);
+                        GameManager.instance.AddCoins(200);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
                         //GameManager.instance.ReduceLeftEnemy();
@@ -505,6 +505,8 @@ public class PlayerEat : MonoBehaviour
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Reset the upgrade max level values
+            GameManager.instance.ResetUpgrades();
             // Reset the upgraded bullet properties upon restart of the game
             GameManager.instance.ResetBulletProperties();
 

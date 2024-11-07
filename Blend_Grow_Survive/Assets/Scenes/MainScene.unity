@@ -848,6 +848,10 @@ MonoBehaviour:
   playerCoins: 0
   coinText: {fileID: 1739464017}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
+  bulletSpeedLevel: 0
+  bulletRangeLevel: 0
+  shrinkResistanceLevel: 0
+  movementSpeedLevel: 0
 --- !u!1 &362127511
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1176,6 @@ MonoBehaviour:
   currentWave: 1
   enemiesPerWave: 10
   levelText: {fileID: 0}
-  enemyArcherSpawnChance: 0.3
 --- !u!1 &576302119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2124,8 +2127,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 250}
+  m_AnchoredPosition: {x: 2.7068, y: 2.7068}
+  m_SizeDelta: {x: 505.4136, y: 255.4135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959201867
 MonoBehaviour:
@@ -2869,13 +2872,33 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletRangeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 9072136128306383738, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
+      propertyPath: m_margin.w
+      value: -0.35525608
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 86.7821
+      value: -73.2179
       objectReference: {fileID: 0}
     - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 41.968
+      value: 11.9679985
       objectReference: {fileID: 0}
     - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2883,7 +2906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9135900769071370912, guid: 751e46091dc2e47da892e8ecad132b3b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.2005
+      value: -1.2005005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

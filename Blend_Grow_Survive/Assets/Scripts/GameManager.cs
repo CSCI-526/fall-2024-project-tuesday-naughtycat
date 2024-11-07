@@ -29,6 +29,20 @@ public class GameManager : MonoBehaviour
     //public List<string> availableGunUpgrades = new List<string> { "Bullet_Speed", "Range", "Damage" };
     //public List<string> availableStatUpgrades = new List<string> { "HP", "Speed", "AttackSpeed" };
 
+    // capping upgradesystem
+    [Header("Upgrade Levels")]
+    public int bulletSpeedLevel = 0;
+    public int bulletRangeLevel = 0;
+    public int shrinkResistanceLevel = 0;
+    public int movementSpeedLevel = 0;
+
+    private const int MAX_UPGRADE_LEVEL = 5; // Maximum number of upgrades per stat
+
+    public int MaxUpgradeLevel
+    {
+        get { return MAX_UPGRADE_LEVEL; }
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -271,17 +285,27 @@ public class GameManager : MonoBehaviour
         switch (upgradeType)
         {
             case "Speed":
+                if (bulletSpeedLevel >= MaxUpgradeLevel)
+                {
+                    Debug.Log("Bullet Speed is already at maximum level.");
+                    return;
+                }
                 Debug.Log("this is the current value of the bullet_speed" + bulletAttack.bullet_speed);
                 bulletAttack.bullet_speed += 2f;
-                Debug.Log("UPDATED bullet_speed" + bulletAttack.bullet_speed);
+                bulletSpeedLevel++;
+                Debug.Log($"Bullet Speed Upgraded to Level {bulletSpeedLevel}");
                 Debug.Log("Gun Speed Upgraded");
                 break;
 
             case "Range":
-                Debug.Log("Bullet max distance CURRENTLY: " + bulletAttack.max_distance);
+                if (bulletRangeLevel >= MaxUpgradeLevel)
+                {
+                    Debug.Log("Bullet Range is already at maximum level.");
+                    return;
+                }
                 bulletAttack.max_distance += 2f;
-                Debug.Log("Bullet max distance upgraded to: " + bulletAttack.max_distance);
-
+                bulletRangeLevel++;
+                Debug.Log($"Bullet Range Upgraded to Level {bulletRangeLevel}");
                 break;
 
             case "Damage":
@@ -299,24 +323,48 @@ public class GameManager : MonoBehaviour
         switch (statType)
         {
             case "MovementSpeed":
-                // Implement speed upgrade
+                if (movementSpeedLevel >= MaxUpgradeLevel)
+                {
+                    Debug.Log("Movement Speed is already at maximum level.");
+                    return;
+                }
                 PlayerMovements pm = FindObjectOfType<PlayerMovements>();
                 if (pm != null)
                 {
-                    Debug.Log("Speed currently" + pm.speed);
                     pm.speed += 0.5f;
-                    Debug.Log("Speed Upgraded");
+                    movementSpeedLevel++;
+                    Debug.Log($"Movement Speed Upgraded to Level {movementSpeedLevel}");
+                }
+                else
+                {
+                    Debug.LogWarning("PlayerMovements component not found.");
                 }
                 break;
+
             case "ShrinkResistance":
+                if (shrinkResistanceLevel >= MaxUpgradeLevel)
+                {
+                    Debug.Log("Shrink Resistance is already at maximum level.");
+                    return;
+                }
                 Actions pa = FindObjectOfType<Actions>();
                 if (pa != null)
                 {
-                    Debug.Log("Shrink Rate currently" + pa.shrink_rate);
                     pa.shrink_rate -= 0.01f;
-                    Debug.Log("Shrink Rate Upgraded");
+                    shrinkResistanceLevel++;
+                    Debug.Log($"Shrink Resistance Upgraded to Level {shrinkResistanceLevel}");
+                }
+                else
+                {
+                    Debug.LogWarning("Actions component not found.");
                 }
                 break;
+
+            // If you have other stat upgrades, handle them here
+            default:
+                Debug.LogWarning($"Stat type '{statType}' is not recognized.");
+                break;
+
             case "MaxHealth":
                 AddHP(5);
                 Debug.Log("HP Upgraded");
@@ -338,5 +386,14 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("BulletAttack component not found.");
         }
+    }
+
+    public void ResetUpgrades()
+    {
+        bulletSpeedLevel = 0;
+        bulletRangeLevel = 0;
+        shrinkResistanceLevel = 0;
+        movementSpeedLevel = 0;
+        Debug.Log("Upgrade levels have been reset to initial values.");
     }
 }
