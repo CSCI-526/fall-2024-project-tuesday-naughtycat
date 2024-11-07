@@ -391,7 +391,7 @@ public class PlayerEat : MonoBehaviour
     void PlayerGrow()
     {
 
-        transform.localScale += new Vector3(0.08f, 0.08f, 0.08f);
+        transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
     }
     // Function to activate the boss
     public void ActivateBoss()

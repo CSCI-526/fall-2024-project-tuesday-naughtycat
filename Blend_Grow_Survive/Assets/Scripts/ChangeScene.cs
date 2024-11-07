@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
     //public string sceneName;
-
+    public GameObject startGame;
     public static void switchScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -22,6 +22,7 @@ public class ChangeScene : MonoBehaviour
     void Start()
     {
         
+
     }
 
     // Update is called once per frame

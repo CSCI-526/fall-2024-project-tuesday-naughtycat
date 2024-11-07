@@ -4,26 +4,53 @@ using UnityEngine;
 
 public class Boundaries : MonoBehaviour
 {
+    public int isTutorial;
     // Update is called once per frame
     void Update()
     {
-        // control the player position if it is out of bounds
-        if (transform.position.y >= 48)
+        if (isTutorial == 1)
         {
-            transform.position = new Vector3(transform.position.x, 48, 0);
-        }
-        else if(transform.position.y <= -48)
-        {
-            transform.position = new Vector3(transform.position.x,-48, 0);
-        }
+            if (transform.position.y >= 9)
+            {
+                transform.position = new Vector3(transform.position.x, 9, 0);
+            }
+            else if (transform.position.y <= -9)
+            {
+                transform.position = new Vector3(transform.position.x, -9, 0);
+            }
 
-        if (transform.position.x >= 48)
-        {
-            transform.position = new Vector3(48, transform.position.y,0);
+            if (transform.position.x >= 9)
+            {
+                transform.position = new Vector3(9, transform.position.y, 0);
+            }
+            else if (transform.position.x <= -9)
+            {
+                transform.position = new Vector3(-9, transform.position.y, 0);
+            }
+
         }
-        else if(transform.position.x <= -48)
+        else
         {
-            transform.position = new Vector3(-48, transform.position.y,0);
+            if (transform.position.y >= 49)
+            {
+                transform.position = new Vector3(transform.position.x, 49, 0);
+            }
+            else if (transform.position.y <= -49)
+            {
+                transform.position = new Vector3(transform.position.x, -49, 0);
+            }
+
+            if (transform.position.x >= 49)
+            {
+                transform.position = new Vector3(49, transform.position.y, 0);
+            }
+            else if (transform.position.x <= -49)
+            {
+                transform.position = new Vector3(-49, transform.position.y, 0);
+            }
+
         }
+            // control the player position if it is out of bounds
+        
     }
 }
