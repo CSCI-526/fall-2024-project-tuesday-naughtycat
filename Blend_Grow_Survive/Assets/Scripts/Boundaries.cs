@@ -10,43 +10,43 @@ public class Boundaries : MonoBehaviour
     {
         if (isTutorial == 1)
         {
-            if (transform.position.y >= 9.5)
+            if (transform.position.y >= 9)
             {
-                transform.position = new Vector3(transform.position.x, (float)9.5, 0);
+                transform.position = new Vector3(transform.position.x, 9, 0);
             }
-            else if (transform.position.y <= -9.5)
+            else if (transform.position.y <= -9)
             {
-                transform.position = new Vector3(transform.position.x, -(float)9.5, 0);
+                transform.position = new Vector3(transform.position.x, -9, 0);
             }
 
-            if (transform.position.x >= 9.5)
+            if (transform.position.x >= 9)
             {
-                transform.position = new Vector3((float)9.5, transform.position.y, 0);
+                transform.position = new Vector3(9, transform.position.y, 0);
             }
-            else if (transform.position.x <= -9.5)
+            else if (transform.position.x <= -9)
             {
-                transform.position = new Vector3(-(float)9.5, transform.position.y, 0);
+                transform.position = new Vector3(-9, transform.position.y, 0);
             }
 
         }
         else
         {
-            if (transform.position.y >= 48)
+            if (transform.position.y >= 49)
             {
-                transform.position = new Vector3(transform.position.x, 48, 0);
+                transform.position = new Vector3(transform.position.x, 49, 0);
             }
-            else if (transform.position.y <= -48)
+            else if (transform.position.y <= -49)
             {
-                transform.position = new Vector3(transform.position.x, -48, 0);
+                transform.position = new Vector3(transform.position.x, -49, 0);
             }
 
-            if (transform.position.x >= 48)
+            if (transform.position.x >= 49)
             {
-                transform.position = new Vector3(48, transform.position.y, 0);
+                transform.position = new Vector3(49, transform.position.y, 0);
             }
-            else if (transform.position.x <= -48)
+            else if (transform.position.x <= -49)
             {
-                transform.position = new Vector3(-48, transform.position.y, 0);
+                transform.position = new Vector3(-49, transform.position.y, 0);
             }
 
         }
