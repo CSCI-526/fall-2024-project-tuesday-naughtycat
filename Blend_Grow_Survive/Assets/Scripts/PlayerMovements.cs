@@ -9,6 +9,7 @@ public class PlayerMovements : MonoBehaviour
     public float speed = 1f;
     public GameObject bullet;
 
+
     private Vector2 lastMoveDirection;  // Track the last movement direction
     private bool canMove = true;        // Flag to control movement based on collision
 
@@ -57,8 +58,11 @@ public class PlayerMovements : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            actions.PlayerThrow();  // Handle player throw when space is pressed
+
+            actions.PlayerThrow();  // Handle player throw when space is presse
+            
         }
+
     }
 
     // Public method to stop player movement upon wall collision
