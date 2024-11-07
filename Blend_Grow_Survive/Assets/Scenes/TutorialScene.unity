@@ -2037,8 +2037,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 69.6, y: 0.2}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0.8, y: 1.4}
+  m_SizeDelta: {x: 284.678, y: 142.9159}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &608248770
 MonoBehaviour:
@@ -2067,7 +2067,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -3432,11 +3432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: 100
   playerCoins: 0
-  leftEnemy: 10
-  level: 1
   coinText: {fileID: 1730525800}
-  leftEnemyText: {fileID: 0}
-  levelText: {fileID: 0}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
 --- !u!4 &1106076925
 Transform:
@@ -4586,6 +4582,7 @@ MonoBehaviour:
   isTutorial: 1
   currentWave: 1
   enemiesPerWave: 10
+  levelText: {fileID: 0}
   enemyArcherSpawnChance: 0.3
 --- !u!4 &1603899290
 Transform:
@@ -6422,7 +6419,7 @@ MonoBehaviour:
   currentHealth: 0
   experience: 0
   healthText: {fileID: 608248770}
-  experienceText: {fileID: 1083743883}
+  experienceText: {fileID: 0}
 --- !u!114 &2032329668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6440,6 +6437,7 @@ MonoBehaviour:
   position: {fileID: 678039801}
   reduce_unit: 0.1
   shrink_rate: 0.1
+  forceMagnitude: 10
 --- !u!114 &2032329669
 MonoBehaviour:
   m_ObjectHideFlags: 0
