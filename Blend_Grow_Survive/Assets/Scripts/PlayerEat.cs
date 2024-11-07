@@ -332,8 +332,9 @@ public class PlayerEat : MonoBehaviour
     {
         if (healthText != null)
         {
-            //healthText.text = "" + Mathf.RoundToInt(transform.localScale.x);
-            healthText.text = "" + Mathf.RoundToInt((transform.localScale.x * 10)).ToString();
+            float playerHealth = transform.localScale.x * 10;
+            healthText.text = Mathf.RoundToInt(playerHealth).ToString();
+            healthText.fontSize = Mathf.RoundToInt(transform.localScale.x * 35);
         }
     }
 

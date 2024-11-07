@@ -236,8 +236,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70.3, y: -3.0517}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 0.6}
+  m_SizeDelta: {x: 286.8361, y: 128.5698}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &35127280
 MonoBehaviour:
@@ -266,7 +266,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2371,6 +2371,7 @@ MonoBehaviour:
   position: {fileID: 1244618564}
   reduce_unit: 0.05
   shrink_rate: 0.05
+  forceMagnitude: 10
 --- !u!58 &1020997023
 CircleCollider2D:
   m_ObjectHideFlags: 0

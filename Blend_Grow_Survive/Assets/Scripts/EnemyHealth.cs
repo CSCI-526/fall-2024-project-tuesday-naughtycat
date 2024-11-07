@@ -38,9 +38,12 @@ public class EnemyHealth : MonoBehaviour
     {
         if (healthText != null)
         {
-            healthText.text = Mathf.RoundToInt(currentHealth * 10).ToString();
+            float enemyHp = currentHealth * 10;
+            healthText.text = Mathf.RoundToInt(enemyHp).ToString();
+            //healthText.fontSize =  Mathf.RoundToInt(enemyHp);
         }
     }
+
 
 
     void Die()
@@ -58,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
             Debug.LogError("GameManager instance not found!");
         }
         Destroy(gameObject);
-        // add the logic of adding coins to the player when this happens
+        
     }
 }
 
