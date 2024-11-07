@@ -18,7 +18,7 @@ public class ChangeEnemyDir : MonoBehaviour
         }
         else
         {
-            enemy_speed = Random.Range(0.5f, 9.0f);
+            enemy_speed = Random.Range(3.0f, 9.0f);
         }
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }

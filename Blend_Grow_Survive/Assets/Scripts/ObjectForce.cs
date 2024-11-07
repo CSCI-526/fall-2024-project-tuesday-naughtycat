@@ -21,12 +21,29 @@ public class ObjectForce : MonoBehaviour
             enabled = false;
             return;
         }
-        // calculate and apply rotation
-        Vector2 Direction = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float zr = Mathf.Atan2(Direction.y, Direction.x) * Mathf.Rad2Deg + 90f;
-        zr += Random.Range(-RandomRotation, RandomRotation);
-        transform.rotation = Quaternion.Euler(0, 0, zr);
+        
+        float moveX = Input.GetAxisRaw("Horizontal"); 
+        float moveY = Input.GetAxisRaw("Vertical");   
+        Vector2 moveDirection = new Vector2(moveX, moveY).normalized;
+
+        
+        if (moveDirection.magnitude > 0)
+        {
+
+            // Calculate the rotation based on the movement direction
+            float zr = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg + 90f;
+
+            // Apply random rotation variation
+            zr += Random.Range(-RandomRotation, RandomRotation);
+
+            // Set the rotation of the object
+            transform.rotation = Quaternion.Euler(0, 0, zr);
+        }
+        
+
         Speed += Random.Range(-RandomeForce, RandomeForce);
+
+        
     }
 
     // Update is called once per frame

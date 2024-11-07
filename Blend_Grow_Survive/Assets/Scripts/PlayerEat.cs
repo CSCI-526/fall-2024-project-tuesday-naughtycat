@@ -46,8 +46,8 @@ public class PlayerEat : MonoBehaviour
     public int experience = 0;
 
     public Text healthText;
-    public Text experienceText;
-
+    //public Text experienceText;
+    public TextMeshProUGUI experienceText;
     AnalyticsManager analyticsManager;
 
     public void UpdateFood()
@@ -190,7 +190,7 @@ public class PlayerEat : MonoBehaviour
                     {
                         ms.RemoveObject(m.gameObject, ms.created_ammos);
                         Debug.Log("eat ammo");
-                        bulletCount += 1;
+                        bulletCount += 100;
 
                         UpdateBulletText();
                     }
@@ -340,16 +340,25 @@ public class PlayerEat : MonoBehaviour
     public string GenProgressBar(int score, int totalScore)
     {
 
-        string barText = "EXP: ";
-        for (int i = 0; i < score; i++)
+        string barText = "";
+        int temp = 0;
+        for (int i = 0; i < totalScore; i++)
         {
-            barText += "█";
+            if (i < score)
+            {
+                barText += "█";
+                temp++;
+            }
+            else
+            {
+                barText += "░";
+                temp++;
+            }
+            if (temp % 10 == 0 && i != 0)
+            {
+                barText += " | ";
+            }
         }
-        for (int i = 0; i < totalScore - score; i++)
-        {
-            barText += "░";
-        }
-        //Debug.Log("score: " + score + "      text:" + barText);
         return barText;
     }
 
@@ -368,11 +377,11 @@ public class PlayerEat : MonoBehaviour
             //experienceText.text = "Exp : " + experience;
             if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") == 0)
             {
-                experienceText.text = GenProgressBar(experience / 10, 5);
+                experienceText.SetText(GenProgressBar(experience / 10, 5));
             }
             else
             {
-                experienceText.text = GenProgressBar(experience / 10, 10);
+                experienceText.SetText(GenProgressBar(experience / 10, 30));
             }
         }
     }
