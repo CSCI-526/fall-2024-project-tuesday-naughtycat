@@ -63,7 +63,7 @@ public class ObjectGenerator : MonoBehaviour
     private PlayerEat bosscaller;
     private Coroutine createEnemyCoroutine;
 
-    public TextMeshProUGUI levelText;
+    //public TextMeshProUGUI levelText;
 
     // Define enemy size ranges per level
     private Vector2 level1SizeRange = new Vector2(1.0f, 4.0f);

@@ -3,7 +3,14 @@ guid: 35bbc041fbdb64f4abf680b5d720345e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - food: {fileID: 3099519083497924173, guid: dca3b7dc8414c1e4a95da416b1b600de, type: 3}
+  - enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}
+  - enemyArcherPrefab: {fileID: 7928638507455134860, guid: 57a5b7198f581465c910d7a486d5f3d0, type: 3}
+  - healthBarPrefab: {instanceID: 0}
+  - ammo: {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
+  - bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
+  - levelText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
