@@ -149,6 +149,7 @@ public class Tutorial : MonoBehaviour
             Time.timeScale = 1f; // Resume game
             //escapeArrow.SetActive(false); // Hide the escape arrow
             DisplayHint("Great!"); // Update the hint text
+            tutorialAmmo.SetActive(true);
             status++;
         }
     }
