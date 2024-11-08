@@ -113,13 +113,13 @@ public class ObjectGenerator : MonoBehaviour
 
             Vector2 Position2 = new Vector2(9, 9);
             GameObject m2 = Instantiate(enemy, Position2, Quaternion.identity);
-            m2.transform.localScale = new Vector3(2, 2, 1);
+            m2.transform.localScale = new Vector3((float)1.9, (float)1.9, 1);
             m2.gameObject.SetActive(false);
             AddObject(m2, created_enemies);
 
             Vector2 Position3 = new Vector2(-10, -10);
             GameObject m3 = Instantiate(enemy, Position3, Quaternion.identity);
-            m3.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
+            m3.transform.localScale = new Vector3((float)1.9, (float)1.9, 1);
             m3.gameObject.SetActive(false);
             AddObject(m3, created_enemies);
 

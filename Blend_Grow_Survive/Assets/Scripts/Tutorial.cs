@@ -11,7 +11,9 @@ public class Tutorial : MonoBehaviour
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
+    private GameObject food1, food2, food3;
     private bool hasUsedEscape = false;
+    private bool foodEnabled = false;
 
     void Start()
     {
@@ -20,8 +22,16 @@ public class Tutorial : MonoBehaviour
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false);
         upgradePanel = GameObject.Find("UpgradePanel");
-        //upgradePanel.SetActive(false);
-        DisplayHint("Use WSAD to find food!");
+
+        // Locate and disable preset food items
+        food1 = GameObject.Find("Food");
+        food2 = GameObject.Find("Food (1)");
+        food3 = GameObject.Find("Food (2)");
+        food1.SetActive(false);
+        food2.SetActive(false);
+        food3.SetActive(false);
+
+        StartCoroutine(DisplayHintsAndEnableFood());
     }
 
     void Update()
@@ -73,9 +83,23 @@ public class Tutorial : MonoBehaviour
         }
     }
 
+    private IEnumerator DisplayHintsAndEnableFood()
+    {
+        // Display "W S A D" hint for 3 seconds
+        DisplayHint("W  S  A  D");
+        yield return new WaitForSeconds(3f);
+
+        // Display "You are hungry!" hint and enable food
+        DisplayHint("You are hungry!");
+        food1.SetActive(true);
+        food2.SetActive(true);
+        food3.SetActive(true);
+        foodEnabled = true; // Set foodEnabled flag to true after enabling food
+    }
+
     private void CheckFoodConsumption()
     {
-        if (!GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
+        if (foodEnabled && !GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
         {
             status++;
             DisplayHint("Incoming! Swallow it!");
@@ -93,7 +117,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!firstEnemy)
         {
-            DisplayHint("You gained 10 EXP. Press spacebar to escape!");
+            DisplayHint("+10 EXP");
             status++; // Move to the next state to wait for escape
         }
     }
