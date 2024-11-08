@@ -226,6 +226,9 @@ public class Tutorial : MonoBehaviour
         hpText.SetActive(false);
         DisplayHint("Tutorial complete! Click 'Back' to return to main menu.");
         */
+        GameManager.instance.ResetUpgrades();
+        GameManager.instance.ResetHP();
+        GameManager.instance.ResetBulletProperties();
         ChangeScene.switchScene("MainScene");
     }
 

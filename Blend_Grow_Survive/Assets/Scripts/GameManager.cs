@@ -313,11 +313,11 @@ public class GameManager : MonoBehaviour
         {
             if (i < count)
             {
-                barText += "▮ ";
+                barText += "█ ";
             }
             else
             {
-                barText += "▯ ";
+                barText += "░ ";
             }
         }
         progressBar.SetText(barText);
@@ -384,8 +384,6 @@ public class GameManager : MonoBehaviour
                 if (movementSpeedLevel >= MaxUpgradeLevel)
                 {
                     Debug.Log("Movement Speed is already at maximum level.");
-                    movementCount++;
-
                     return;
                 }
                 PlayerMovements pm = FindObjectOfType<PlayerMovements>();
@@ -394,8 +392,8 @@ public class GameManager : MonoBehaviour
                     pm.speed += 0.5f;
                     movementSpeedLevel++;
                     Debug.Log($"Movement Speed Upgraded to Level {movementSpeedLevel}");
-                    speedCount++;
-                    UpgradePanelProgressBar(speedProgressbar, speedCount);
+                    movementCount++;
+                    UpgradePanelProgressBar(movementProgressbar, movementCount);
 
                 }
                 else
@@ -460,6 +458,10 @@ public class GameManager : MonoBehaviour
         bulletRangeLevel = 0;
         shrinkResistanceLevel = 0;
         movementSpeedLevel = 0;
+        shrinkCount = 0;
+        movementCount = 0;
+        rangeCount = 0;
+        speedCount = 0;
         Debug.Log("Upgrade levels have been reset to initial values.");
     }
 }
