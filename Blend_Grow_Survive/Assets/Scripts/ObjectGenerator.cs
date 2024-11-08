@@ -105,6 +105,16 @@ public class ObjectGenerator : MonoBehaviour
     {
         if (isTutorial == 1) // tutorial mode
         {
+            Vector2 playerPosition = GameObject.FindWithTag("Player").transform.position;
+            Vector2 offset1 = new Vector2(-2, -2);
+            Vector2 offset2 = new Vector2(2, -2);
+            Vector2 offset3 = new Vector2(-2, 2);
+
+            // Calculate the positions based on player's position plus offsets
+            Vector2 Position3 = playerPosition + offset1;
+            Vector2 Position4 = playerPosition + offset2;
+            Vector2 Position5 = playerPosition + offset3;
+
             Vector2 Position = new Vector2(9, 9);
             GameObject m = Instantiate(enemy, Position, Quaternion.identity);
             m.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
@@ -117,19 +127,16 @@ public class ObjectGenerator : MonoBehaviour
             m2.gameObject.SetActive(false);
             AddObject(m2, created_enemies);
 
-            Vector2 Position3 = new Vector2(-10, -10);
             GameObject m3 = Instantiate(enemy, Position3, Quaternion.identity);
             m3.transform.localScale = new Vector3((float)1.9, (float)1.9, 1);
             m3.gameObject.SetActive(false);
             AddObject(m3, created_enemies);
 
-            Vector2 Position4 = new Vector2(10, -10);
             GameObject m4 = Instantiate(enemy, Position4, Quaternion.identity);
             m4.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m4.gameObject.SetActive(false);
             AddObject(m4, created_enemies);
 
-            Vector2 Position5 = new Vector2(-10, 10);
             GameObject m5 = Instantiate(enemy, Position5, Quaternion.identity);
             m5.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m5.gameObject.SetActive(false);
@@ -175,10 +182,6 @@ public class ObjectGenerator : MonoBehaviour
             yield return new WaitForSecondsRealtime(create_ammo_time);
             if (created_ammos.Count < max_ammo)
             {
-                
-                   
-                    
-                
                 Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
                 Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
                 while (hit != null)
