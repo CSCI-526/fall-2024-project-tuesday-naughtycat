@@ -50,11 +50,11 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
-            Debug.Log("GameManager: New instance created.");
+            //Debug.Log("GameManager: New instance created.");
         }
         else
         {
-            Debug.Log("GameManager: Instance already exists, destroying this one.");
+            //Debug.Log("GameManager: Instance already exists, destroying this one.");
             Destroy(gameObject);
         }
     }
@@ -67,15 +67,16 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         objectGenerator = FindObjectOfType<ObjectGenerator>();
-        Debug.Log("GameManager Start: playerCoins = " + playerCoins);
+        //Debug.Log("GameManager Start: playerCoins = " + playerCoins);
         UpdateCoinText();
-        Debug.Log("GameManager: Start called. Current coins: " + playerCoins);
+        //Debug.Log("GameManager: Start called. Current coins: " + playerCoins);
         if (bullet != null)
         {
             bulletAttack = bullet.GetComponent<BulletAttack>();
             if (bulletAttack == null)
             {
-                Debug.LogWarning("BulletAttack component not found on bulletPrefab.");
+                //
+                //Debug.LogWarning("BulletAttack component not found on bulletPrefab.");
             }
         }
     }
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateReferences()
     {
-        Debug.Log("Update references is being called");
+        //Debug.Log("Update references is being called");
         // Find the UI elements in the scene and update the references
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
@@ -120,20 +121,20 @@ public class GameManager : MonoBehaviour
         playerHP += hpAmount;
         // clamp or no clamp? -> upgrade of HP
         playerHP = Mathf.Clamp(playerHP, 0, 100);
-        Debug.Log("Current HP: " + playerHP);
+        //Debug.Log("Current HP: " + playerHP);
     }
 
     // Method to deduct HP
     public void DeductHP(int hpAmount)
     {
         playerHP -= hpAmount;
-        Debug.Log("Current HP: " + playerHP);
+        //Debug.Log("Current HP: " + playerHP);
 
         // If HP falls to 0 or below, end the game
         if (playerHP <= 0)
         {
             playerHP = 0;
-            Debug.Log("Player HP is 0, Game Over!");
+            //Debug.Log("Player HP is 0, Game Over!");
             FindObjectOfType<PlayerEat>().GameOver();
         }
     }
@@ -142,7 +143,7 @@ public class GameManager : MonoBehaviour
     public void ResetHP()
     {
         playerHP = 100;
-        Debug.Log("HP reset to: " + playerHP);
+        //Debug.Log("HP reset to: " + playerHP);
 
     }
 
@@ -167,7 +168,7 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int coinAmount)
     {
         playerCoins += coinAmount;
-        Debug.Log("Current Coins: " + playerCoins);
+        //Debug.Log("Current Coins: " + playerCoins);
         UpdateCoinText();
     }
 
@@ -177,11 +178,11 @@ public class GameManager : MonoBehaviour
         if (playerCoins >= coinAmount)
         {
             playerCoins -= coinAmount;
-            Debug.Log("Coins spent: " + coinAmount + ". Remaining Coins: " + playerCoins);
+            //Debug.Log("Coins spent: " + coinAmount + ". Remaining Coins: " + playerCoins);
             UpdateCoinText();
             return true;
         }
-        Debug.Log("Not enough coins to Buy! :(, Come back soon Champ!");
+        //Debug.Log("Not enough coins to Buy! :(, Come back soon Champ!");
         return false;
     }
 
@@ -212,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
         if (coinText != null)
         {
-            Debug.Log("These are the curent amount of playercoins" + playerCoins);
+            //Debug.Log("These are the curent amount of playercoins" + playerCoins);
             coinText.text = "Coins: " + playerCoins.ToString();
         }
     }
@@ -268,7 +269,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ObjectGenerator instance not found! it is here");
+            //Debug.LogError("ObjectGenerator instance not found! it is here");
         }
     }
 
@@ -278,7 +279,7 @@ public class GameManager : MonoBehaviour
     {
         if (bulletAttack == null)
         {
-            Debug.LogWarning("BulletAttack component is not initialized.");
+            //Debug.LogWarning("BulletAttack component is not initialized.");
             return;
         }
 
@@ -287,25 +288,25 @@ public class GameManager : MonoBehaviour
             case "Speed":
                 if (bulletSpeedLevel >= MaxUpgradeLevel)
                 {
-                    Debug.Log("Bullet Speed is already at maximum level.");
+                    //Debug.Log("Bullet Speed is already at maximum level.");
                     return;
                 }
-                Debug.Log("this is the current value of the bullet_speed" + bulletAttack.bullet_speed);
+                //Debug.Log("this is the current value of the bullet_speed" + bulletAttack.bullet_speed);
                 bulletAttack.bullet_speed += 2f;
                 bulletSpeedLevel++;
-                Debug.Log($"Bullet Speed Upgraded to Level {bulletSpeedLevel}");
-                Debug.Log("Gun Speed Upgraded");
+                //Debug.Log($"Bullet Speed Upgraded to Level {bulletSpeedLevel}");
+                //Debug.Log("Gun Speed Upgraded");
                 break;
 
             case "Range":
                 if (bulletRangeLevel >= MaxUpgradeLevel)
                 {
-                    Debug.Log("Bullet Range is already at maximum level.");
+                    //Debug.Log("Bullet Range is already at maximum level.");
                     return;
                 }
                 bulletAttack.max_distance += 2f;
                 bulletRangeLevel++;
-                Debug.Log($"Bullet Range Upgraded to Level {bulletRangeLevel}");
+                //Debug.Log($"Bullet Range Upgraded to Level {bulletRangeLevel}");
                 break;
 
             case "Damage":
@@ -325,7 +326,7 @@ public class GameManager : MonoBehaviour
             case "MovementSpeed":
                 if (movementSpeedLevel >= MaxUpgradeLevel)
                 {
-                    Debug.Log("Movement Speed is already at maximum level.");
+                    //Debug.Log("Movement Speed is already at maximum level.");
                     return;
                 }
                 PlayerMovements pm = FindObjectOfType<PlayerMovements>();
@@ -333,18 +334,18 @@ public class GameManager : MonoBehaviour
                 {
                     pm.speed += 0.5f;
                     movementSpeedLevel++;
-                    Debug.Log($"Movement Speed Upgraded to Level {movementSpeedLevel}");
+                    //Debug.Log($"Movement Speed Upgraded to Level {movementSpeedLevel}");
                 }
                 else
                 {
-                    Debug.LogWarning("PlayerMovements component not found.");
+                    //Debug.LogWarning("PlayerMovements component not found.");
                 }
                 break;
 
             case "ShrinkResistance":
                 if (shrinkResistanceLevel >= MaxUpgradeLevel)
                 {
-                    Debug.Log("Shrink Resistance is already at maximum level.");
+                    //Debug.Log("Shrink Resistance is already at maximum level.");
                     return;
                 }
                 Actions pa = FindObjectOfType<Actions>();
@@ -352,22 +353,22 @@ public class GameManager : MonoBehaviour
                 {
                     pa.shrink_rate -= 0.01f;
                     shrinkResistanceLevel++;
-                    Debug.Log($"Shrink Resistance Upgraded to Level {shrinkResistanceLevel}");
+                    //Debug.Log($"Shrink Resistance Upgraded to Level {shrinkResistanceLevel}");
                 }
                 else
                 {
-                    Debug.LogWarning("Actions component not found.");
+                    //Debug.LogWarning("Actions component not found.");
                 }
                 break;
 
             // If you have other stat upgrades, handle them here
             default:
-                Debug.LogWarning($"Stat type '{statType}' is not recognized.");
+                //Debug.LogWarning($"Stat type '{statType}' is not recognized.");
                 break;
 
             case "MaxHealth":
                 AddHP(5);
-                Debug.Log("HP Upgraded");
+                //Debug.Log("HP Upgraded");
                 break;
             case "BodyDamage":
                 break;
@@ -380,11 +381,11 @@ public class GameManager : MonoBehaviour
         {
             bulletAttack.bullet_speed = initialBulletSpeed;
             bulletAttack.max_distance = initialMaxDistance;
-            Debug.Log("Bullet properties reset to initial values.");
+            //Debug.Log("Bullet properties reset to initial values.");
         }
         else
         {
-            Debug.LogWarning("BulletAttack component not found.");
+            //Debug.LogWarning("BulletAttack component not found.");
         }
     }
 
@@ -394,6 +395,6 @@ public class GameManager : MonoBehaviour
         bulletRangeLevel = 0;
         shrinkResistanceLevel = 0;
         movementSpeedLevel = 0;
-        Debug.Log("Upgrade levels have been reset to initial values.");
+        //Debug.Log("Upgrade levels have been reset to initial values.");
     }
 }

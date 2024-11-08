@@ -23,7 +23,7 @@ public class ObjectGenerator : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
     public int max_food = 100;
-    public int max_ammo = 15;
+    public int max_ammo = 10;
     public float create_food_time = 0.1f;
     public float create_enemy_time = 5.0f;
     public float create_ammo_time = 2f;
@@ -54,8 +54,8 @@ public class ObjectGenerator : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     // Define enemy size ranges per level
-    private Vector2 level1SizeRange = new Vector2(1.0f, 3.0f);
-    private Vector2 level2SizeRange = new Vector2(3.0f, 6.0f);
+    private Vector2 level1SizeRange = new Vector2(1.0f, 4.0f);
+    private Vector2 level2SizeRange = new Vector2(3.0f, 7.0f);
 
     // Enemy Archer spawn chance
     //public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
@@ -157,6 +157,7 @@ public class ObjectGenerator : MonoBehaviour
                 Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
                 while (hit != null)
                 {
+                    //Debug.Log("food collide");
                     Position = GetRandomFoodPosition();
                     hit = Physics2D.OverlapCircle(Position, 0.5f);
                 }
@@ -174,10 +175,15 @@ public class ObjectGenerator : MonoBehaviour
             yield return new WaitForSecondsRealtime(create_ammo_time);
             if (created_ammos.Count < max_ammo)
             {
+                
+                   
+                    
+                
                 Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
                 Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
                 while (hit != null)
                 {
+                    //Debug.Log("ammo collide");
                     Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
                     hit = Physics2D.OverlapCircle(Position, 0.5f);
                 }
@@ -221,12 +227,12 @@ public class ObjectGenerator : MonoBehaviour
                 if (currentWave == 1)
                 {
                     randomSize = Random.Range(level1SizeRange.x, level1SizeRange.y);
-                    Debug.Log("Spawning Enemies of size range " + level1SizeRange.x + " to " + level1SizeRange.y);
+                    //Debug.Log("Spawning Enemies of size range " + level1SizeRange.x + " to " + level1SizeRange.y);
                 }
                 else if (currentWave == 2)
                 {
                     randomSize = Random.Range(level2SizeRange.x, level2SizeRange.y);
-                    Debug.Log("Spawning Enemies of size range " + level2SizeRange.x + " to " + level2SizeRange.y);
+                    //Debug.Log("Spawning Enemies of size range " + level2SizeRange.x + " to " + level2SizeRange.y);
 
                     // Spawn an enemy archer
                     //m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
@@ -235,7 +241,7 @@ public class ObjectGenerator : MonoBehaviour
                 else
                 {
                     randomSize = Random.Range(4.0f, 7.0f); // Default if levels go beyond 2
-                    Debug.Log("Now enemies will only be of size 4-7");
+                    //Debug.Log("Now enemies will only be of size 4-7");
                 }
                 //if (currentWaveEnemies > 7 && currentWave == 2) {
                 //    m = Instantiate(enemyArcherPrefab, Position, Quaternion.identity);
@@ -248,14 +254,14 @@ public class ObjectGenerator : MonoBehaviour
                 AddObject(m, created_enemies);
                 currentWaveEnemies++;
 
-                Debug.Log("Spawned Enemy " + currentWaveEnemies + " for Wave " + currentWave);
+                //Debug.Log("Spawned Enemy " + currentWaveEnemies + " for Wave " + currentWave);
                 //}
                 
                 // Stop spawning if we reached the limit for the current wave
                 if (currentWaveEnemies >= enemiesPerWave)
                 {
                     isWaveActive = false;
-                    Debug.Log("Reached maximum enemies for Wave " + currentWave);
+                    //Debug.Log("Reached maximum enemies for Wave " + currentWave);
                 }
             }
         }
@@ -265,7 +271,7 @@ public class ObjectGenerator : MonoBehaviour
     {
         currentWaveEnemies = 0;
         isWaveActive = true;
-        Debug.Log("Starting Wave " + currentWave);
+        //Debug.Log("Starting Wave " + currentWave);
         levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (currentWave < 3)
         {
@@ -284,13 +290,13 @@ public class ObjectGenerator : MonoBehaviour
         levelText.enabled = false; // Disable the text component
         currentWaveEnemies = 0;
         isWaveActive = true;
-        Debug.Log("Starting Wave " + currentWave);
+        //Debug.Log("Starting Wave " + currentWave);
     }
 
     // Called when all enemies in the wave are cleared
     public void OnWaveCleared()
     {
-        Debug.Log("Wave " + currentWave + " Cleared!");
+        //Debug.Log("Wave " + currentWave + " Cleared!");
         if (currentWave == 1)
         {
             currentWave = 2; // Move to level 2
@@ -377,6 +383,9 @@ public class ObjectGenerator : MonoBehaviour
             // Check if the wave is cleared after an enemy is removed
             if (created_enemies.Count == 0 && currentWaveEnemies >= enemiesPerWave)
             {
+                //Debug.Log("exp=100");
+                created_ammos.Clear();
+
                 OnWaveCleared();
             }
         }
