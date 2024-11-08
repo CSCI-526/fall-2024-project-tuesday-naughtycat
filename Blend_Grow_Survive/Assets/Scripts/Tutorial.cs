@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Tutorial : MonoBehaviour
     private GameObject food1, food2, food3;
     private bool hasUsedEscape = false;
     private bool foodEnabled = false;
+
+    private GameObject player;
+    public TextMeshProUGUI arrow;
 
     void Start()
     {
@@ -32,6 +36,8 @@ public class Tutorial : MonoBehaviour
         food3.SetActive(false);
 
         StartCoroutine(DisplayHintsAndEnableFood());
+
+        arrow.gameObject.SetActive(false);
     }
 
     void Update()
@@ -125,10 +131,11 @@ public class Tutorial : MonoBehaviour
 
     private void WaitAndDisplayEscapeMessage()
     {
+        arrow.gameObject.SetActive(true);
         Time.timeScale = 0f;
         //yield return new WaitForSecondsRealtime(0.1f);
 
-        DisplayHint("Use Spacebar to ESCAPE!!!");
+        DisplayHint("Use W + D + Spacebar to ESCAPE!!!");
         status++;
         // escapeArrow.SetActive(true); // Show escape arrow if needed
     }
@@ -138,6 +145,7 @@ public class Tutorial : MonoBehaviour
         // Wait for the player to press Space to resume
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            arrow.gameObject.SetActive(false);
             Time.timeScale = 1f; // Resume game
             //escapeArrow.SetActive(false); // Hide the escape arrow
             DisplayHint("Great!"); // Update the hint text
