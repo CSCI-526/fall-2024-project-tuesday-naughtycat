@@ -306,7 +306,10 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"No WaveDefinition found for wave {currentWave}");
+            levelText.text = "Boss!";
+            levelText.enabled = true;
+            StartCoroutine(HideLevelTextAfterDelay(1f));
+            //Debug.LogError($"No WaveDefinition found for wave {currentWave}");
         }
     }
 
@@ -376,7 +379,7 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
-            //StartNextWave();
+            StartNextWave();
             Debug.Log("No more waves defined. Proceeding to Boss!");
             StartBossWave(); // Implement your boss wave logic here
         }
