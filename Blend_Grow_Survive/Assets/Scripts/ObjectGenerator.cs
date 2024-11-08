@@ -275,7 +275,9 @@ public class ObjectGenerator : MonoBehaviour
         levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (currentWave < 3)
         {
+            levelText.enabled = true;
             levelText.text = "Level " + currentWave.ToString();
+            StartCoroutine(HideLevelTextAfterDelay(1f));
         }
         else
         {
