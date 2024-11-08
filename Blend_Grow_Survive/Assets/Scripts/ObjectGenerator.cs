@@ -292,6 +292,7 @@ public class ObjectGenerator : MonoBehaviour
             isWaveActive = true;
             Debug.Log("Starting Wave " + currentWave);
             levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+            
             if (currentWave < 4)
             {
                 levelText.text = "Level " + currentWave.ToString();
@@ -375,6 +376,7 @@ public class ObjectGenerator : MonoBehaviour
         }
         else
         {
+            //StartNextWave();
             Debug.Log("No more waves defined. Proceeding to Boss!");
             StartBossWave(); // Implement your boss wave logic here
         }
@@ -444,7 +446,9 @@ public class ObjectGenerator : MonoBehaviour
             Debug.Log($"{m.name} removed from {created_objects}. Remaining objects: {created_objects.Count}");
 
             // Check if all enemies have been spawned and defeated
+            
             if (created_enemies.Count == 0)
+            //if(FindObjectOfType<PlayerEat>().experience == 100)
             {
                 if (currentWave - 1 < waveDefinitions.Count)
                 {
@@ -460,6 +464,7 @@ public class ObjectGenerator : MonoBehaviour
                     Debug.Log("All enemies defeated and no more waves. Boss battle should be active.");
                 }
             }
+            
         }
     }
 

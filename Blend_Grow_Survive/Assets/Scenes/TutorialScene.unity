@@ -3378,6 +3378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   square_renderer: {fileID: 1095392774}
+  minimap: {fileID: 0}
 --- !u!212 &1095392774
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3476,6 +3477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: 100
   playerCoins: 0
+  isTutorial: 1
   coinText: {fileID: 1730525800}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
   bulletSpeedLevel: 0
@@ -4580,7 +4582,7 @@ MonoBehaviour:
   bullet_offset: 1
   isTutorial: 1
   currentWave: 1
-  enemiesPerWave: 10
+  waveDefinitions: []
   levelText: {fileID: 0}
 --- !u!4 &1603899290
 Transform:

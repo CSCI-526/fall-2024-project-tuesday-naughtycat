@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int playerHP = 100;
     //public int playerEXP = 0;
     public int playerCoins = 0;
+    public int isTutorial;
     //public int leftEnemy = 10;
     //public int level = 1;
 
@@ -269,7 +270,7 @@ public class GameManager : MonoBehaviour
     public void CheckWaveCompletion()
     {
         objectGenerator = FindObjectOfType<ObjectGenerator>();
-        if (objectGenerator != null)
+        if (objectGenerator != null && isTutorial == 0)
         {
             if (objectGenerator.created_enemies.Count == 0 && !objectGenerator.IsWaveActive)
             {
@@ -278,7 +279,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("ObjectGenerator instance not found! it is here");
+            //Debug.LogError("ObjectGenerator instance not found! it is here");
         }
     }
 
