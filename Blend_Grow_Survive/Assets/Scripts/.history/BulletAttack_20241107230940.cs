@@ -89,13 +89,14 @@ public class BulletAttack : MonoBehaviour
                         Destroy(collision.gameObject);
                         // Player wins the game if the boss is defeated
                         FindObjectOfType<PlayerEat>().WinGame();
-                        generator.RemoveObject(collision.gameObject, generator.created_enemies);
+                        ms.RemoveObject(m.gameObject, ms.created_enemies);
                     }
                     else
                     {
                         Destroy(collision.gameObject);
+                        ms.RemoveObject(m.gameObject, ms.created_enemies);
                         // Handle enemy defeat
-                        generator.RemoveObject(collision.gameObject, generator.created_enemies);
+                        //generator.RemoveObject(collision.gameObject, generator.created_enemies);
                         FindObjectOfType<PlayerEat>().GainExperience(10);
                         GameManager.instance.AddCoins(2);
                     }

@@ -208,7 +208,7 @@ public class PlayerEat : MonoBehaviour
 
                         analyticsManager.EnemyDefeated();
 
-                        GameManager.instance.AddCoins(2);
+                        GameManager.instance.AddCoins(10);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
                         //GameManager.instance.ReduceLeftEnemy();
