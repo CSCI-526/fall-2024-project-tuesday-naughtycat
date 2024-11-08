@@ -50,6 +50,11 @@ public class UpgradePanelToggle : MonoBehaviour
         if (upgradePanel != null)
         {
             upgradePanel.SetActive(isPanelOpen);
+            GameManager.instance.UpgradePanelProgressBar(GameManager.instance.speedProgressbar, GameManager.instance.getTheCount("speed"));
+            GameManager.instance.UpgradePanelProgressBar(GameManager.instance.shinkProgressbar, GameManager.instance.getTheCount("shrink"));
+            GameManager.instance.UpgradePanelProgressBar(GameManager.instance.movementProgressbar, GameManager.instance.getTheCount("movement"));
+            GameManager.instance.UpgradePanelProgressBar(GameManager.instance.rangeProgressbar, GameManager.instance.getTheCount("range"));
+            //Debug.Log("speed Count: -----  " + GameManager.instance.getTheCount("speed"));
         }
 
         // Pause or resume the game
