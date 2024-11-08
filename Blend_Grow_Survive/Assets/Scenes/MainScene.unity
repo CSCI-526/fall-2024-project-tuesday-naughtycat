@@ -1172,14 +1172,14 @@ MonoBehaviour:
   currentWave: 1
   waveDefinitions:
   - waveNumber: 1
-    normalEnemies: 10
-    archerEnemies: 0
+    totalEnemies: 0
+    archerSpawnChance: 0
   - waveNumber: 2
-    normalEnemies: 7
-    archerEnemies: 3
+    totalEnemies: 0
+    archerSpawnChance: 0
   - waveNumber: 3
-    normalEnemies: 5
-    archerEnemies: 5
+    totalEnemies: 0
+    archerSpawnChance: 0
   levelText: {fileID: 0}
 --- !u!1 &576302119
 GameObject:

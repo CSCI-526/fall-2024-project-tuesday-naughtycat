@@ -345,7 +345,20 @@ public class ObjectGenerator : MonoBehaviour
         }
     }
 
-    // This is a version with condition checking
+    // public void RemoveObject(GameObject m, List<GameObject> created_objects)
+    // {
+    //     if (created_objects.Contains(m))
+    //     {
+    //         created_objects.Remove(m);
+    //         Debug.Log($"{m.name} removed from created_enemies. Remaining enemies: {created_enemies.Count}");
+
+    //         // Check if all enemies have been spawned and defeated
+    //         if (created_enemies.Count == 0 && currentWaveEnemies >= waveDefinitions[currentWave - 1].totalEnemies)
+    //         {
+    //             OnWaveCleared();
+    //         }
+    //     }
+    // }
     public void RemoveObject(GameObject m, List<GameObject> created_objects)
     {
         if (created_objects.Contains(m))
