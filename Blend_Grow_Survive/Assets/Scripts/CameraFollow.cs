@@ -17,9 +17,9 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         instanceCount++;
-        Debug.Log("CameraFollow instance count: " + instanceCount);
+        //Debug.Log("CameraFollow instance count: " + instanceCount);
         cam = Camera.main;
-        Debug.Log("Camera target: " + (target != null ? target.name : "null"));
+        //Debug.Log("Camera target: " + (target != null ? target.name : "null"));
         //AudioListener[] listeners = FindObjectsOfType<AudioListener>();
         //if (listeners.Length > 1)
         //{

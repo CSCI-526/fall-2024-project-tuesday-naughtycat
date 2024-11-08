@@ -53,20 +53,20 @@ public class AnalyticsManager : MonoBehaviour
     public void EnemyShot()
     {
         enemiesShot++;
-        Debug.Log("Enemy shot! Total enemies shot: " + enemiesShot);
+        //Debug.Log("Enemy shot! Total enemies shot: " + enemiesShot);
     }
 
     // Called when an enemy is defeated
     public void EnemyDefeated()
     {
         totalEnemiesDefeated++;
-        Debug.Log("Enemy defeated! Total enemies defeated: " + totalEnemiesDefeated);
+        //Debug.Log("Enemy defeated! Total enemies defeated: " + totalEnemiesDefeated);
     }
 
     // Called when the round ends
     public void EndRound()
     {
-        Debug.Log("Round ended. Total enemies defeated: " + totalEnemiesDefeated + ", Total enemies shot: " + enemiesShot);
+        //Debug.Log("Round ended. Total enemies defeated: " + totalEnemiesDefeated + ", Total enemies shot: " + enemiesShot);
 
         // Send the collected data
         googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot);

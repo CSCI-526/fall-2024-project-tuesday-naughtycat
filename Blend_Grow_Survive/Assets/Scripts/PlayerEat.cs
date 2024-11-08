@@ -178,7 +178,7 @@ public class PlayerEat : MonoBehaviour
                     if (m.gameObject.CompareTag("Food"))
                     {
                         PlayerGrow();
-                        Debug.Log("eat food");
+                        //Debug.Log("eat food");
                         ms.RemoveObject(m.gameObject, ms.created_food);
                         Destroy(m.gameObject);
 
@@ -188,9 +188,9 @@ public class PlayerEat : MonoBehaviour
                     }
                     if (m.gameObject.CompareTag("Ammo"))
                     {
-                        ms.RemoveObject(m.gameObject, ms.created_ammos);
-                        Debug.Log("eat ammo");
-                        bulletCount += 100;
+                        //ms.RemoveObject(m.gameObject, ms.created_ammos);
+                        //Debug.Log("eat ammo");
+                        bulletCount += 1;
 
                         UpdateBulletText();
                     }
@@ -208,7 +208,7 @@ public class PlayerEat : MonoBehaviour
 
                         analyticsManager.EnemyDefeated();
 
-                        GameManager.instance.AddCoins(2);
+                        GameManager.instance.AddCoins(10);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
 
                         //GameManager.instance.ReduceLeftEnemy();
@@ -217,12 +217,12 @@ public class PlayerEat : MonoBehaviour
 
                         if (GameManager.instance != null)
                         {
-                            Debug.Log("Checking if wave is complete or not");
+                            //Debug.Log("Checking if wave is complete or not");
                             GameManager.instance.CheckWaveCompletion();
                         }
                         else
                         {
-                            Debug.LogError("GameManager instance not found!");
+                            //Debug.LogError("GameManager instance not found!");
                         }
                     }
                     else
@@ -267,14 +267,14 @@ public class PlayerEat : MonoBehaviour
                     {
                         PlayerGrow();
                         Destroy(m.gameObject); // Destroy the boss immediately
-                        Debug.Log("Boss defeated!");
+                        //Debug.Log("Boss defeated!");
                         //GameManager.instance.ReduceLeftEnemy();
                         WinGame();
                     }
                     else
                     {
                         GameOver();
-                        Debug.Log("Player defeated by the boss!");
+                        //Debug.Log("Player defeated by the boss!");
                     }
                 }
             }
@@ -291,13 +291,13 @@ public class PlayerEat : MonoBehaviour
             {
                 PlayerGrow();
                 Destroy(collision.gameObject);
-                Debug.Log("Boss defeated!");
+                //Debug.Log("Boss defeated!");
                 WinGame();
             }
             else
             {
                 GameOver();
-                Debug.Log("Player defeated by the boss!");
+                //Debug.Log("Player defeated by the boss!");
             }
         }
 
@@ -411,20 +411,20 @@ public class PlayerEat : MonoBehaviour
     // Function to activate the boss
     public void ActivateBoss()
     {
-        Debug.Log("Activating Boss...");
+        //Debug.Log("Activating Boss...");
         bossActivated = true; // Ensure the boss is only activated once
         boss.SetActive(true); // Make the boss visible in the game
-        Debug.Log("Boss has appeared!");
+        //Debug.Log("Boss has appeared!");
 
 
         if (boss != null)
         {
             boss.SetActive(true); // Make the boss visible in the game
-            Debug.Log("Boss has appeared!");
+            //Debug.Log("Boss has appeared!");
         }
         else
         {
-            Debug.LogError("Boss GameObject is not assigned in PlayerEat script.");
+            //Debug.LogError("Boss GameObject is not assigned in PlayerEat script.");
         }
         backgroundColorChanger = FindObjectOfType<BackgroundColorChanger>();
 
@@ -434,7 +434,7 @@ public class PlayerEat : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("BackgroundColorChanger is not assigned in PlayerEat script.");
+            //Debug.LogWarning("BackgroundColorChanger is not assigned in PlayerEat script.");
         }
 
         // // Display the boss message
@@ -520,13 +520,15 @@ public class PlayerEat : MonoBehaviour
         else
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Reset the upgrade max level values
+            GameManager.instance.ResetUpgrades();
             // Reset the upgraded bullet properties upon restart of the game
             GameManager.instance.ResetBulletProperties();
 
             // Reload the current scene
 
             GameManager.instance.UpdateReferences();
-            Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
+            //Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
         }
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Tutorial : MonoBehaviour
 {
@@ -11,7 +12,12 @@ public class Tutorial : MonoBehaviour
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
+    private GameObject food1, food2, food3;
     private bool hasUsedEscape = false;
+    private bool foodEnabled = false;
+
+    private GameObject player;
+    public TextMeshProUGUI arrow;
 
     void Start()
     {
@@ -20,8 +26,18 @@ public class Tutorial : MonoBehaviour
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false);
         upgradePanel = GameObject.Find("UpgradePanel");
-        //upgradePanel.SetActive(false);
-        DisplayHint("Use WSAD to find food!");
+
+        // Locate and disable preset food items
+        food1 = GameObject.Find("Food");
+        food2 = GameObject.Find("Food (1)");
+        food3 = GameObject.Find("Food (2)");
+        food1.SetActive(false);
+        food2.SetActive(false);
+        food3.SetActive(false);
+
+        StartCoroutine(DisplayHintsAndEnableFood());
+
+        arrow.gameObject.SetActive(false);
     }
 
     void Update()
@@ -38,22 +54,22 @@ public class Tutorial : MonoBehaviour
                 CheckFirstEnemyDefeat();
                 break;
             case 3:
-                CheckEscapePress();
-                break;
-            case 4:
-                RequireEscapeFunction();
-                break;
-            case 5:
                 ShowAmmoHint();
                 break;
-            case 6:
+            case 4:
                 ActivateSecondEnemy();
                 break;
-            case 7:
+            case 5:
                 CheckSecondEnemyDefeat();
                 break;
-            case 8:
+            case 6:
+                WaitAndDisplayEscapeMessage();
+                break;
+            case 7:
                 ActivateOtherEnemies();
+                break;
+            case 8:
+                ResumeAfterEscape();
                 break;
             case 9:
                 CheckAllEnemiesDefeated();
@@ -73,9 +89,23 @@ public class Tutorial : MonoBehaviour
         }
     }
 
+    private IEnumerator DisplayHintsAndEnableFood()
+    {
+        // Display "W S A D" hint for 3 seconds
+        DisplayHint("W  S  A  D");
+        yield return new WaitForSeconds(3f);
+
+        // Display "You are hungry!" hint and enable food
+        DisplayHint("You are hungry!");
+        food1.SetActive(true);
+        food2.SetActive(true);
+        food3.SetActive(true);
+        foodEnabled = true; // Set foodEnabled flag to true after enabling food
+    }
+
     private void CheckFoodConsumption()
     {
-        if (!GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
+        if (foodEnabled && !GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
         {
             status++;
             DisplayHint("Incoming! Swallow it!");
@@ -93,26 +123,33 @@ public class Tutorial : MonoBehaviour
     {
         if (!firstEnemy)
         {
-            DisplayHint("You gained 10 EXP. Press spacebar to escape!");
+            DisplayHint("Great! Now grab the ammo!");
+            ammo.SetActive(true);
             status++; // Move to the next state to wait for escape
         }
     }
 
-    private void CheckEscapePress()
+    private void WaitAndDisplayEscapeMessage()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            hasUsedEscape = true;
-            DisplayHint("Great! Now grab the ammo!");
-            status++;
-        }
+        arrow.gameObject.SetActive(true);
+        Time.timeScale = 0f;
+        //yield return new WaitForSecondsRealtime(0.1f);
+
+        DisplayHint("Use W + D + Spacebar to ESCAPE!!!");
+        status++;
+        // escapeArrow.SetActive(true); // Show escape arrow if needed
     }
 
-    private void RequireEscapeFunction()
+    private void ResumeAfterEscape()
     {
-        if (hasUsedEscape)
+        // Wait for the player to press Space to resume
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            ammo.SetActive(true);
+            arrow.gameObject.SetActive(false);
+            Time.timeScale = 1f; // Resume game
+            //escapeArrow.SetActive(false); // Hide the escape arrow
+            DisplayHint("Great!"); // Update the hint text
+            tutorialAmmo.SetActive(true);
             status++;
         }
     }
@@ -121,7 +158,7 @@ public class Tutorial : MonoBehaviour
     {
         if (!GameObject.Find("ammo"))
         {
-            DisplayHint("Enemy ahead! Left-click to shoot!");
+            DisplayHint("Left-click to shoot!");
             status++;
         }
     }
@@ -137,8 +174,8 @@ public class Tutorial : MonoBehaviour
     {
         if (!secondEnemy)
         {
-            DisplayHint("Perfect! Now use the combo of swallow and shoot!");
-            tutorialAmmo.SetActive(true);
+            DisplayHint("Perfect!");
+            //tutorialAmmo.SetActive(true);
             status++;
         }
     }
@@ -148,9 +185,21 @@ public class Tutorial : MonoBehaviour
         var enemies = ObjectGenerator.ins.getEnemy();
         if (enemies.Count >= 3)
         {
+            Vector2 playerPosition = GameObject.FindWithTag("Player").transform.position;
+            Vector2 offset1 = new Vector2(-2, -2);
+            Vector2 offset2 = new Vector2(2, -2);
+            Vector2 offset3 = new Vector2(-2, 2);
+
+            // Calculate the positions based on player's position plus offsets
+            Vector2 Position3 = playerPosition + offset1;
+            Vector2 Position4 = playerPosition + offset2;
+            Vector2 Position5 = playerPosition + offset3;
             thirdEnemy = enemies[0];
             fourthEnemy = enemies[1];
             fifthEnemy = enemies[2];
+            thirdEnemy.transform.position = Position3;
+            fourthEnemy.transform.position = Position4;
+            fifthEnemy.transform.position = Position5;
             thirdEnemy.SetActive(true);
             fourthEnemy.SetActive(true);
             fifthEnemy.SetActive(true);
@@ -202,6 +251,9 @@ public class Tutorial : MonoBehaviour
         hpText.SetActive(false);
         DisplayHint("Tutorial complete! Click 'Back' to return to main menu.");
         */
+        GameManager.instance.ResetUpgrades();
+        GameManager.instance.ResetHP();
+        GameManager.instance.ResetBulletProperties();
         ChangeScene.switchScene("MainScene");
     }
 

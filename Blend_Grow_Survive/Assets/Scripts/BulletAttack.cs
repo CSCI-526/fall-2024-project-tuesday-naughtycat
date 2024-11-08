@@ -66,33 +66,36 @@ public class BulletAttack : MonoBehaviour
                     analyticsManager.EnemyShot(); // Increment enemiesShot
                 }
                 enemyHealth.TakeDamage(1);
-                Debug.Log("Enemy got a damage ~~~");
+                //Debug.Log("Enemy got a damage ~~~");
 
                 // Reduce enemy size
                 float sizeReduction = 1.0f;
                 Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
-                float minScale = 0.6f;
+                float minScale = 0.8f;
                 newScale.x = Mathf.Max(newScale.x, minScale);
                 newScale.y = Mathf.Max(newScale.y, minScale);
                 enemyHealth.transform.localScale = newScale;
 
 
-                if (enemyHealth.currentHealth < 0.1)
+                if (enemyHealth.currentHealth <= 0.05)
                 {
+
                     //here if the enemy is defeated, totalEnemiesDefeated+1. It has nothing to do with enemiesShot
                     analyticsManager.EnemyDefeated();
 
                     //GameManager.instance.ReduceLeftEnemy();
                     if (collision.CompareTag("Boss"))
                     {
+                        Destroy(collision.gameObject);
                         // Player wins the game if the boss is defeated
                         FindObjectOfType<PlayerEat>().WinGame();
                     }
                     else
                     {
+                        Destroy(collision.gameObject);
                         // Handle enemy defeat
                         //generator.RemoveObject(collision.gameObject, generator.created_enemies);
-                        FindObjectOfType<PlayerEat>().GainExperience(5);
+                        FindObjectOfType<PlayerEat>().GainExperience(10);
                         GameManager.instance.AddCoins(2);
                     }
 
@@ -104,7 +107,7 @@ public class BulletAttack : MonoBehaviour
         // Check for collision with Wall
         else if (collision.CompareTag("Wall"))
         {
-            Debug.Log("Bullet hit the wall and got destroyed.");
+            //Debug.Log("Bullet hit the wall and got destroyed.");
             Destroy(gameObject);
         }
 
