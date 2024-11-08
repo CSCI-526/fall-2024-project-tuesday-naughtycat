@@ -301,6 +301,21 @@ public class PlayerEat : MonoBehaviour
             }
         }
 
+        // else if (collision.gameObject.CompareTag("EnemyArcher"))
+        // {
+        //     // Logic for when the player collides directly with an EnemyArcher
+        //     Transform archerTransform = collision.gameObject.transform;
+        //     if (transform.localScale.x > archerTransform.localScale.x) // Player eats EnemyArcher
+        //     {
+        //         PlayerGrow();
+        //         Destroy(collision.gameObject);
+        //     }
+        //     else // EnemyArcher eats player
+        //     {
+        //         GameOver();
+        //     }
+        // }
+
         else if (collision.gameObject.CompareTag("EnemyArcher"))
         {
             Transform archerTransform = collision.gameObject.transform;
