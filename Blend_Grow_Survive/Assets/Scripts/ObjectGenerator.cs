@@ -52,12 +52,12 @@ public class ObjectGenerator : MonoBehaviour
     private PlayerEat bosscaller;
     private Coroutine createEnemyCoroutine;
 
-    //public TextMeshProUGUI levelText;
+    public TextMeshProUGUI levelText;
 
     // Define enemy size ranges per level
     private Vector2 level1SizeRange = new Vector2(1.0f, 4.0f);
     private Vector2 level2SizeRange = new Vector2(3.0f, 7.0f);
-
+    
     // Enemy Archer spawn chance
     //public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
 
@@ -104,6 +104,7 @@ public class ObjectGenerator : MonoBehaviour
 
     private void Start()
     {
+        levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (isTutorial == 1) // tutorial mode
         {
             Vector2 Position = new Vector2(9, 9);
@@ -276,26 +277,24 @@ public class ObjectGenerator : MonoBehaviour
         currentWaveEnemies = 0;
         isWaveActive = true;
         Debug.Log("Starting Wave " + currentWave);
-        //levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
-        //if (currentWave < 3)
-        //{
-        //    levelText.text = "Level " + currentWave.ToString();
-        //}
-        //else
-        //{
-        //    levelText.text = "Boss!";
-        //}
-        //StartCoroutine(HideLevelTextAfterDelay(1f));
+
+        levelText.enabled = true;
+        if (currentWave < 3)
+        {
+            levelText.text = "Level " + currentWave.ToString();
+        }
+        else
+        {
+            levelText.text = "Boss!";
+        }
+        StartCoroutine(HideLevelTextAfterDelay(1f));
     }
 
-    //IEnumerator HideLevelTextAfterDelay(float delay)
-    //{
-    //    yield return new WaitForSeconds(delay);
-    //    levelText.enabled = false; // Disable the text component
-    //    currentWaveEnemies = 0;
-    //    isWaveActive = true;
-    //    Debug.Log("Starting Wave " + currentWave);
-    //}
+    IEnumerator HideLevelTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        levelText.enabled = false; // Disable the text component
+    }
 
         //Debug.Log("Starting Wave " + currentWave);
     //    levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
@@ -425,6 +424,7 @@ public class ObjectGenerator : MonoBehaviour
 
     public void StartGenerating()
     {
+        StartCoroutine(HideLevelTextAfterDelay(1f));
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
     }
