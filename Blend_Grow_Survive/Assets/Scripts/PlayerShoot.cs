@@ -21,6 +21,7 @@ public class PlayerShoot : MonoBehaviour
     UpgradePanelToggle upgradePanelToggle;
 
     public TextMeshProUGUI arrow;
+    public TextMeshProUGUI outOfBulletText;
 
     void Start()
     {
@@ -32,17 +33,34 @@ public class PlayerShoot : MonoBehaviour
         upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
         // check if this is needed!!!! my branch did not have this code
         currentGun = gun.transform.GetChild(currentGunIndex).GetComponent<Gun>();
+        outOfBulletText = GameObject.Find("OutOfBullet").GetComponent<TextMeshProUGUI>();
+        outOfBulletText.enabled = false;
     }
     void LateUpdate()
     {
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
-        if (Input.GetMouseButtonDown(0) && player_eat.bulletCount > 0 && (upgradePanelToggle == null || !upgradePanelToggle.IsPanelOpen()))
+        if (Input.GetMouseButtonDown(0) && (upgradePanelToggle == null || !upgradePanelToggle.IsPanelOpen()))
         {
-            Shoot();
+            if (player_eat.bulletCount == 0)
+            {
+                //outOfBulletText.transform.position = player.transform.position;
+                outOfBulletText.enabled = true;
+                outOfBulletText.StartCoroutine(HideOutOfBulletTextAfterDelay(1f));
+            }
+            else
+            {
+                Shoot();
+            }
             //currentGun.Shoot();
             //generator.DestroyPlayerBullet();
         }
+    }
+
+    IEnumerator HideOutOfBulletTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        outOfBulletText.enabled = false; // Disable the text component
     }
 
     // handle the dirction of bullet followed by the mouse pointer

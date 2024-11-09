@@ -69,6 +69,7 @@ public class ObjectGenerator : MonoBehaviour
     private Vector2 level1SizeRange = new Vector2(1.0f, 4.0f);
     private Vector2 level2SizeRange = new Vector2(3.0f, 7.0f);
 
+    
     // Enemy Archer spawn chance
     //public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
 
