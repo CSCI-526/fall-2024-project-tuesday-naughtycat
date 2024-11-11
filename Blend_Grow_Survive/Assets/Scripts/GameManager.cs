@@ -111,6 +111,24 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
+
+        if (GameObject.Find("ShrinkProgressBar"))
+        {
+            shinkProgressbar = GameObject.Find("ShrinkProgressBar").GetComponent<TextMeshProUGUI>();
+        }
+        if (GameObject.Find("MovementProgressBar"))
+        {
+            movementProgressbar = GameObject.Find("MovementProgressBar").GetComponent<TextMeshProUGUI>();
+        }
+        if (GameObject.Find("RangeProgressBar"))
+        {
+            rangeProgressbar = GameObject.Find("RangeProgressBar").GetComponent<TextMeshProUGUI>();
+        }
+        if (GameObject.Find("SpeedProgressBar"))
+        {
+            speedProgressbar = GameObject.Find("SpeedProgressBar").GetComponent<TextMeshProUGUI>();
+        }
+        
         //leftEnemy = 10;
         //leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
 
@@ -119,6 +137,7 @@ public class GameManager : MonoBehaviour
 
         // Update the UI to show the current values immediately
         UpdateCoinText();
+        
         //UpdateLeftEnemyText();
         //UpdateLevelText();
         //UpdateEXPText();

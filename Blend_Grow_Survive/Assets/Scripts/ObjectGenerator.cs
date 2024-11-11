@@ -33,9 +33,9 @@ public class ObjectGenerator : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> created_food = new List<GameObject>();
     public int max_food = 100;
-    public int max_ammo = 10;
+    public int max_ammo = 30;
     public float create_food_time = 0.1f;
-    public float create_enemy_time = 5.0f;
+    public float create_enemy_time = 2.0f;
     public float create_ammo_time = 2f;
     public Vector2 pos;
     public GameObject enemy;
@@ -66,8 +66,8 @@ public class ObjectGenerator : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     // Define enemy size ranges per level
-    private Vector2 level1SizeRange = new Vector2(1.0f, 4.0f);
-    private Vector2 level2SizeRange = new Vector2(3.0f, 7.0f);
+    private Vector2 level1SizeRange = new Vector2(1.0f, 2.5f);
+    private Vector2 level2SizeRange = new Vector2(3.0f, 4.0f);
 
     
     // Enemy Archer spawn chance
@@ -222,8 +222,8 @@ public class ObjectGenerator : MonoBehaviour
         Physics2D.SyncTransforms();
         while (true)
         {
-            Debug.Log("Inside EnemyCoroutine enemyCount" + currentWaveEnemies);
-            Debug.Log("Inside EnemyCoroutine currentWave" + currentWave);
+            //Debug.Log("Inside EnemyCoroutine enemyCount" + currentWaveEnemies);
+            //Debug.Log("Inside EnemyCoroutine currentWave" + currentWave);
 
             yield return new WaitForSecondsRealtime(create_enemy_time);
 
@@ -263,7 +263,7 @@ public class ObjectGenerator : MonoBehaviour
                 }
                 else
                 {
-                    randomSize = Random.Range(4.0f, 7.0f); // Default if levels go beyond 2
+                    randomSize = Random.Range(3.0f, 5.0f); // Default if levels go beyond 2
                     //Debug.Log("Now enemies will only be of size 4-7");
                 }
 
