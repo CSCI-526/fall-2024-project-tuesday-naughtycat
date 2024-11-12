@@ -8,6 +8,8 @@ public class PlayerMovements : MonoBehaviour
     ObjectGenerator generator;
     public float speed = 1f;
     public GameObject bullet;
+    private bool hasEscaped = false;
+    AnalyticsManager analyticsManager;
 
 
     private Vector2 lastMoveDirection;  // Track the last movement direction
@@ -17,6 +19,7 @@ public class PlayerMovements : MonoBehaviour
     void Start()
     {
         actions = GetComponent<Actions>();
+        analyticsManager = FindObjectOfType<AnalyticsManager>();
         generator = ObjectGenerator.ins;
         generator.players.Add(gameObject);
     }
@@ -58,9 +61,16 @@ public class PlayerMovements : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-
-            actions.PlayerThrow();  // Handle player throw when space is presse
-            
+            actions.PlayerThrow();  // Handle player throw
+            if (!hasEscaped)
+            {
+                analyticsManager.Escape();  // Call Escape only once per press
+                hasEscaped = true;  // Set flag to true to prevent multiple calls
+            }
+        }
+        else
+        {
+            hasEscaped = false;  // Reset flag when spacebar is released
         }
 
     }

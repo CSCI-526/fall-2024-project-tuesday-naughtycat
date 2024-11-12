@@ -41,6 +41,8 @@ public class AnalyticsManager : MonoBehaviour
 {
     private int totalEnemiesDefeated = 0;
     private int enemiesShot = 0;
+    private int enemiesSwallow = 0;
+    private int escape = 0;
 
     private SendToGoogle googleFormTracker;
 
@@ -56,11 +58,22 @@ public class AnalyticsManager : MonoBehaviour
         //Debug.Log("Enemy shot! Total enemies shot: " + enemiesShot);
     }
 
+    public void EnemySwallow()
+    {
+        enemiesSwallow++;
+        //Debug.Log("Enemy shot! Total enemies shot: " + enemiesShot);
+    }
+
     // Called when an enemy is defeated
     public void EnemyDefeated()
     {
         totalEnemiesDefeated++;
         //Debug.Log("Enemy defeated! Total enemies defeated: " + totalEnemiesDefeated);
+    }
+
+    public void Escape()
+    {
+        escape++;
     }
 
     // Called when the round ends
@@ -69,6 +82,6 @@ public class AnalyticsManager : MonoBehaviour
         //Debug.Log("Round ended. Total enemies defeated: " + totalEnemiesDefeated + ", Total enemies shot: " + enemiesShot);
 
         // Send the collected data
-        googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot);
+        googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape);
     }
 }

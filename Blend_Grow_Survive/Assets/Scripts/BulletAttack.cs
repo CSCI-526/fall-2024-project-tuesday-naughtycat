@@ -65,11 +65,11 @@ public class BulletAttack : MonoBehaviour
                     enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
                     analyticsManager.EnemyShot(); // Increment enemiesShot
                 }
-                enemyHealth.TakeDamage(1);
+                enemyHealth.TakeDamage(2);
                 //Debug.Log("Enemy got a damage ~~~");
 
                 // Reduce enemy size
-                float sizeReduction = 1.0f;
+                float sizeReduction = 2.0f;
                 Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
                 float minScale = 0.8f;
                 newScale.x = Mathf.Max(newScale.x, minScale);
@@ -89,13 +89,12 @@ public class BulletAttack : MonoBehaviour
                         Destroy(collision.gameObject);
                         // Player wins the game if the boss is defeated
                         FindObjectOfType<PlayerEat>().WinGame();
-                        generator.RemoveObject(collision.gameObject, generator.created_enemies);
                     }
                     else
                     {
                         Destroy(collision.gameObject);
                         // Handle enemy defeat
-                        generator.RemoveObject(collision.gameObject, generator.created_enemies);
+                        //generator.RemoveObject(collision.gameObject, generator.created_enemies);
                         FindObjectOfType<PlayerEat>().GainExperience(10);
                         GameManager.instance.AddCoins(2);
                     }

@@ -201,12 +201,12 @@ public class PlayerEat : MonoBehaviour
                     {
                         //RemoveObject(m.gameObject);
                         PlayerGrow();
-                        PlayerGrow();
 
                         Destroy(m.gameObject); // Destroy immediately upon eating
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
 
                         analyticsManager.EnemyDefeated();
+                        analyticsManager.EnemySwallow();
 
                         GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
@@ -236,12 +236,12 @@ public class PlayerEat : MonoBehaviour
                     {
                         //fRemoveObject(m.gameObject);
                         PlayerGrow();
-                        PlayerGrow();
 
                         Destroy(m.gameObject); // Destroy immediately upon eating
                         ms.RemoveObject(m.gameObject, ms.created_enemies);
 
                         analyticsManager.EnemyDefeated();
+                        analyticsManager.EnemySwallow();
 
                         GameManager.instance.AddCoins(2);
                         coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
@@ -311,6 +311,7 @@ public class PlayerEat : MonoBehaviour
                 ms.RemoveObject(collision.gameObject, ms.created_enemies); // Remove from enemies list
 
                 analyticsManager.EnemyDefeated();
+                analyticsManager.EnemySwallow();
 
                 GameManager.instance.AddCoins(2);
                 coinText.text = "Coins: " + GameManager.instance.playerCoins.ToString();
@@ -406,7 +407,7 @@ public class PlayerEat : MonoBehaviour
     void PlayerGrow()
     {
 
-        transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+        transform.localScale += new Vector3(0.085f, 0.085f, 0.085f);
     }
     // Function to activate the boss
     public void ActivateBoss()

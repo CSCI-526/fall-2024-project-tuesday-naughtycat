@@ -12,7 +12,6 @@ public class Actions : MonoBehaviour
     PlayerEat player_eat;
     ObjectGenerator generator;
 
-
     public float forceMagnitude = 10f;
 
     //create black circle(throw)
@@ -38,6 +37,7 @@ public class Actions : MonoBehaviour
         GameObject b = Instantiate(throw_circle, position.position, Quaternion.identity);
         b.GetComponent<ObjectForce>().ApplyForce = true;
         transform.localScale -= new Vector3(0.05f, 0.05f, 0.05f);
+        
         
 
         
