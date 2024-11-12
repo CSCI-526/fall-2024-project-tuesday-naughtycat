@@ -1297,7 +1297,7 @@ MonoBehaviour:
   max_food: 100
   max_ammo: 10
   create_food_time: 0.1
-  create_enemy_time: 0.1
+  create_enemy_time: 2
   create_ammo_time: 1
   pos: {x: 25, y: 8}
   enemy: {fileID: 7928638507455134860, guid: 649c291eac9f426498398c40408b929c, type: 3}

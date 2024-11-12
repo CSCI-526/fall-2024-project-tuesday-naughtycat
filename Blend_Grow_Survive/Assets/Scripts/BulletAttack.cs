@@ -65,11 +65,11 @@ public class BulletAttack : MonoBehaviour
                     enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
                     analyticsManager.EnemyShot(); // Increment enemiesShot
                 }
-                enemyHealth.TakeDamage(2);
+                enemyHealth.TakeDamage(1);
                 //Debug.Log("Enemy got a damage ~~~");
 
                 // Reduce enemy size
-                float sizeReduction = 2.0f;
+                float sizeReduction = 1.0f;
                 Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
                 float minScale = 0.8f;
                 newScale.x = Mathf.Max(newScale.x, minScale);
