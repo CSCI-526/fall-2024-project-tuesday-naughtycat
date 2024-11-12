@@ -190,7 +190,7 @@ public class PlayerEat : MonoBehaviour
                     {
                         //ms.RemoveObject(m.gameObject, ms.created_ammos);
                         //Debug.Log("eat ammo");
-                        bulletCount += 1;
+                        bulletCount += 100;
 
                         UpdateBulletText();
                     }
@@ -488,6 +488,13 @@ public class PlayerEat : MonoBehaviour
         gameObject.SetActive(false);
 
         Time.timeScale = 0f;
+        GameManager.instance.RegisterSession(
+        false, // isWin
+        GameManager.instance.bulletSpeedLevel,
+        GameManager.instance.bulletRangeLevel,
+        GameManager.instance.movementSpeedLevel,
+        GameManager.instance.shrinkResistanceLevel
+        );
         EndRound();
     }
     // If win the game, stop generating anything and update the winning text
@@ -503,6 +510,13 @@ public class PlayerEat : MonoBehaviour
         restart_button.gameObject.SetActive(true);
         healthText.gameObject.SetActive(false);
         Time.timeScale = 0f;
+        GameManager.instance.RegisterSession(
+        true, // isWin
+        GameManager.instance.bulletSpeedLevel,
+        GameManager.instance.bulletRangeLevel,
+        GameManager.instance.movementSpeedLevel,
+        GameManager.instance.shrinkResistanceLevel
+        );
         EndRound();
     }
 
@@ -540,7 +554,7 @@ public class PlayerEat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        //GameManager.instance.RegisterSession();
         currentHealth = maxHealth;
         UpdateHealthUI();
         UpdateExperienceUI();

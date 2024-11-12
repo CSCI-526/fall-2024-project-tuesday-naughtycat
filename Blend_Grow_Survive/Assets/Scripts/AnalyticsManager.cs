@@ -82,6 +82,6 @@ public class AnalyticsManager : MonoBehaviour
         //Debug.Log("Round ended. Total enemies defeated: " + totalEnemiesDefeated + ", Total enemies shot: " + enemiesShot);
 
         // Send the collected data
-        googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape);
+        googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape, GameManager.instance);
     }
 }

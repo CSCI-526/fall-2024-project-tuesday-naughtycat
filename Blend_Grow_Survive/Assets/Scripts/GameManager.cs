@@ -6,6 +6,67 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    #region Session and Win Tracking
+
+    // Overall Results
+    public int Win_number = 0;
+    public int Lose_number = 0;
+
+    // Wins and Sessions at Each Upgrade Level
+
+    // Bullet Speed (BS)
+    public int Total_sessions_BS_level_1 = 0;
+    public int Wins_BS_level_1 = 0;
+    public int Total_sessions_BS_level_2 = 0;
+    public int Wins_BS_level_2 = 0;
+    public int Total_sessions_BS_level_3 = 0;
+    public int Wins_BS_level_3 = 0;
+    public int Total_sessions_BS_level_4 = 0;
+    public int Wins_BS_level_4 = 0;
+    public int Total_sessions_BS_level_5 = 0;
+    public int Wins_BS_level_5 = 0;
+
+    // Bullet Range (BR)
+    // Repeat the same pattern for BR
+    public int Total_sessions_BR_level_1 = 0;
+    public int Wins_BR_level_1 = 0;
+    public int Total_sessions_BR_level_2 = 0;
+    public int Wins_BR_level_2 = 0;
+    public int Total_sessions_BR_level_3 = 0;
+    public int Wins_BR_level_3 = 0;
+    public int Total_sessions_BR_level_4 = 0;
+    public int Wins_BR_level_4 = 0;
+    public int Total_sessions_BR_level_5 = 0;
+    public int Wins_BR_level_5 = 0;
+
+    // Movement Speed (MS)
+    // Repeat the same pattern for MS
+    public int Total_sessions_MS_level_1 = 0;
+    public int Wins_MS_level_1 = 0;
+    public int Total_sessions_MS_level_2 = 0;
+    public int Wins_MS_level_2 = 0;
+    public int Total_sessions_MS_level_3 = 0;
+    public int Wins_MS_level_3 = 0;
+    public int Total_sessions_MS_level_4 = 0;
+    public int Wins_MS_level_4 = 0;
+    public int Total_sessions_MS_level_5 = 0;
+    public int Wins_MS_level_5 = 0;
+
+    // Shrink Resistance (SR)
+    // Repeat the same pattern for SR
+    public int Total_sessions_SR_level_1 = 0;
+    public int Wins_SR_level_1 = 0;
+    public int Total_sessions_SR_level_2 = 0;
+    public int Wins_SR_level_2 = 0;
+    public int Total_sessions_SR_level_3 = 0;
+    public int Wins_SR_level_3 = 0;
+    public int Total_sessions_SR_level_4 = 0;
+    public int Wins_SR_level_4 = 0;
+    public int Total_sessions_SR_level_5 = 0;
+    public int Wins_SR_level_5 = 0;
+
+    #endregion
+
     public static GameManager instance;
     private ObjectGenerator objectGenerator;
     public int playerHP = 100;
@@ -483,5 +544,267 @@ public class GameManager : MonoBehaviour
         rangeCount = 0;
         speedCount = 0;
         Debug.Log("Upgrade levels have been reset to initial values.");
+    }
+
+    public void RegisterSession(bool isWin, int bulletSpeedLevel, int bulletRangeLevel, int movementSpeedLevel, int shrinkResistanceLevel)
+    {
+        // Bullet Speed
+        switch (bulletSpeedLevel)
+        {
+            case 1:
+                Total_sessions_BS_level_1++;
+                if (isWin) Wins_BS_level_1++;
+                break;
+            case 2:
+                Total_sessions_BS_level_2++;
+                if (isWin) Wins_BS_level_2++;
+                break;
+            case 3:
+                Total_sessions_BS_level_3++;
+                if (isWin) Wins_BS_level_3++;
+                break;
+            case 4:
+                Total_sessions_BS_level_4++;
+                if (isWin) Wins_BS_level_4++;
+                break;
+            case 5:
+                Total_sessions_BS_level_5++;
+                if (isWin) Wins_BS_level_5++;
+                break;
+        }
+
+        // Bullet Range
+        switch (bulletRangeLevel)
+        {
+            case 1:
+                Total_sessions_BR_level_1++;
+                if (isWin) Wins_BR_level_1++;
+                break;
+            // Repeat for levels 2 to 5
+            case 2:
+                Total_sessions_BR_level_2++;
+                if (isWin) Wins_BR_level_2++;
+                break;
+            case 3:
+                Total_sessions_BR_level_3++;
+                if (isWin) Wins_BR_level_3++;
+                break;
+            case 4:
+                Total_sessions_BR_level_4++;
+                if (isWin) Wins_BR_level_4++;
+                break;
+            case 5:
+                Total_sessions_BR_level_5++;
+                if (isWin) Wins_BR_level_5++;
+                break;
+        }
+
+        // Movement Speed
+        switch (movementSpeedLevel)
+        {
+            case 1:
+                Total_sessions_MS_level_1++;
+                if (isWin) Wins_MS_level_1++;
+                break;
+            // Repeat for levels 2 to 5
+            case 2:
+                Total_sessions_MS_level_2++;
+                if (isWin) Wins_MS_level_2++;
+                break;
+            case 3:
+                Total_sessions_MS_level_3++;
+                if (isWin) Wins_MS_level_3++;
+                break;
+            case 4:
+                Total_sessions_MS_level_4++;
+                if (isWin) Wins_MS_level_4++;
+                break;
+            case 5:
+                Total_sessions_MS_level_5++;
+                if (isWin) Wins_MS_level_5++;
+                break;
+        }
+
+        // Shrink Resistance
+        switch (shrinkResistanceLevel)
+        {
+            case 1:
+                Total_sessions_SR_level_1++;
+                if (isWin) Wins_SR_level_1++;
+                break;
+            // Repeat for levels 2 to 5
+            case 2:
+                Total_sessions_SR_level_2++;
+                if (isWin) Wins_SR_level_2++;
+                break;
+            case 3:
+                Total_sessions_SR_level_3++;
+                if (isWin) Wins_SR_level_3++;
+                break;
+            case 4:
+                Total_sessions_SR_level_4++;
+                if (isWin) Wins_SR_level_4++;
+                break;
+            case 5:
+                Total_sessions_SR_level_5++;
+                if (isWin) Wins_SR_level_5++;
+                break;
+        }
+        if (isWin)
+        {
+            Win_number++;
+        }
+        else
+        {
+            Lose_number++;
+        }
+    }
+
+    //public void RegisterWin()
+    //{
+    //    Win_number++;
+
+    //    // Bullet Speed
+    //    switch (bulletSpeedLevel)
+    //    {
+    //        case 1:
+    //            Wins_BS_level_1++;
+    //            break;
+    //        // Repeat for levels 2 to 5
+    //        case 2:
+    //            Wins_BS_level_2++;
+    //            break;
+    //        case 3:
+    //            Wins_BS_level_3++;
+    //            break;
+    //        case 4:
+    //            Wins_BS_level_4++;
+    //            break;
+    //        case 5:
+    //            Wins_BS_level_5++;
+    //            break;
+    //    }
+
+    //    // Bullet Range
+    //    switch (bulletRangeLevel)
+    //    {
+    //        case 1:
+    //            Wins_BR_level_1++;
+    //            break;
+    //        // Repeat for levels 2 to 5
+    //        case 2:
+    //            Wins_BR_level_2++;
+    //            break;
+    //        case 3:
+    //            Wins_BR_level_3++;
+    //            break;
+    //        case 4:
+    //            Wins_BR_level_4++;
+    //            break;
+    //        case 5:
+    //            Wins_BR_level_5++;
+    //            break;
+    //    }
+
+    //    // Movement Speed
+    //    switch (movementSpeedLevel)
+    //    {
+    //        case 1:
+    //            Wins_MS_level_1++;
+    //            break;
+    //        // Repeat for levels 2 to 5
+    //        case 2:
+    //            Wins_MS_level_2++;
+    //            break;
+    //        case 3:
+    //            Wins_MS_level_3++;
+    //            break;
+    //        case 4:
+    //            Wins_MS_level_4++;
+    //            break;
+    //        case 5:
+    //            Wins_MS_level_5++;
+    //            break;
+    //    }
+
+    //    // Shrink Resistance
+    //    switch (shrinkResistanceLevel)
+    //    {
+    //        case 1:
+    //            Wins_SR_level_1++;
+    //            break;
+    //        // Repeat for levels 2 to 5
+    //        case 2:
+    //            Wins_SR_level_2++;
+    //            break;
+    //        case 3:
+    //            Wins_SR_level_3++;
+    //            break;
+    //        case 4:
+    //            Wins_SR_level_4++;
+    //            break;
+    //        case 5:
+    //            Wins_SR_level_5++;
+    //            break;
+    //    }
+    //}
+
+    //public void RegisterLoss()
+    //{
+    //    Lose_number++;
+    //}
+    public float CalculateWinProbability(string upgradeType)
+    {
+        float totalWinProbability = 0f;
+        int totalLevels = 5; // Levels 1 to 5
+
+        switch (upgradeType)
+        {
+            case "BulletSpeed":
+                totalWinProbability = (
+                    GetWinProbability(Wins_BS_level_1, Total_sessions_BS_level_1) +
+                    GetWinProbability(Wins_BS_level_2, Total_sessions_BS_level_2) +
+                    GetWinProbability(Wins_BS_level_3, Total_sessions_BS_level_3) +
+                    GetWinProbability(Wins_BS_level_4, Total_sessions_BS_level_4) +
+                    GetWinProbability(Wins_BS_level_5, Total_sessions_BS_level_5)
+                ) / totalLevels;
+                break;
+            case "BulletRange":
+                totalWinProbability = (
+                    GetWinProbability(Wins_BR_level_1, Total_sessions_BR_level_1) +
+                    GetWinProbability(Wins_BR_level_2, Total_sessions_BR_level_2) +
+                    GetWinProbability(Wins_BR_level_3, Total_sessions_BR_level_3) +
+                    GetWinProbability(Wins_BR_level_4, Total_sessions_BR_level_4) +
+                    GetWinProbability(Wins_BR_level_5, Total_sessions_BR_level_5)
+                ) / totalLevels;
+                break;
+            case "MovementSpeed":
+                totalWinProbability = (
+                    GetWinProbability(Wins_MS_level_1, Total_sessions_MS_level_1) +
+                    GetWinProbability(Wins_MS_level_2, Total_sessions_MS_level_2) +
+                    GetWinProbability(Wins_MS_level_3, Total_sessions_MS_level_3) +
+                    GetWinProbability(Wins_MS_level_4, Total_sessions_MS_level_4) +
+                    GetWinProbability(Wins_MS_level_5, Total_sessions_MS_level_5)
+                ) / totalLevels;
+                break;
+            case "ShrinkResistance":
+                totalWinProbability = (
+                    GetWinProbability(Wins_SR_level_1, Total_sessions_SR_level_1) +
+                    GetWinProbability(Wins_SR_level_2, Total_sessions_SR_level_2) +
+                    GetWinProbability(Wins_SR_level_3, Total_sessions_SR_level_3) +
+                    GetWinProbability(Wins_SR_level_4, Total_sessions_SR_level_4) +
+                    GetWinProbability(Wins_SR_level_5, Total_sessions_SR_level_5)
+                ) / totalLevels;
+                break;
+        }
+
+        return totalWinProbability;
+    }
+
+    public float GetWinProbability(int wins, int sessions)
+    {
+        if (sessions == 0)
+            return 0f;
+        return ((float)wins / sessions) * 100f;
     }
 }
