@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class SendToGoogle : MonoBehaviour
 {
     [SerializeField]
-    private string URL = "https://docs.google.com/forms/d/e/1FAIpQLScmEefb4WP_tlhF4BV3FmBkw-o_JOC0ubvme369KOjwmviRvw/viewform";
+    private string URL = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScmEefb4WP_tlhF4BV3FmBkw-o_JOC0ubvme369KOjwmviRvw/formResponse";
 
     private long _sessionID;
     private int _totalEnemiesDefeated;
