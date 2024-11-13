@@ -559,27 +559,27 @@ public class GameManager : MonoBehaviour
         // Bullet Speed
         switch (bulletSpeedLevel)
         {
-            case 1:
+            case 0:
                 Total_sessions_BS_level_0++;
                 if (isWin) Wins_BS_level_0++;
                 break;
-            case 2:
+            case 1:
                 Total_sessions_BS_level_1++;
                 if (isWin) Wins_BS_level_1++;
                 break;
-            case 3:
+            case 2:
                 Total_sessions_BS_level_2++;
                 if (isWin) Wins_BS_level_2++;
                 break;
-            case 4:
+            case 3:
                 Total_sessions_BS_level_3++;
                 if (isWin) Wins_BS_level_3++;
                 break;
-            case 5:
+            case 4:
                 Total_sessions_BS_level_4++;
                 if (isWin) Wins_BS_level_4++;
                 break;
-            case 6:
+            case 5:
                 Total_sessions_BS_level_5++;
                 if (isWin) Wins_BS_level_5++;
                 break;
@@ -588,27 +588,27 @@ public class GameManager : MonoBehaviour
         // Bullet Range
         switch (bulletRangeLevel)
         {
-            case 1:
+            case 0:
                 Total_sessions_BR_level_0++;
                 if (isWin) Wins_BR_level_0++;
                 break;
-            case 2:
+            case 1:
                 Total_sessions_BR_level_1++;
                 if (isWin) Wins_BR_level_1++;
                 break;
-            case 3:
+            case 2:
                 Total_sessions_BR_level_2++;
                 if (isWin) Wins_BR_level_2++;
                 break;
-            case 4:
+            case 3:
                 Total_sessions_BR_level_3++;
                 if (isWin) Wins_BR_level_3++;
                 break;
-            case 5:
+            case 4:
                 Total_sessions_BR_level_4++;
                 if (isWin) Wins_BR_level_4++;
                 break;
-            case 6:
+            case 5:
                 Total_sessions_BR_level_5++;
                 if (isWin) Wins_BR_level_5++;
                 break;
@@ -617,28 +617,28 @@ public class GameManager : MonoBehaviour
         // Movement Speed
         switch (movementSpeedLevel)
         {
-            case 1:
+            case 0:
                 Total_sessions_MS_level_0++;
                 if (isWin) Wins_MS_level_0++;
                 break;
-            case 2:
+            case 1:
                 Total_sessions_MS_level_1++;
                 if (isWin) Wins_MS_level_1++;
                 break;
             // Repeat for levels 2 to 5
-            case 3:
+            case 2:
                 Total_sessions_MS_level_2++;
                 if (isWin) Wins_MS_level_2++;
                 break;
-            case 4:
+            case 3:
                 Total_sessions_MS_level_3++;
                 if (isWin) Wins_MS_level_3++;
                 break;
-            case 5:
+            case 4:
                 Total_sessions_MS_level_4++;
                 if (isWin) Wins_MS_level_4++;
                 break;
-            case 6:
+            case 5:
                 Total_sessions_MS_level_5++;
                 if (isWin) Wins_MS_level_5++;
                 break;
@@ -647,28 +647,28 @@ public class GameManager : MonoBehaviour
         // Shrink Resistance
         switch (shrinkResistanceLevel)
         {
-            case 1:
+            case 0:
                 Total_sessions_SR_level_0++;
                 if (isWin) Wins_SR_level_0++;
                 break;
-            case 2:
+            case 1:
                 Total_sessions_SR_level_1++;
                 if (isWin) Wins_SR_level_1++;
                 break;
             // Repeat for levels 2 to 5
-            case 3:
+            case 2:
                 Total_sessions_SR_level_2++;
                 if (isWin) Wins_SR_level_2++;
                 break;
-            case 4:
+            case 3:
                 Total_sessions_SR_level_3++;
                 if (isWin) Wins_SR_level_3++;
                 break;
-            case 5:
+            case 4:
                 Total_sessions_SR_level_4++;
                 if (isWin) Wins_SR_level_4++;
                 break;
-            case 6:
+            case 5:
                 Total_sessions_SR_level_5++;
                 if (isWin) Wins_SR_level_5++;
                 break;
@@ -779,7 +779,7 @@ public class GameManager : MonoBehaviour
     public float CalculateWinProbability(string upgradeType)
     {
         float totalWinProbability = 0f;
-        int totalLevels = 5; // Levels 1 to 5
+        int totalLevels = 6; // Levels 1 to 5
 
         switch (upgradeType)
         {

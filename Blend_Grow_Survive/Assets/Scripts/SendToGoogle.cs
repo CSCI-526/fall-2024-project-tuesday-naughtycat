@@ -71,6 +71,12 @@ public class SendToGoogle : MonoBehaviour
         float winProbSR_Level4 = gameManager.Total_sessions_SR_level_4 > 0 ? (gameManager.Wins_SR_level_4 * 100f) / gameManager.Total_sessions_SR_level_4 : 0f;
         float winProbSR_Level5 = gameManager.Total_sessions_SR_level_5 > 0 ? (gameManager.Wins_SR_level_5 * 100f) / gameManager.Total_sessions_SR_level_5 : 0f;
 
+
+        Debug.Log("this is the winProbBS_Level0" + winProbBS_Level0);
+        Debug.Log("this is the winProbBR_Level0" + winProbBR_Level0);
+        Debug.Log("this is the winProbMS_Level0" + winProbMS_Level0);
+        Debug.Log("this is the winProbSR_Level0" + winProbSR_Level0);
+
         WWWForm form = new WWWForm();
         form.AddField("entry.1884265043", sessionID);
         form.AddField("entry.298833661", totalEnemiesDefeated);
@@ -149,7 +155,7 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1686677321", winProbBS_Level4.ToString("F2"));
         form.AddField("entry.1865476006", winProbBS_Level5.ToString("F2"));
 
-        form.AddField("entry.1865476006", winProbBR_Level0.ToString("F2"));
+        form.AddField("entry.264827039", winProbBR_Level0.ToString("F2"));
         form.AddField("entry.981031203", winProbBR_Level1.ToString("F2"));
         form.AddField("entry.1821153898", winProbBR_Level2.ToString("F2"));
         form.AddField("entry.2081795298", winProbBR_Level3.ToString("F2"));
