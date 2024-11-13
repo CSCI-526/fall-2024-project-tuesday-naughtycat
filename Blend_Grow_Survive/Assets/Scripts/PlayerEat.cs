@@ -190,7 +190,7 @@ public class PlayerEat : MonoBehaviour
                     {
                         //ms.RemoveObject(m.gameObject, ms.created_ammos);
                         //Debug.Log("eat ammo");
-                        bulletCount += 1;
+                        bulletCount += 100;
 
                         UpdateBulletText();
                     }

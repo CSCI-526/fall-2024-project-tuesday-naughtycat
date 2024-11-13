@@ -43,24 +43,28 @@ public class SendToGoogle : MonoBehaviour
         float winProbSR = gameManager.CalculateWinProbability("ShrinkResistance");
 
         // calculating win probability per level of each type of upgrade
+        float winProbBS_Level0 = gameManager.Total_sessions_BS_level_0 > 0 ? (gameManager.Wins_BS_level_0 * 100f) / gameManager.Total_sessions_BS_level_0 : 0f;
         float winProbBS_Level1 = gameManager.Total_sessions_BS_level_1 > 0 ? (gameManager.Wins_BS_level_1 * 100f) / gameManager.Total_sessions_BS_level_1 : 0f;
         float winProbBS_Level2 = gameManager.Total_sessions_BS_level_2 > 0 ? (gameManager.Wins_BS_level_2 * 100f) / gameManager.Total_sessions_BS_level_2 : 0f;
         float winProbBS_Level3 = gameManager.Total_sessions_BS_level_3 > 0 ? (gameManager.Wins_BS_level_3 * 100f) / gameManager.Total_sessions_BS_level_3 : 0f;
         float winProbBS_Level4 = gameManager.Total_sessions_BS_level_4 > 0 ? (gameManager.Wins_BS_level_4 * 100f) / gameManager.Total_sessions_BS_level_4 : 0f;
         float winProbBS_Level5 = gameManager.Total_sessions_BS_level_5 > 0 ? (gameManager.Wins_BS_level_5 * 100f) / gameManager.Total_sessions_BS_level_5 : 0f;
 
+        float winProbBR_Level0 = gameManager.Total_sessions_BR_level_0 > 0 ? (gameManager.Wins_BR_level_0 * 100f) / gameManager.Total_sessions_BR_level_0 : 0f;
         float winProbBR_Level1 = gameManager.Total_sessions_BR_level_1 > 0 ? (gameManager.Wins_BR_level_1 * 100f) / gameManager.Total_sessions_BR_level_1 : 0f;
         float winProbBR_Level2 = gameManager.Total_sessions_BR_level_2 > 0 ? (gameManager.Wins_BR_level_2 * 100f) / gameManager.Total_sessions_BR_level_2 : 0f;
         float winProbBR_Level3 = gameManager.Total_sessions_BR_level_3 > 0 ? (gameManager.Wins_BR_level_3 * 100f) / gameManager.Total_sessions_BR_level_3 : 0f;
         float winProbBR_Level4 = gameManager.Total_sessions_BR_level_4 > 0 ? (gameManager.Wins_BR_level_4 * 100f) / gameManager.Total_sessions_BR_level_4 : 0f;
         float winProbBR_Level5 = gameManager.Total_sessions_BR_level_5 > 0 ? (gameManager.Wins_BR_level_5 * 100f) / gameManager.Total_sessions_BR_level_5 : 0f;
 
+        float winProbMS_Level0 = gameManager.Total_sessions_MS_level_0 > 0 ? (gameManager.Wins_MS_level_0 * 100f) / gameManager.Total_sessions_MS_level_0 : 0f;
         float winProbMS_Level1 = gameManager.Total_sessions_MS_level_1 > 0 ? (gameManager.Wins_MS_level_1 * 100f) / gameManager.Total_sessions_MS_level_1 : 0f;
         float winProbMS_Level2 = gameManager.Total_sessions_MS_level_2 > 0 ? (gameManager.Wins_MS_level_2 * 100f) / gameManager.Total_sessions_MS_level_2 : 0f;
         float winProbMS_Level3 = gameManager.Total_sessions_MS_level_3 > 0 ? (gameManager.Wins_MS_level_3 * 100f) / gameManager.Total_sessions_MS_level_3 : 0f;
         float winProbMS_Level4 = gameManager.Total_sessions_MS_level_4 > 0 ? (gameManager.Wins_MS_level_4 * 100f) / gameManager.Total_sessions_MS_level_4 : 0f;
         float winProbMS_Level5 = gameManager.Total_sessions_MS_level_5 > 0 ? (gameManager.Wins_MS_level_5 * 100f) / gameManager.Total_sessions_MS_level_5 : 0f;
 
+        float winProbSR_Level0 = gameManager.Total_sessions_SR_level_0 > 0 ? (gameManager.Wins_SR_level_0 * 100f) / gameManager.Total_sessions_SR_level_0 : 0f;
         float winProbSR_Level1 = gameManager.Total_sessions_SR_level_1 > 0 ? (gameManager.Wins_SR_level_1 * 100f) / gameManager.Total_sessions_SR_level_1 : 0f;
         float winProbSR_Level2 = gameManager.Total_sessions_SR_level_2 > 0 ? (gameManager.Wins_SR_level_2 * 100f) / gameManager.Total_sessions_SR_level_2 : 0f;
         float winProbSR_Level3 = gameManager.Total_sessions_SR_level_3 > 0 ? (gameManager.Wins_SR_level_3 * 100f) / gameManager.Total_sessions_SR_level_3 : 0f;
@@ -79,6 +83,8 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.85732061", gameManager.Win_number.ToString());
         form.AddField("entry.1488563677", gameManager.Lose_number.ToString());
 
+        form.AddField("entry.557217919", gameManager.Total_sessions_BS_level_0.ToString());
+        form.AddField("entry.1342663829", gameManager.Wins_BS_level_0.ToString());
         form.AddField("entry.1216866866", gameManager.Total_sessions_BS_level_1.ToString());
         form.AddField("entry.1694317104", gameManager.Wins_BS_level_1.ToString());
         form.AddField("entry.2003226039", gameManager.Total_sessions_BS_level_2.ToString());
@@ -90,6 +96,8 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1871984959", gameManager.Total_sessions_BS_level_5.ToString());
         form.AddField("entry.413984651", gameManager.Wins_BS_level_5.ToString());
 
+        form.AddField("entry.2012468691", gameManager.Total_sessions_BR_level_0.ToString());
+        form.AddField("entry.2011324107", gameManager.Wins_BR_level_0.ToString());
         form.AddField("entry.2066949797", gameManager.Total_sessions_BR_level_1.ToString());
         form.AddField("entry.1129305520", gameManager.Wins_BR_level_1.ToString());
         form.AddField("entry.881587315", gameManager.Total_sessions_BR_level_2.ToString());
@@ -101,6 +109,8 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.959153928", gameManager.Total_sessions_BR_level_5.ToString());
         form.AddField("entry.2118746552", gameManager.Wins_BR_level_5.ToString());
 
+        form.AddField("entry.22355104", gameManager.Total_sessions_MS_level_0.ToString());
+        form.AddField("entry.375827971", gameManager.Wins_MS_level_0.ToString());
         form.AddField("entry.1188133047", gameManager.Total_sessions_MS_level_1.ToString());
         form.AddField("entry.640272403", gameManager.Wins_MS_level_1.ToString());
         form.AddField("entry.1623281794", gameManager.Total_sessions_MS_level_2.ToString());
@@ -112,6 +122,8 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.822388275", gameManager.Total_sessions_MS_level_5.ToString());
         form.AddField("entry.725028977", gameManager.Wins_MS_level_5.ToString());
 
+        form.AddField("entry.322429898", gameManager.Total_sessions_SR_level_0.ToString());
+        form.AddField("entry.1370134867", gameManager.Wins_SR_level_0.ToString());
         form.AddField("entry.1112930783", gameManager.Total_sessions_SR_level_1.ToString());
         form.AddField("entry.432346338", gameManager.Wins_SR_level_1.ToString());
         form.AddField("entry.446405374", gameManager.Total_sessions_SR_level_2.ToString());
@@ -130,24 +142,28 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1762443621", winProbSR.ToString("F2"));
 
         // win probability per level of one type of upgrade
+        form.AddField("entry.1708779149", winProbBS_Level0.ToString("F2"));
         form.AddField("entry.1300144322", winProbBS_Level1.ToString("F2"));
         form.AddField("entry.824982932", winProbBS_Level2.ToString("F2"));
         form.AddField("entry.969123627", winProbBS_Level3.ToString("F2"));
         form.AddField("entry.1686677321", winProbBS_Level4.ToString("F2"));
         form.AddField("entry.1865476006", winProbBS_Level5.ToString("F2"));
 
+        form.AddField("entry.1865476006", winProbBR_Level0.ToString("F2"));
         form.AddField("entry.981031203", winProbBR_Level1.ToString("F2"));
         form.AddField("entry.1821153898", winProbBR_Level2.ToString("F2"));
         form.AddField("entry.2081795298", winProbBR_Level3.ToString("F2"));
         form.AddField("entry.16190821", winProbBR_Level4.ToString("F2"));
         form.AddField("entry.1342111069", winProbBR_Level5.ToString("F2"));
 
+        form.AddField("entry.1513219487", winProbMS_Level0.ToString("F2"));
         form.AddField("entry.369999648", winProbMS_Level1.ToString("F2"));
         form.AddField("entry.1779907303", winProbMS_Level2.ToString("F2"));
         form.AddField("entry.679457700", winProbMS_Level3.ToString("F2"));
         form.AddField("entry.1497329997", winProbMS_Level4.ToString("F2"));
         form.AddField("entry.1166658289", winProbMS_Level5.ToString("F2"));
 
+        form.AddField("entry.357403862", winProbSR_Level0.ToString("F2"));
         form.AddField("entry.1182268923", winProbSR_Level1.ToString("F2"));
         form.AddField("entry.1660312273", winProbSR_Level2.ToString("F2"));
         form.AddField("entry.1044719861", winProbSR_Level3.ToString("F2"));
