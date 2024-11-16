@@ -26,8 +26,8 @@ public class SendToGoogle : MonoBehaviour
 
         _enemiesSwallow = enemiesSwallow;
         _escape = escape;
-        _survivalTime = survivalTime;
-        _isWin = isWin;
+        // _survivalTime = survivalTime;
+        // _isWin = isWin;
         float shootingPercentage = 0f;
         float ratio = 0f;
         if (_totalEnemiesDefeated > 0)
@@ -182,7 +182,7 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.833627712", winProbSR_Level5.ToString("F2"));
 
         // Track how long the player survived each round, and whether they won or lost
-        form.AddField("entry.2043309709", ((byte)survivalTime).ToString());
+        form.AddField("entry.2043309709", survivalTime);
         form.AddField("entry.749494884", isWin ? "Win" : "Lose");
 
         // Send the form

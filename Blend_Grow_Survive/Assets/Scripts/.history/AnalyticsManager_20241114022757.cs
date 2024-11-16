@@ -6,8 +6,8 @@ public class AnalyticsManager : MonoBehaviour
     private int enemiesShot = 0;
     private int enemiesSwallow = 0;
     private int escape = 0;
-    float survivalTime;
-    bool isWin;
+    float survivalTime
+    bool isWin
 
     private SendToGoogle googleFormTracker;
 
@@ -42,13 +42,11 @@ public class AnalyticsManager : MonoBehaviour
     }
 
     // Called when the round ends
-    public void EndRound(float survivalTime, bool isWin)
+    public void EndRound()
     {
-        this.survivalTime = survivalTime;
-        this.isWin = isWin;
         //Debug.Log("Round ended. Total enemies defeated: " + totalEnemiesDefeated + ", Total enemies shot: " + enemiesShot);
 
         // Send the collected data
-        googleFormTracker.SendMetrics(survivalTime, isWin, totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape, GameManager.instance);
+        googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape, GameManager.instance, survivalTime, isWin);
     }
 }

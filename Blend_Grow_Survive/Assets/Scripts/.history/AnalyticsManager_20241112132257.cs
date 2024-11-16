@@ -1,3 +1,40 @@
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+
+// public class AnalyticsManager : MonoBehaviour
+// {
+//     private SendToGoogle _googleFormTracker;
+
+//     private int totalEnemiesDefeated = 0;
+//     private int enemiesShot = 0;
+
+//     public void Start()
+//     {
+//         _googleFormTracker = FindObjectOfType<SendToGoogle>();
+//     }
+
+//     // Call this method when an enemy is defeated
+//     public void EnemyDefeated(bool wasShot)
+//     {
+//         totalEnemiesDefeated++;
+
+//         if (wasShot)
+//         {
+//             enemiesShot++;
+//             Debug.Log("Enemy shot! Total enemies shot: " + enemiesShot);
+//         }
+
+//         Debug.Log("Total enemies defeated: " + totalEnemiesDefeated);
+//     }
+
+//     // Call this method when the round ends
+//     public void EndRound()
+//     {
+//         _googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot);
+//     }
+// }
+
 using UnityEngine;
 
 public class AnalyticsManager : MonoBehaviour
@@ -6,8 +43,6 @@ public class AnalyticsManager : MonoBehaviour
     private int enemiesShot = 0;
     private int enemiesSwallow = 0;
     private int escape = 0;
-    float survivalTime;
-    bool isWin;
 
     private SendToGoogle googleFormTracker;
 
@@ -42,13 +77,11 @@ public class AnalyticsManager : MonoBehaviour
     }
 
     // Called when the round ends
-    public void EndRound(float survivalTime, bool isWin)
+    public void EndRound()
     {
-        this.survivalTime = survivalTime;
-        this.isWin = isWin;
         //Debug.Log("Round ended. Total enemies defeated: " + totalEnemiesDefeated + ", Total enemies shot: " + enemiesShot);
 
         // Send the collected data
-        googleFormTracker.SendMetrics(survivalTime, isWin, totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape, GameManager.instance);
+        googleFormTracker.SendMetrics(totalEnemiesDefeated, enemiesShot, enemiesSwallow, escape, GameManager.instance);
     }
 }

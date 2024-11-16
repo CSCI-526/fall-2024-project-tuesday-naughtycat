@@ -44,7 +44,6 @@ public class PlayerEat : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth;
     public int experience = 0;
-    public int ammoAdd = 1;
 
     private float roundStartTime;
     private float survivalTime;
@@ -185,7 +184,7 @@ public class PlayerEat : MonoBehaviour
                         PlayerGrow();
                         //Debug.Log("eat food");
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        //Destroy(m.gameObject);
+                        Destroy(m.gameObject);
 
 
                         //GainExperience(1); 
@@ -195,7 +194,7 @@ public class PlayerEat : MonoBehaviour
                     {
                         //ms.RemoveObject(m.gameObject, ms.created_ammos);
                         //Debug.Log("eat ammo");
-                        bulletCount += ammoAdd;
+                        bulletCount += 100;
 
                         UpdateBulletText();
                     }
@@ -502,7 +501,7 @@ public class PlayerEat : MonoBehaviour
         );
         survivalTime = Time.time - roundStartTime;
         isWin = false;
-        Debug.Log($"roundStartTime: {roundStartTime}, Current Time: {Time.time}, Survival Time: {survivalTime}");
+        Debug.Log($"roundStartTime: {roundStartTime}, Current Time: {Time.time}");
         analyticsManager.EndRound(survivalTime, isWin);
     }
     // If win the game, stop generating anything and update the winning text

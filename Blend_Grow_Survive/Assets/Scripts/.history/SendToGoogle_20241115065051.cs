@@ -19,7 +19,7 @@ public class SendToGoogle : MonoBehaviour
     {
         _sessionID = System.DateTime.Now.Ticks;
     }
-    public void SendMetrics(float survivalTime, bool isWin, int totalEnemiesDefeated, int enemiesShot, int enemiesSwallow, int escape, GameManager gameManager)
+    public void SendMetrics(int totalEnemiesDefeated, int enemiesShot, int enemiesSwallow, int escape, GameManager gameManager)
     {
         _totalEnemiesDefeated = totalEnemiesDefeated;
         _enemiesShot = enemiesShot;

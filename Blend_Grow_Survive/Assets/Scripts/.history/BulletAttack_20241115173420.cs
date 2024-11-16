@@ -4,7 +4,6 @@ public class BulletAttack : MonoBehaviour
 {
     public float bullet_speed = 5f;
     public float max_distance = 4f;
-    public float damagePower = 1f;
     public LayerMask enemy_layer_mask;
     private Rigidbody2D rb;
     private Vector3 start_position;
@@ -66,12 +65,12 @@ public class BulletAttack : MonoBehaviour
                     enemyHealth.hasBeenShot = true; // Mark that this enemy was shot
                     analyticsManager.EnemyShot(); // Increment enemiesShot
                 }
-                enemyHealth.TakeDamage(damagePower);
+                enemyHealth.TakeDamage(1);
                 //Debug.Log("Enemy got a damage ~~~");
 
                 // Reduce enemy size
-                //float sizeReduction = damagePower;
-                Vector3 newScale = enemyHealth.transform.localScale - new Vector3(damagePower, damagePower, 0f);
+                float sizeReduction = 1.0f;
+                Vector3 newScale = enemyHealth.transform.localScale - new Vector3(sizeReduction, sizeReduction, 0f);
                 float minScale = 0.8f;
                 newScale.x = Mathf.Max(newScale.x, minScale);
                 newScale.y = Mathf.Max(newScale.y, minScale);

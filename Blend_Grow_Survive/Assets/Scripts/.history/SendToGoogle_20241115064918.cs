@@ -26,8 +26,8 @@ public class SendToGoogle : MonoBehaviour
 
         _enemiesSwallow = enemiesSwallow;
         _escape = escape;
-        _survivalTime = survivalTime;
-        _isWin = isWin;
+        // _survivalTime = survivalTime;
+        // _isWin = isWin;
         float shootingPercentage = 0f;
         float ratio = 0f;
         if (_totalEnemiesDefeated > 0)

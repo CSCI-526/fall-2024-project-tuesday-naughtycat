@@ -26,8 +26,8 @@ public class SendToGoogle : MonoBehaviour
 
         _enemiesSwallow = enemiesSwallow;
         _escape = escape;
-        _survivalTime = survivalTime;
-        _isWin = isWin;
+        // _survivalTime = survivalTime;
+        // _isWin = isWin;
         float shootingPercentage = 0f;
         float ratio = 0f;
         if (_totalEnemiesDefeated > 0)
@@ -35,11 +35,11 @@ public class SendToGoogle : MonoBehaviour
             shootingPercentage = ((float)_enemiesShot / _totalEnemiesDefeated) * 100f;
             ratio = (float)(_enemiesShot + 0.1f) / (float)(_enemiesSwallow + 0.1f);
         }
-        StartCoroutine(PostMetrics(survivalTime, isWin, _sessionID.ToString(), _totalEnemiesDefeated.ToString(), _enemiesShot.ToString(), _enemiesSwallow.ToString(), _escape.ToString(), shootingPercentage.ToString("F2"), ratio.ToString("F2"), gameManager));
+        StartCoroutine(PostMetrics(survivalTime.ToString(), isWin.ToString(), _sessionID.ToString(), _totalEnemiesDefeated.ToString(), _enemiesShot.ToString(), _enemiesSwallow.ToString(), _escape.ToString(), shootingPercentage.ToString("F2"), ratio.ToString("F2"), gameManager));
         //StartCoroutine(PostMetrics(survivalTime, isWin));
     }
 
-    private IEnumerator PostMetrics(float survivalTime, bool isWin, string sessionID, string totalEnemiesDefeated, string enemiesShot, string enemiesSwallow, string escape, string shootingPercentage, string ratio, GameManager gameManager)
+    private IEnumerator PostMetrics(string survivalTime, string isWin, string sessionID, string totalEnemiesDefeated, string enemiesShot, string enemiesSwallow, string escape, string shootingPercentage, string ratio, GameManager gameManager)
     {
         //calculating average win probability per upgrade type across all levels
         float winProbBS = gameManager.CalculateWinProbability("BulletSpeed");
@@ -182,7 +182,7 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.833627712", winProbSR_Level5.ToString("F2"));
 
         // Track how long the player survived each round, and whether they won or lost
-        form.AddField("entry.2043309709", ((byte)survivalTime).ToString());
+        form.AddField("entry.2043309709", survivalTime);
         form.AddField("entry.749494884", isWin ? "Win" : "Lose");
 
         // Send the form
