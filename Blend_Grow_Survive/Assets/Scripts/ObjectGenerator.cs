@@ -66,10 +66,11 @@ public class ObjectGenerator : MonoBehaviour
     public TextMeshProUGUI levelText;
 
     // Define enemy size ranges per level
-    private Vector2 level1SizeRange = new Vector2(1.0f, 2.5f);
-    private Vector2 level2SizeRange = new Vector2(3.0f, 4.0f);
+    private Vector2 level1SizeRange = new Vector2(1.0f, 4.0f);
+    private Vector2 level2SizeRange = new Vector2(3.0f, 7.0f);
+    private Vector2 level3SizeRange = new Vector2(5.0f, 9.0f);
 
-    
+
     // Enemy Archer spawn chance
     //public float enemyArcherSpawnChance = 0.3f; // 30% chance to spawn an enemy archer during wave 2
 
@@ -263,7 +264,7 @@ public class ObjectGenerator : MonoBehaviour
                 }
                 else
                 {
-                    randomSize = Random.Range(3.0f, 5.0f); // Default if levels go beyond 2
+                    randomSize = Random.Range(level3SizeRange.x, level3SizeRange.y); // Default if levels go beyond 2
                     //Debug.Log("Now enemies will only be of size 4-7");
                 }
 

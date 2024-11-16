@@ -968,6 +968,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a555552affacb4c70a64354d5139e0d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Win_number: 0
+  Lose_number: 0
+  Total_sessions_BS_level_0: 0
+  Wins_BS_level_0: 0
+  Total_sessions_BS_level_1: 0
+  Wins_BS_level_1: 0
+  Total_sessions_BS_level_2: 0
+  Wins_BS_level_2: 0
+  Total_sessions_BS_level_3: 0
+  Wins_BS_level_3: 0
+  Total_sessions_BS_level_4: 0
+  Wins_BS_level_4: 0
+  Total_sessions_BS_level_5: 0
+  Wins_BS_level_5: 0
+  Total_sessions_BR_level_0: 0
+  Wins_BR_level_0: 0
+  Total_sessions_BR_level_1: 0
+  Wins_BR_level_1: 0
+  Total_sessions_BR_level_2: 0
+  Wins_BR_level_2: 0
+  Total_sessions_BR_level_3: 0
+  Wins_BR_level_3: 0
+  Total_sessions_BR_level_4: 0
+  Wins_BR_level_4: 0
+  Total_sessions_BR_level_5: 0
+  Wins_BR_level_5: 0
+  Total_sessions_MS_level_0: 0
+  Wins_MS_level_0: 0
+  Total_sessions_MS_level_1: 0
+  Wins_MS_level_1: 0
+  Total_sessions_MS_level_2: 0
+  Wins_MS_level_2: 0
+  Total_sessions_MS_level_3: 0
+  Wins_MS_level_3: 0
+  Total_sessions_MS_level_4: 0
+  Wins_MS_level_4: 0
+  Total_sessions_MS_level_5: 0
+  Wins_MS_level_5: 0
+  Total_sessions_SR_level_0: 0
+  Wins_SR_level_0: 0
+  Total_sessions_SR_level_1: 0
+  Wins_SR_level_1: 0
+  Total_sessions_SR_level_2: 0
+  Wins_SR_level_2: 0
+  Total_sessions_SR_level_3: 0
+  Wins_SR_level_3: 0
+  Total_sessions_SR_level_4: 0
+  Wins_SR_level_4: 0
+  Total_sessions_SR_level_5: 0
+  Wins_SR_level_5: 0
   playerHP: 100
   playerCoins: 0
   isTutorial: 0
@@ -2588,6 +2638,7 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   experience: 0
+  ammoAdd: 100
   healthText: {fileID: 35127280}
   experienceText: {fileID: 1952333316}
 --- !u!114 &1020997020

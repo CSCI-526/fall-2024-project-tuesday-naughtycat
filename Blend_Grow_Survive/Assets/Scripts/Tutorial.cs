@@ -13,7 +13,6 @@ public class Tutorial : MonoBehaviour
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
     private GameObject food1, food2, food3;
-    private bool hasUsedEscape = false;
     private bool foodEnabled = false;
 
     private GameObject player;
@@ -36,7 +35,6 @@ public class Tutorial : MonoBehaviour
         food3.SetActive(false);
 
         StartCoroutine(DisplayHintsAndEnableFood());
-
         arrow.gameObject.SetActive(false);
     }
 

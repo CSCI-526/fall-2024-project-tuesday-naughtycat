@@ -44,6 +44,7 @@ public class PlayerEat : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth;
     public int experience = 0;
+    public int ammoAdd = 1;
 
     public Text healthText;
     //public Text experienceText;
@@ -190,7 +191,7 @@ public class PlayerEat : MonoBehaviour
                     {
                         //ms.RemoveObject(m.gameObject, ms.created_ammos);
                         //Debug.Log("eat ammo");
-                        bulletCount += 100;
+                        bulletCount += ammoAdd;
 
                         UpdateBulletText();
                     }
