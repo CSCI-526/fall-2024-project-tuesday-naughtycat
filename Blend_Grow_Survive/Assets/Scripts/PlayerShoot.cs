@@ -70,8 +70,8 @@ public class PlayerShoot : MonoBehaviour
         Vector2 lookDirection = mouse_position - (Vector2)player.transform.position;
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         player.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
-        //arrow.SetText("↑");
-        //arrow.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+        arrow.SetText("↑");
+        arrow.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
 
         //transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         //currentGun.firePoint.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
