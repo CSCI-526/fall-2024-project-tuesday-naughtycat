@@ -194,13 +194,11 @@ public class ObjectGenerator : MonoBehaviour
     {
         while (true)
         {
+           
             yield return new WaitForSecondsRealtime(create_ammo_time);
+            
             if (created_ammos.Count < max_ammo)
             {
-
-
-
-
                 Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
                 Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
                 while (hit != null)
@@ -304,6 +302,7 @@ public class ObjectGenerator : MonoBehaviour
                 levelText.text = "Boss!";
             }
             levelText.enabled = true;
+            
             StartCoroutine(HideLevelTextAfterDelay(1f));
         }
         else
@@ -370,7 +369,7 @@ public class ObjectGenerator : MonoBehaviour
     public void OnWaveCleared()
     {
         Debug.Log("Wave " + currentWave + " Cleared!");
-
+        created_ammos.Clear();
         // Increment the wave number
         currentWave++;
 
@@ -482,6 +481,7 @@ public class ObjectGenerator : MonoBehaviour
     {
         StartCoroutine(CreateFood());
         StartCoroutine(CreateEnemy());
+        StartCoroutine(CreateAmmo());
     }
 
     public void OnDrawGizmosSelected()

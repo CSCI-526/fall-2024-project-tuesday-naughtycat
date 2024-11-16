@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet_speed: 15
   max_distance: 10
+  damagePower: 1
   enemy_layer_mask:
     serializedVersion: 2
     m_Bits: 0

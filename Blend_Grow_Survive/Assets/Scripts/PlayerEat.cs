@@ -181,7 +181,7 @@ public class PlayerEat : MonoBehaviour
                         PlayerGrow();
                         //Debug.Log("eat food");
                         ms.RemoveObject(m.gameObject, ms.created_food);
-                        Destroy(m.gameObject);
+                        //Destroy(m.gameObject);
 
 
                         //GainExperience(1); 

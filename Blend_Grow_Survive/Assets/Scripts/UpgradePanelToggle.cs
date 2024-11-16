@@ -60,6 +60,10 @@ public class UpgradePanelToggle : MonoBehaviour
         // Pause or resume the game
         if (isPanelOpen)
         {
+            if (FindObjectOfType<ObjectGenerator>().levelText)
+            {
+                FindObjectOfType<ObjectGenerator>().levelText.enabled = false;
+            }
             PauseGame();
         }
         else

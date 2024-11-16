@@ -22,12 +22,12 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         UpdateHealthText();
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0.05)
         {
             Die();
         }
