@@ -73,6 +73,21 @@ public class GameManager : MonoBehaviour
     public int Total_sessions_SR_level_5 = 0;
     public int Wins_SR_level_5 = 0;
 
+    // Bullet Damage (BD)
+    // Repeat the same pattern for BD
+    public int Total_sessions_BD_level_0 = 0;
+    public int Wins_BD_level_0 = 0;
+    public int Total_sessions_BD_level_1 = 0;
+    public int Wins_BD_level_1 = 0;
+    public int Total_sessions_BD_level_2 = 0;
+    public int Wins_BD_level_2 = 0;
+    public int Total_sessions_BD_level_3 = 0;
+    public int Wins_BD_level_3 = 0;
+    public int Total_sessions_BD_level_4 = 0;
+    public int Wins_BD_level_4 = 0;
+    public int Total_sessions_BD_level_5 = 0;
+    public int Wins_BD_level_5 = 0;
+
     #endregion
 
     public static GameManager instance;
@@ -96,6 +111,7 @@ public class GameManager : MonoBehaviour
     //storing initial values of bullets so it can be reset to them upon restarting the game.
     private float initialBulletSpeed = 15f;
     private float initialMaxDistance = 10f;
+    private float initialBulletDamage = 1f;
     //public List<string> availableGunUpgrades = new List<string> { "Bullet_Speed", "Range", "Damage" };
     //public List<string> availableStatUpgrades = new List<string> { "HP", "Speed", "AttackSpeed" };
 
@@ -105,6 +121,7 @@ public class GameManager : MonoBehaviour
     public int bulletRangeLevel = 0;
     public int shrinkResistanceLevel = 0;
     public int movementSpeedLevel = 0;
+    public int bulletDamageLevel = 0;
 
     private const int MAX_UPGRADE_LEVEL = 5; // Maximum number of upgrades per stat
 
@@ -112,11 +129,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI movementProgressbar;
     public TextMeshProUGUI rangeProgressbar;
     public TextMeshProUGUI speedProgressbar;
+    public TextMeshProUGUI damageProgressbar;
 
     private int shrinkCount = 0;
     private int movementCount = 0;
     private int rangeCount = 0;
     private int speedCount = 0;
+    private int damageCount = 0;
 
     public int MaxUpgradeLevel
     {
@@ -197,7 +216,11 @@ public class GameManager : MonoBehaviour
         {
             speedProgressbar = GameObject.Find("SpeedProgressBar").GetComponent<TextMeshProUGUI>();
         }
-        
+        if (GameObject.Find("DamageProgressBar"))
+        {
+            damageProgressbar = GameObject.Find("DamageProgressBar").GetComponent<TextMeshProUGUI>();
+        }
+
         //leftEnemy = 10;
         //leftEnemyText = GameObject.Find("leftEnemy").GetComponent<TextMeshProUGUI>();
 
@@ -389,7 +412,10 @@ public class GameManager : MonoBehaviour
         {
             return movementCount;
         }
-
+        else if (type.CompareTo("damage") == 0)
+        {
+            return damageCount;
+        }
         return 0;
     }
 
@@ -456,6 +482,19 @@ public class GameManager : MonoBehaviour
                 break;
 
             case "Damage":
+                if (bulletDamageLevel >= MaxUpgradeLevel)
+                {
+                    Debug.Log("Bullet Damage is already at maximum level.");
+                    return;
+                }
+                Debug.Log("this is the current value of the bullet_damage" + bulletAttack.damagePower);
+                bulletAttack.damagePower += 0.2f;
+                bulletDamageLevel++;
+                Debug.Log($"Bullet damage Upgraded to Level {bulletDamageLevel}");
+                Debug.Log("bullet damage Upgraded");
+
+                damageCount++;
+                UpgradePanelProgressBar(damageProgressbar, damageCount);
                 break;
             case "Penetration":
                 break;
@@ -533,6 +572,7 @@ public class GameManager : MonoBehaviour
         {
             bulletAttack.bullet_speed = initialBulletSpeed;
             bulletAttack.max_distance = initialMaxDistance;
+            bulletAttack.damagePower = initialBulletDamage;
             Debug.Log("Bullet properties reset to initial values.");
         }
         else
@@ -547,10 +587,12 @@ public class GameManager : MonoBehaviour
         bulletRangeLevel = 0;
         shrinkResistanceLevel = 0;
         movementSpeedLevel = 0;
+        bulletDamageLevel = 0;
         shrinkCount = 0;
         movementCount = 0;
         rangeCount = 0;
         speedCount = 0;
+        damageCount = 0;
         Debug.Log("Upgrade levels have been reset to initial values.");
     }
 
@@ -671,6 +713,36 @@ public class GameManager : MonoBehaviour
             case 5:
                 Total_sessions_SR_level_5++;
                 if (isWin) Wins_SR_level_5++;
+                break;
+        }
+
+        // Bullet Damage
+        switch (bulletDamageLevel)
+        {
+            case 0:
+                Total_sessions_BD_level_0++;
+                if (isWin) Wins_BD_level_0++;
+                break;
+            case 1:
+                Total_sessions_BD_level_1++;
+                if (isWin) Wins_BD_level_1++;
+                break;
+            // Repeat for levels 2 to 5
+            case 2:
+                Total_sessions_BD_level_2++;
+                if (isWin) Wins_BD_level_2++;
+                break;
+            case 3:
+                Total_sessions_BD_level_3++;
+                if (isWin) Wins_BD_level_3++;
+                break;
+            case 4:
+                Total_sessions_BD_level_4++;
+                if (isWin) Wins_BD_level_4++;
+                break;
+            case 5:
+                Total_sessions_BD_level_5++;
+                if (isWin) Wins_BD_level_5++;
                 break;
         }
         if (isWin)
@@ -821,6 +893,16 @@ public class GameManager : MonoBehaviour
                     GetWinProbability(Wins_SR_level_3, Total_sessions_SR_level_3) +
                     GetWinProbability(Wins_SR_level_4, Total_sessions_SR_level_4) +
                     GetWinProbability(Wins_SR_level_5, Total_sessions_SR_level_5)
+                ) / totalLevels;
+                break;
+            case "BulletDamage":
+                totalWinProbability = (
+                    GetWinProbability(Wins_BD_level_0, Total_sessions_BD_level_0) +
+                    GetWinProbability(Wins_BD_level_1, Total_sessions_BD_level_1) +
+                    GetWinProbability(Wins_BD_level_2, Total_sessions_BD_level_2) +
+                    GetWinProbability(Wins_BD_level_3, Total_sessions_BD_level_3) +
+                    GetWinProbability(Wins_BD_level_4, Total_sessions_BD_level_4) +
+                    GetWinProbability(Wins_BD_level_5, Total_sessions_BD_level_5)
                 ) / totalLevels;
                 break;
         }

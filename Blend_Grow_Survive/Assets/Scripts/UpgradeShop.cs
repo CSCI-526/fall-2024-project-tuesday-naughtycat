@@ -126,7 +126,16 @@ public class UpgradeShop : MonoBehaviour
             SetButtonColor(movementSpeedButton, Color.green);
         }
 
-        // Repeat for other stats if needed
+        if (GameManager.instance.bulletDamageLevel >= GameManager.instance.MaxUpgradeLevel)
+        {
+            bulletDamageButton.interactable = false;
+            SetButtonColor(bulletDamageButton, Color.white);
+        }
+        else
+        {
+            bulletDamageButton.interactable = true;
+            SetButtonColor(bulletDamageButton, Color.green);
+        }
     }
 
     /// <summary>

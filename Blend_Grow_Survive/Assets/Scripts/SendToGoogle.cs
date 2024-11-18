@@ -46,6 +46,7 @@ public class SendToGoogle : MonoBehaviour
         float winProbBR = gameManager.CalculateWinProbability("BulletRange");
         float winProbMS = gameManager.CalculateWinProbability("MovementSpeed");
         float winProbSR = gameManager.CalculateWinProbability("ShrinkResistance");
+        float winProbBD = gameManager.CalculateWinProbability("BulletDamage");
 
         // calculating win probability per level of each type of upgrade
         float winProbBS_Level0 = gameManager.Total_sessions_BS_level_0 > 0 ? (gameManager.Wins_BS_level_0 * 100f) / gameManager.Total_sessions_BS_level_0 : 0f;
@@ -76,11 +77,18 @@ public class SendToGoogle : MonoBehaviour
         float winProbSR_Level4 = gameManager.Total_sessions_SR_level_4 > 0 ? (gameManager.Wins_SR_level_4 * 100f) / gameManager.Total_sessions_SR_level_4 : 0f;
         float winProbSR_Level5 = gameManager.Total_sessions_SR_level_5 > 0 ? (gameManager.Wins_SR_level_5 * 100f) / gameManager.Total_sessions_SR_level_5 : 0f;
 
+        float winProbBD_Level0 = gameManager.Total_sessions_BD_level_0 > 0 ? (gameManager.Wins_BD_level_0 * 100f) / gameManager.Total_sessions_BD_level_0 : 0f;
+        float winProbBD_Level1 = gameManager.Total_sessions_BD_level_1 > 0 ? (gameManager.Wins_BD_level_1 * 100f) / gameManager.Total_sessions_BD_level_1 : 0f;
+        float winProbBD_Level2 = gameManager.Total_sessions_BD_level_2 > 0 ? (gameManager.Wins_BD_level_2 * 100f) / gameManager.Total_sessions_BD_level_2 : 0f;
+        float winProbBD_Level3 = gameManager.Total_sessions_BD_level_3 > 0 ? (gameManager.Wins_BD_level_3 * 100f) / gameManager.Total_sessions_BD_level_3 : 0f;
+        float winProbBD_Level4 = gameManager.Total_sessions_BD_level_4 > 0 ? (gameManager.Wins_BD_level_4 * 100f) / gameManager.Total_sessions_BD_level_4 : 0f;
+        float winProbBD_Level5 = gameManager.Total_sessions_BD_level_5 > 0 ? (gameManager.Wins_BD_level_5 * 100f) / gameManager.Total_sessions_BD_level_5 : 0f;
 
         Debug.Log("this is the winProbBS_Level0" + winProbBS_Level0);
         Debug.Log("this is the winProbBR_Level0" + winProbBR_Level0);
         Debug.Log("this is the winProbMS_Level0" + winProbMS_Level0);
         Debug.Log("this is the winProbSR_Level0" + winProbSR_Level0);
+        Debug.Log("this is the winProbBD_Level0" + winProbBD_Level0);
 
         WWWForm form = new WWWForm();
         form.AddField("entry.1884265043", sessionID);
@@ -146,11 +154,25 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1737689388", gameManager.Total_sessions_SR_level_5.ToString());
         form.AddField("entry.258674584", gameManager.Wins_SR_level_5.ToString());
 
+        form.AddField("entry.1253730059", gameManager.Total_sessions_BD_level_0.ToString());
+        form.AddField("entry.1520796135", gameManager.Wins_BD_level_0.ToString());
+        form.AddField("entry.548314594", gameManager.Total_sessions_BD_level_1.ToString());
+        form.AddField("entry.1077326871", gameManager.Wins_BD_level_1.ToString());
+        form.AddField("entry.961598740", gameManager.Total_sessions_BD_level_2.ToString());
+        form.AddField("entry.732579177", gameManager.Wins_BD_level_2.ToString());
+        form.AddField("entry.1795214005", gameManager.Total_sessions_BD_level_3.ToString());
+        form.AddField("entry.1579038350", gameManager.Wins_BD_level_3.ToString());
+        form.AddField("entry.1865118521", gameManager.Total_sessions_BD_level_4.ToString());
+        form.AddField("entry.1850398962", gameManager.Wins_BD_level_4.ToString());
+        form.AddField("entry.105080072", gameManager.Total_sessions_BD_level_5.ToString());
+        form.AddField("entry.1986892797", gameManager.Wins_BD_level_5.ToString());
+
         // average win probability per upgrade type across all levels
         form.AddField("entry.920775684", winProbBS.ToString("F2"));
         form.AddField("entry.397920053", winProbBR.ToString("F2"));
         form.AddField("entry.172393391", winProbMS.ToString("F2"));
         form.AddField("entry.1762443621", winProbSR.ToString("F2"));
+        form.AddField("entry.1682200480", winProbBD.ToString("F2"));
 
         // win probability per level of one type of upgrade
         form.AddField("entry.1708779149", winProbBS_Level0.ToString("F2"));
@@ -180,6 +202,13 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1044719861", winProbSR_Level3.ToString("F2"));
         form.AddField("entry.767772997", winProbSR_Level4.ToString("F2"));
         form.AddField("entry.833627712", winProbSR_Level5.ToString("F2"));
+
+        form.AddField("entry.1463899923", winProbBD_Level0.ToString("F2"));
+        form.AddField("entry.632895158", winProbBD_Level1.ToString("F2"));
+        form.AddField("entry.1170532456", winProbBD_Level2.ToString("F2"));
+        form.AddField("entry.227750770", winProbBD_Level3.ToString("F2"));
+        form.AddField("entry.989781783", winProbBD_Level4.ToString("F2"));
+        form.AddField("entry.635953401", winProbBD_Level5.ToString("F2"));
 
         // Track how long the player survived each round, and whether they won or lost
         form.AddField("entry.2043309709", ((byte)survivalTime).ToString());
