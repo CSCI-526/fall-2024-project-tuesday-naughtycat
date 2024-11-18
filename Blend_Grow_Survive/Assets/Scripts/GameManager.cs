@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     public int playerHP = 100;
     //public int playerEXP = 0;
     public int playerCoins = 0;
+    public TextMeshProUGUI deductedCoinText;
     public int isTutorial;
     //public int leftEnemy = 10;
     //public int level = 1;
@@ -199,7 +200,15 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
-
+        deductedCoinText = GameObject.Find("DeductedCoinText")?.GetComponent<TextMeshProUGUI>();
+        if (deductedCoinText == null)
+        {
+            Debug.LogWarning("DeductedCoinText not found in the scene.");
+        }
+        else
+        {
+            Debug.Log("DeductedCoinText reference updated.");
+        }
         if (GameObject.Find("ShrinkProgressBar"))
         {
             shinkProgressbar = GameObject.Find("ShrinkProgressBar").GetComponent<TextMeshProUGUI>();
@@ -300,6 +309,7 @@ public class GameManager : MonoBehaviour
         {
             playerCoins -= coinAmount;
             Debug.Log("Coins spent: " + coinAmount + ". Remaining Coins: " + playerCoins);
+            ShowDeductedCoins(coinAmount);
             UpdateCoinText();
             return true;
         }
@@ -595,6 +605,56 @@ public class GameManager : MonoBehaviour
         damageCount = 0;
         Debug.Log("Upgrade levels have been reset to initial values.");
     }
+
+    public void ShowDeductedCoins(int amount)
+    {
+        Debug.Log($"ShowDeductedCoins triggered with amount: {amount}");
+        if (deductedCoinText != null)
+        {
+            deductedCoinText.text = $"-{amount}";
+            Debug.Log("DeductedCoinText updated.");
+            deductedCoinText.gameObject.SetActive(true);
+            StartCoroutine(FadeOutDeductedCoinText());
+        }
+        else
+        {
+            Debug.LogWarning("DeductedCoinText is not assigned in the GameManager.");
+        }
+    }
+
+    private System.Collections.IEnumerator FadeOutDeductedCoinText()
+    {
+        if (deductedCoinText != null)
+        {
+            CanvasGroup canvasGroup = deductedCoinText.GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+            {
+                canvasGroup = deductedCoinText.gameObject.AddComponent<CanvasGroup>();
+            }
+
+            float fadeDuration = 1f; // Duration for the fade-out effect
+            float elapsedTime = 0f;
+
+            while (elapsedTime < fadeDuration)
+            {
+                elapsedTime += Time.deltaTime;
+                canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+                yield return null;
+            }
+
+            canvasGroup.alpha = 0f;
+            deductedCoinText.gameObject.SetActive(false);
+        }
+    }
+
+    //private System.Collections.IEnumerator HideDeductedCoinText()
+    //{
+    //    yield return new WaitForSeconds(1f);
+    //    if (deductedCoinText != null)
+    //    {
+    //        deductedCoinText.gameObject.SetActive(false);
+    //    }
+    //}
 
     public void RegisterSession(bool isWin, int bulletSpeedLevel, int bulletRangeLevel, int movementSpeedLevel, int shrinkResistanceLevel)
     {
