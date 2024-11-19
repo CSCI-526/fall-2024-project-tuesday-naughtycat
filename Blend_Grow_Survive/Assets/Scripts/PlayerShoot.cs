@@ -33,8 +33,12 @@ public class PlayerShoot : MonoBehaviour
         upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
         // check if this is needed!!!! my branch did not have this code
         currentGun = gun.transform.GetChild(currentGunIndex).GetComponent<Gun>();
-        outOfBulletText = GameObject.Find("OutOfBullet").GetComponent<TextMeshProUGUI>();
-        outOfBulletText.enabled = false;
+        if(GameManager.instance.isTutorial != 1)
+        {
+            outOfBulletText = GameObject.Find("OutOfBullet").GetComponent<TextMeshProUGUI>();
+            outOfBulletText.enabled = false;
+        }
+        
     }
     void LateUpdate()
     {
@@ -45,8 +49,12 @@ public class PlayerShoot : MonoBehaviour
             if (player_eat.bulletCount == 0)
             {
                 //outOfBulletText.transform.position = player.transform.position;
-                outOfBulletText.enabled = true;
-                outOfBulletText.StartCoroutine(HideOutOfBulletTextAfterDelay(1f));
+                if (GameManager.instance.isTutorial != 1)
+                {
+                    outOfBulletText.enabled = true;
+                    outOfBulletText.StartCoroutine(HideOutOfBulletTextAfterDelay(1f));
+                }
+                    
             }
             else
             {
@@ -60,7 +68,8 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator HideOutOfBulletTextAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        outOfBulletText.enabled = false; // Disable the text component
+        if (GameManager.instance.isTutorial != 1)
+            outOfBulletText.enabled = false; // Disable the text component
     }
 
     // handle the dirction of bullet followed by the mouse pointer

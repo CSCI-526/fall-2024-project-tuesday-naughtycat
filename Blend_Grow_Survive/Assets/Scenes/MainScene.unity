@@ -2677,7 +2677,7 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   experience: 0
-  ammoAdd: 100
+  ammoAdd: 1
   healthText: {fileID: 35127280}
   experienceText: {fileID: 1952333316}
 --- !u!114 &1020997020

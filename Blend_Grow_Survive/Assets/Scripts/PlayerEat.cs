@@ -44,7 +44,7 @@ public class PlayerEat : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth;
     public int experience = 0;
-    public int ammoAdd = 1;
+    public int ammoAdd;
 
     private float roundStartTime;
     private float survivalTime;
