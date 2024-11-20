@@ -143,6 +143,10 @@ public class GameManager : MonoBehaviour
         get { return MAX_UPGRADE_LEVEL; }
     }
 
+    public int getTutorialStatus()
+    {
+        return isTutorial;
+    }
     private void Awake()
     {
         if (instance == null)
@@ -156,6 +160,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("GameManager: Instance already exists, destroying this one.");
             Destroy(gameObject);
+            Debug.Log("+++++++++ isTutorial" + isTutorial);
         }
     }
 

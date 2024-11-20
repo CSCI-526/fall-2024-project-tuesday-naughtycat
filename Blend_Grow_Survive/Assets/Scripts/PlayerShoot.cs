@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerShoot : MonoBehaviour
 
     public TextMeshProUGUI arrow;
     public TextMeshProUGUI outOfBulletText;
+    
 
     void Start()
     {
@@ -33,10 +35,11 @@ public class PlayerShoot : MonoBehaviour
         upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
         // check if this is needed!!!! my branch did not have this code
         currentGun = gun.transform.GetChild(currentGunIndex).GetComponent<Gun>();
-        if(GameManager.instance.isTutorial != 1)
+        if(SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
         {
             outOfBulletText = GameObject.Find("OutOfBullet").GetComponent<TextMeshProUGUI>();
             outOfBulletText.enabled = false;
+            Debug.Log("outtttttt " + outOfBulletText);
         }
         
     }
@@ -49,7 +52,7 @@ public class PlayerShoot : MonoBehaviour
             if (player_eat.bulletCount == 0)
             {
                 //outOfBulletText.transform.position = player.transform.position;
-                if (GameManager.instance.isTutorial != 1)
+                if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
                 {
                     outOfBulletText.enabled = true;
                     outOfBulletText.StartCoroutine(HideOutOfBulletTextAfterDelay(1f));
@@ -68,7 +71,7 @@ public class PlayerShoot : MonoBehaviour
     IEnumerator HideOutOfBulletTextAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (GameManager.instance.isTutorial != 1)
+        if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
             outOfBulletText.enabled = false; // Disable the text component
     }
 
