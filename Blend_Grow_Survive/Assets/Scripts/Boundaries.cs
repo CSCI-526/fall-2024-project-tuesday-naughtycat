@@ -10,22 +10,22 @@ public class Boundaries : MonoBehaviour
     {
         if (isTutorial == 1)
         {
-            if (transform.position.y >= 9)
+            if (transform.position.y >= 7)
             {
-                transform.position = new Vector3(transform.position.x, 9, 0);
+                transform.position = new Vector3(transform.position.x, 7, 0);
             }
-            else if (transform.position.y <= -9)
+            else if (transform.position.y <= -7)
             {
-                transform.position = new Vector3(transform.position.x, -9, 0);
+                transform.position = new Vector3(transform.position.x, -7, 0);
             }
 
-            if (transform.position.x >= 9)
+            if (transform.position.x >= 7)
             {
-                transform.position = new Vector3(9, transform.position.y, 0);
+                transform.position = new Vector3(7, transform.position.y, 0);
             }
-            else if (transform.position.x <= -9)
+            else if (transform.position.x <= -7)
             {
-                transform.position = new Vector3(-9, transform.position.y, 0);
+                transform.position = new Vector3(-7, transform.position.y, 0);
             }
 
         }

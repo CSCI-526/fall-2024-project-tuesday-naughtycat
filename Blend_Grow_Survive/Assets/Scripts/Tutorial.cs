@@ -8,7 +8,7 @@ using TMPro;
 public class Tutorial : MonoBehaviour
 {
     public Text hintText;
-    public GameObject ammo, tutorialAmmo, upgradePanel, tutorialPlayer, hpText;
+    public GameObject tutorialAmmo, upgradePanel, tutorialPlayer, hpText, wall1, wall2;
 
     private int status = 0;
     private GameObject firstEnemy, secondEnemy, thirdEnemy, fourthEnemy, fifthEnemy;
@@ -20,8 +20,6 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
-        ammo = GameObject.Find("ammo");
-        ammo.SetActive(false);
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false);
         upgradePanel = GameObject.Find("UpgradePanel");
@@ -34,7 +32,11 @@ public class Tutorial : MonoBehaviour
         food2.SetActive(false);
         food3.SetActive(false);
 
-        StartCoroutine(DisplayHintsAndEnableFood());
+
+        secondEnemy = GameObject.Find("Enemy");
+        secondEnemy.SetActive(false);
+
+        DisplayHintsAndEnableFood();
         arrow.gameObject.SetActive(false);
     }
 
@@ -87,14 +89,10 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    private IEnumerator DisplayHintsAndEnableFood()
+    private void DisplayHintsAndEnableFood()
     {
-        // Display "W S A D" hint for 3 seconds
-        DisplayHint("W  S  A  D");
-        yield return new WaitForSeconds(3f);
-
-        // Display "You are hungry!" hint and enable food
-        DisplayHint("You are hungry!");
+        
+        DisplayHint("WASD to flag");
         food1.SetActive(true);
         food2.SetActive(true);
         food3.SetActive(true);
@@ -122,7 +120,10 @@ public class Tutorial : MonoBehaviour
         if (!firstEnemy)
         {
             DisplayHint("Great! Now grab the ammo!");
-            ammo.SetActive(true);
+            tutorialAmmo.SetActive(true);
+            wall1.SetActive(false);
+            wall2.SetActive(false);
+
             status++; // Move to the next state to wait for escape
         }
     }
@@ -147,14 +148,14 @@ public class Tutorial : MonoBehaviour
             Time.timeScale = 1f; // Resume game
             //escapeArrow.SetActive(false); // Hide the escape arrow
             DisplayHint("Great!"); // Update the hint text
-            tutorialAmmo.SetActive(true);
+    
             status++;
         }
     }
 
     private void ShowAmmoHint()
     {
-        if (!GameObject.Find("ammo"))
+        if (!GameObject.Find("ammo")&& !GameObject.Find("newAmmo1") && !GameObject.Find("newAmmo2") && !GameObject.Find("newAmmo3"))
         {
             DisplayHint("Left-click to shoot!");
             status++;
@@ -163,7 +164,6 @@ public class Tutorial : MonoBehaviour
 
     private void ActivateSecondEnemy()
     {
-        secondEnemy = ObjectGenerator.ins.getEnemy()[1];
         secondEnemy.SetActive(true);
         status++;
     }
@@ -173,7 +173,6 @@ public class Tutorial : MonoBehaviour
         if (!secondEnemy)
         {
             DisplayHint("Perfect!");
-            //tutorialAmmo.SetActive(true);
             status++;
         }
     }

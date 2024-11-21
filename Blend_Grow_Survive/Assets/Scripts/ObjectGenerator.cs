@@ -127,30 +127,35 @@ public class ObjectGenerator : MonoBehaviour
 
         if (isTutorial == 1) // tutorial mode
         {
-            Vector2 Position = new Vector2(9, 9);
+            //first enemy
+            Vector2 Position = new Vector2(5, 5);
             GameObject m = Instantiate(enemy, Position, Quaternion.identity);
             m.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m.gameObject.SetActive(false);
             AddObject(m, created_enemies);
 
+           
             Vector2 Position2 = new Vector2(9, 9);
             GameObject m2 = Instantiate(enemy, Position2, Quaternion.identity);
             m2.transform.localScale = new Vector3((float)1.9, (float)1.9, 1);
             m2.gameObject.SetActive(false);
             AddObject(m2, created_enemies);
 
-            Vector2 Position3 = new Vector2(-10, -10);
+            
+            Vector2 Position3 = new Vector2(-5, -5);
             GameObject m3 = Instantiate(enemy, Position3, Quaternion.identity);
-            m3.transform.localScale = new Vector3((float)1.9, (float)1.9, 1);
+            m3.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m3.gameObject.SetActive(false);
             AddObject(m3, created_enemies);
 
+            
             Vector2 Position4 = new Vector2(10, -10);
             GameObject m4 = Instantiate(enemy, Position4, Quaternion.identity);
             m4.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);
             m4.gameObject.SetActive(false);
             AddObject(m4, created_enemies);
 
+           
             Vector2 Position5 = new Vector2(-10, 10);
             GameObject m5 = Instantiate(enemy, Position5, Quaternion.identity);
             m5.transform.localScale = new Vector3((float)0.9, (float)0.9, 1);

@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
-        deductedCoinText = GameObject.Find("DeductedCoinText")?.GetComponent<TextMeshProUGUI>();
+        deductedCoinText = GameObject.Find("DeductedCoinText").GetComponent<TextMeshProUGUI>();
         if (deductedCoinText == null)
         {
             Debug.LogWarning("DeductedCoinText not found in the scene.");
