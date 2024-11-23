@@ -22,6 +22,7 @@ public class PlayerShoot : MonoBehaviour
     UpgradePanelToggle upgradePanelToggle;
 
     public TextMeshProUGUI arrow;
+    public GameObject arrowObject;
     public TextMeshProUGUI outOfBulletText;
 
     [SerializeField] private GameObject plusSignPrefab;
@@ -96,6 +97,7 @@ public class PlayerShoot : MonoBehaviour
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         player.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
         arrow.SetText("↑");
+        arrowObject.transform.localScale = transform.localScale;
         arrow.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
 
         //transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);

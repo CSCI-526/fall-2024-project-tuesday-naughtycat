@@ -1668,7 +1668,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.6739502, y: -1.25}
-  m_SizeDelta: {x: 31.3, y: 133.94}
+  m_SizeDelta: {x: 31.3, y: 95}
   m_Pivot: {x: 0.48, y: 0}
 --- !u!114 &759463619
 MonoBehaviour:
@@ -2698,7 +2698,10 @@ MonoBehaviour:
   bullet_speed: 20
   gun: {fileID: 159806956}
   arrow: {fileID: 759463619}
+  arrowObject: {fileID: 759463617}
   outOfBulletText: {fileID: 0}
+  plusSignPrefab: {fileID: 0}
+  plusSignLifetime: 1
 --- !u!114 &1020997021
 MonoBehaviour:
   m_ObjectHideFlags: 0
