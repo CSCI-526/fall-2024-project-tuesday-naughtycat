@@ -23,8 +23,9 @@ public class PlayerShoot : MonoBehaviour
 
     public TextMeshProUGUI arrow;
     public TextMeshProUGUI outOfBulletText;
-    
 
+    [SerializeField] private GameObject plusSignPrefab;
+    [SerializeField] private float plusSignLifetime = 1f;
     void Start()
     {
         //myGun.transform.SetParent(transform);
@@ -62,10 +63,22 @@ public class PlayerShoot : MonoBehaviour
             else
             {
                 Shoot();
+                CreatePlusSign();
             }
             //currentGun.Shoot();
             //generator.DestroyPlayerBullet();
         }
+    }
+
+    void CreatePlusSign()
+    {
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPosition.z = 0f;
+
+        // Instantiate the + sign at the correct position
+        GameObject plusSign = Instantiate(plusSignPrefab, mouseWorldPosition, Quaternion.identity);
+
+        Destroy(plusSign, plusSignLifetime);
     }
 
     IEnumerator HideOutOfBulletTextAfterDelay(float delay)
