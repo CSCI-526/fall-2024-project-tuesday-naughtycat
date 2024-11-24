@@ -2700,7 +2700,7 @@ MonoBehaviour:
   arrow: {fileID: 759463619}
   arrowObject: {fileID: 759463617}
   outOfBulletText: {fileID: 0}
-  plusSignPrefab: {fileID: 0}
+  plusSignPrefab: {fileID: 621732741623239731, guid: 84afe57ed3613ac4f88447ad66e29a14, type: 3}
   plusSignLifetime: 1
 --- !u!114 &1020997021
 MonoBehaviour:

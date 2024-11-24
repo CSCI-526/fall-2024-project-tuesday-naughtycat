@@ -1500,7 +1500,7 @@ MonoBehaviour:
   maxHealthButton: {fileID: 2026605513}
   movementSpeedButton: {fileID: 268808493}
   bodyDamageButton: {fileID: 528223416}
-  coinText: {fileID: 0}
+  coinText: {fileID: 1730525800}
 --- !u!114 &657488027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5490,7 +5490,7 @@ MonoBehaviour:
   arrow: {fileID: 1724974040}
   arrowObject: {fileID: 1724974038}
   outOfBulletText: {fileID: 0}
-  plusSignPrefab: {fileID: 0}
+  plusSignPrefab: {fileID: 621732741623239731, guid: 84afe57ed3613ac4f88447ad66e29a14, type: 3}
   plusSignLifetime: 1
 --- !u!50 &2032329671
 Rigidbody2D:
