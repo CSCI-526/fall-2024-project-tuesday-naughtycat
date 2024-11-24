@@ -217,7 +217,7 @@ public class Tutorial : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            DisplayHint("Upgrade one skill for 10 points.");
+            DisplayHint("Upgrade one skill for 10 coins.");
             status++;
         }
     }
@@ -226,6 +226,7 @@ public class Tutorial : MonoBehaviour
     {
         if (GameManager.instance.playerCoins == 0)
         {
+            GameManager.instance.ShowDeductedCoins(10);
             DisplayHint("Press 'B' to close the upgrade system.");
             status++;
         }

@@ -553,7 +553,7 @@ public class PlayerEat : MonoBehaviour
 
             // Reload the current scene
 
-            GameManager.instance.UpdateReferences();
+            //GameManager.instance.UpdateReferences();
             //Debug.Log("After scene reload, playerCoins: " + GameManager.instance.playerCoins);
         }
 

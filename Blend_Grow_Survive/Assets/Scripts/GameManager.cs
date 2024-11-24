@@ -205,14 +205,15 @@ public class GameManager : MonoBehaviour
         //hpText = GameObject.Find("hpText").GetComponent<TextMeshProUGUI>();
         //expText = GameObject.Find("expText").GetComponent<TextMeshProUGUI>();
         coinText = GameObject.Find("coinText").GetComponent<TextMeshProUGUI>();
-        deductedCoinText = GameObject.Find("DeductedCoinText").GetComponent<TextMeshProUGUI>();
-        if (deductedCoinText == null)
+        GameObject deductedCoinObj = GameObject.Find("DeductedCoinText");
+        if (deductedCoinObj != null)
         {
-            Debug.LogWarning("DeductedCoinText not found in the scene.");
+            deductedCoinText = deductedCoinObj.GetComponent<TextMeshProUGUI>();
+            Debug.Log("DeductedCoinText reference updated.");
         }
         else
         {
-            Debug.Log("DeductedCoinText reference updated.");
+            deductedCoinText = null;
         }
         if (GameObject.Find("ShrinkProgressBar"))
         {
@@ -642,15 +643,27 @@ public class GameManager : MonoBehaviour
 
             while (elapsedTime < fadeDuration)
             {
+                if (deductedCoinText == null || canvasGroup == null)
+                {
+                    yield break; // Exit the coroutine if the object is destroyed
+                }
+
                 elapsedTime += Time.deltaTime;
                 canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
                 yield return null;
             }
 
-            canvasGroup.alpha = 0f;
-            deductedCoinText.gameObject.SetActive(false);
+            if (canvasGroup != null)
+            {
+                canvasGroup.alpha = 0f;
+            }
+            if (deductedCoinText != null)
+            {
+                deductedCoinText.gameObject.SetActive(false);
+            }
         }
     }
+
 
     //private System.Collections.IEnumerator HideDeductedCoinText()
     //{
