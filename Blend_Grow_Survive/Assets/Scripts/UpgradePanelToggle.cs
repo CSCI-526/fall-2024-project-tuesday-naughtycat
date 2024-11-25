@@ -88,8 +88,13 @@ public class UpgradePanelToggle : MonoBehaviour
     /// </summary>
     private void ResumeGame()
     {
+        
         //Cursor.lockState = CursorLockMode.None;  // Lock the cursor
         if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
+        {
+            Time.timeScale = 1f;
+        }
+        else
         {
             Time.timeScale = 1f;                      // Resume the game
             ObjectGenerator.ins.StartGenerating();

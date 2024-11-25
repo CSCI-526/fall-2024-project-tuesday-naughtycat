@@ -141,6 +141,7 @@ public class Tutorial : MonoBehaviour
 
     private void ResumeAfterEscape()
     {
+        Time.timeScale = 0f;
         // Wait for the player to press Space to resume
         if (Input.GetKeyDown(KeyCode.Space))
         {
