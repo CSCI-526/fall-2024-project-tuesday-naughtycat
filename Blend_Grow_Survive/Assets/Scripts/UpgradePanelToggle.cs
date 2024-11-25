@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UpgradePanelToggle : MonoBehaviour
 {
@@ -87,9 +88,12 @@ public class UpgradePanelToggle : MonoBehaviour
     /// </summary>
     private void ResumeGame()
     {
-        Time.timeScale = 1f;                      // Resume the game
         //Cursor.lockState = CursorLockMode.None;  // Lock the cursor
-        ObjectGenerator.ins.StartGenerating();
+        if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
+        {
+            Time.timeScale = 1f;                      // Resume the game
+            ObjectGenerator.ins.StartGenerating();
+        }
     }
 
     /// <summary>
