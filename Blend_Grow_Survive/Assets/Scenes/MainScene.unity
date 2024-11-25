@@ -2702,8 +2702,7 @@ MonoBehaviour:
   arrow: {fileID: 759463619}
   arrowObject: {fileID: 759463617}
   outOfBulletText: {fileID: 0}
-  plusSignPrefab: {fileID: 621732741623239731, guid: 84afe57ed3613ac4f88447ad66e29a14, type: 3}
-  plusSignLifetime: 1
+  crosshairCursor: {fileID: 2800000, guid: 414bcf4f49facc9438c7970f91d1c365, type: 3}
 --- !u!114 &1020997021
 MonoBehaviour:
   m_ObjectHideFlags: 0

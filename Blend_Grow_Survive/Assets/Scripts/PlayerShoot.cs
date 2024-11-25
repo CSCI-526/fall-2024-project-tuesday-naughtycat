@@ -25,8 +25,11 @@ public class PlayerShoot : MonoBehaviour
     public GameObject arrowObject;
     public TextMeshProUGUI outOfBulletText;
 
-    [SerializeField] private GameObject plusSignPrefab;
-    [SerializeField] private float plusSignLifetime = 1f;
+    //[SerializeField] private GameObject plusSignPrefab;
+    //[SerializeField] private float plusSignLifetime = 1f;
+
+    public Texture2D crosshairCursor;
+    private bool isCursorChanged = false;
     void Start()
     {
         //myGun.transform.SetParent(transform);
@@ -64,13 +67,33 @@ public class PlayerShoot : MonoBehaviour
             else
             {
                 Shoot();
-                CreatePlusSign();
+                //CreatePlusSign();
+                if (!isCursorChanged)
+                {
+                    StartCoroutine(ChangeCursorTemporarily());
+                }
             }
             //currentGun.Shoot();
             //generator.DestroyPlayerBullet();
         }
     }
 
+    private System.Collections.IEnumerator ChangeCursorTemporarily()
+    {
+        isCursorChanged = true;
+
+        Vector2 hotspot = new Vector2(crosshairCursor.width / 2f, crosshairCursor.height / 2f);
+        // Change to crosshair cursor
+        Cursor.SetCursor(crosshairCursor, hotspot, CursorMode.Auto);
+
+        // Wait for 1 second
+        yield return new WaitForSeconds(0.1f);
+
+        // Revert to the system default cursor
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        isCursorChanged = false;
+    }
+    /*
     void CreatePlusSign()
     {
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -81,6 +104,7 @@ public class PlayerShoot : MonoBehaviour
 
         Destroy(plusSign, plusSignLifetime);
     }
+    */
 
     IEnumerator HideOutOfBulletTextAfterDelay(float delay)
     {
