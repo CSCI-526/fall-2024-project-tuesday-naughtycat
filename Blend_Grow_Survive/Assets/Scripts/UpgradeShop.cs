@@ -14,6 +14,7 @@ public class UpgradeShop : MonoBehaviour
     public Button movementSpeedButton;
     public Button bodyDamageButton;
     public TextMeshProUGUI coinText;
+    public TextMeshProUGUI outOfCoinsText;
 
     void Start()
     {
@@ -49,6 +50,7 @@ public class UpgradeShop : MonoBehaviour
         else
         {
             Debug.Log("Not enough coins to upgrade " + upgradeType);
+            ShowOutOfCoinsMessage();
         }
     }
 
@@ -70,8 +72,32 @@ public class UpgradeShop : MonoBehaviour
         else
         {
             Debug.Log("Not enough coins to upgrade " + statType);
+            ShowOutOfCoinsMessage();
         }
     }
+
+    private void ShowOutOfCoinsMessage()
+    {
+        if (outOfCoinsText != null)
+        {
+            outOfCoinsText.gameObject.SetActive(true);
+            StartCoroutine(HideOutOfCoinsMessageAfterDelay(2f)); // Hide after 2 seconds
+        }
+        else
+        {
+            Debug.LogWarning("OutOfCoinsText is not assigned in the UpgradeShop script.");
+        }
+    }
+
+    private System.Collections.IEnumerator HideOutOfCoinsMessageAfterDelay(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        if (outOfCoinsText != null)
+        {
+            outOfCoinsText.gameObject.SetActive(false);
+        }
+    }
+
 
     /// <summary>
     /// Updates the interactable state and color of upgrade buttons based on current levels.
