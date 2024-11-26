@@ -94,12 +94,14 @@ public class PlayerShoot : MonoBehaviour
 
     private void ChangeCursorTemporarily()
     {
-        // Scale down the crosshair texture
+        
         Texture2D scaledCrosshair = ScaleTexture(crosshairCursor, 0.3f); 
         Vector2 hotspot = new Vector2(scaledCrosshair.width / 2f, scaledCrosshair.height / 2f);
 
-        // Change to the scaled crosshair cursor
         Cursor.SetCursor(scaledCrosshair, hotspot, CursorMode.Auto);
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     // Utility method to scale a texture
