@@ -84,13 +84,14 @@ public class PlayerShoot : MonoBehaviour
             //generator.DestroyPlayerBullet();
         }
     }
+
     private void ChangeCursorTemporarily()
     {
         Vector2 hotspot = new Vector2(crosshairCursor.width / 2f, crosshairCursor.height / 2f);
         // Change to crosshair cursor
         Cursor.SetCursor(crosshairCursor, hotspot, CursorMode.Auto);
     }
-
+   
     /*
      private System.Collections.IEnumerator ChangeCursorTemporarily()
      {

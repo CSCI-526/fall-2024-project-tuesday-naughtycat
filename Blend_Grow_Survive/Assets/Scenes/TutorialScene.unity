@@ -2615,6 +2615,7 @@ MonoBehaviour:
   isTutorial: 1
   coinText: {fileID: 1730525800}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
+  bButtonReminder: {fileID: 0}
   bulletSpeedLevel: 0
   bulletRangeLevel: 0
   shrinkResistanceLevel: 0
@@ -5547,8 +5548,7 @@ MonoBehaviour:
   arrow: {fileID: 1724974040}
   arrowObject: {fileID: 1724974038}
   outOfBulletText: {fileID: 0}
-  plusSignPrefab: {fileID: 621732741623239731, guid: 84afe57ed3613ac4f88447ad66e29a14, type: 3}
-  plusSignLifetime: 1
+  crosshairCursor: {fileID: 2800000, guid: cf8ec195b8923e9479f2f1922afcc9c1, type: 3}
 --- !u!50 &2032329671
 Rigidbody2D:
   serializedVersion: 4
