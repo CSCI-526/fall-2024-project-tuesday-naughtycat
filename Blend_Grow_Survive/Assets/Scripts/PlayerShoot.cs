@@ -84,13 +84,46 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    /*
     private void ChangeCursorTemporarily()
     {
         Vector2 hotspot = new Vector2(crosshairCursor.width / 2f, crosshairCursor.height / 2f);
         // Change to crosshair cursor
         Cursor.SetCursor(crosshairCursor, hotspot, CursorMode.Auto);
+    }*/
+
+    private void ChangeCursorTemporarily()
+    {
+        // Scale down the crosshair texture
+        Texture2D scaledCrosshair = ScaleTexture(crosshairCursor, 0.3f); 
+        Vector2 hotspot = new Vector2(scaledCrosshair.width / 2f, scaledCrosshair.height / 2f);
+
+        // Change to the scaled crosshair cursor
+        Cursor.SetCursor(scaledCrosshair, hotspot, CursorMode.Auto);
     }
-   
+
+    // Utility method to scale a texture
+    private Texture2D ScaleTexture(Texture2D source, float scale)
+    {
+        int newWidth = Mathf.RoundToInt(source.width * scale);
+        int newHeight = Mathf.RoundToInt(source.height * scale);
+
+        RenderTexture rt = RenderTexture.GetTemporary(newWidth, newHeight);
+        rt.filterMode = FilterMode.Bilinear;
+
+        RenderTexture.active = rt;
+        Graphics.Blit(source, rt);
+
+        Texture2D result = new Texture2D(newWidth, newHeight, source.format, false);
+        result.ReadPixels(new Rect(0, 0, newWidth, newHeight), 0, 0);
+        result.Apply();
+
+        RenderTexture.active = null;
+        RenderTexture.ReleaseTemporary(rt);
+
+        return result;
+    }
+
     /*
      private System.Collections.IEnumerator ChangeCursorTemporarily()
      {
