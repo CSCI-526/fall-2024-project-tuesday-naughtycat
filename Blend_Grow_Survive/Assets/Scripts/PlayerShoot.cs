@@ -29,13 +29,14 @@ public class PlayerShoot : MonoBehaviour
     //[SerializeField] private float plusSignLifetime = 1f;
 
     public Texture2D crosshairCursor;
-    private bool isCursorChanged = false;
+    //private bool isCursorChanged = false;
     void Start()
     {
         //myGun.transform.SetParent(transform);
         player_eat = GetComponent<PlayerEat>();
         generator = ObjectGenerator.ins;
         generator.players.Add(gameObject);
+        ChangeCursorTemporarily();
 
         upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
         // check if this is needed!!!! my branch did not have this code
@@ -72,31 +73,41 @@ public class PlayerShoot : MonoBehaviour
             {
                 Shoot();
                 //CreatePlusSign();
+                /*
                 if (!isCursorChanged)
                 {
                     StartCoroutine(ChangeCursorTemporarily());
                 }
+                */
             }
             //currentGun.Shoot();
             //generator.DestroyPlayerBullet();
         }
     }
-
-    private System.Collections.IEnumerator ChangeCursorTemporarily()
+    private void ChangeCursorTemporarily()
     {
-        isCursorChanged = true;
-
         Vector2 hotspot = new Vector2(crosshairCursor.width / 2f, crosshairCursor.height / 2f);
         // Change to crosshair cursor
         Cursor.SetCursor(crosshairCursor, hotspot, CursorMode.Auto);
-
-        // Wait for 1 second
-        yield return new WaitForSeconds(0.1f);
-
-        // Revert to the system default cursor
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
-        isCursorChanged = false;
     }
+
+    /*
+     private System.Collections.IEnumerator ChangeCursorTemporarily()
+     {
+         isCursorChanged = true;
+
+         Vector2 hotspot = new Vector2(crosshairCursor.width / 2f, crosshairCursor.height / 2f);
+         // Change to crosshair cursor
+         Cursor.SetCursor(crosshairCursor, hotspot, CursorMode.Auto);
+
+         // Wait for 1 second
+         yield return new WaitForSeconds(0.1f);
+
+         // Revert to the system default cursor
+         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+         isCursorChanged = false;
+     }
+    */
     /*
     void CreatePlusSign()
     {
