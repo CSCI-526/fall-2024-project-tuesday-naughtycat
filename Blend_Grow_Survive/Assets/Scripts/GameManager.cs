@@ -361,7 +361,7 @@ public class GameManager : MonoBehaviour
         if (coinText != null)
         {
             Debug.Log("These are the curent amount of playercoins" + playerCoins);
-            coinText.text = "Coins: " + playerCoins.ToString();
+            coinText.text = "       " + playerCoins.ToString();
         }
         CheckAndShowBButtonReminder();
     }
