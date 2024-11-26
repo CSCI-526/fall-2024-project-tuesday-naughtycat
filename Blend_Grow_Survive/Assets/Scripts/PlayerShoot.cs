@@ -45,7 +45,6 @@ public class PlayerShoot : MonoBehaviour
         {
             outOfBulletText = GameObject.Find("OutOfBullet").GetComponent<TextMeshProUGUI>();
             outOfBulletText.enabled = false;
-            Debug.Log("outtttttt " + outOfBulletText);
         }
         
     }

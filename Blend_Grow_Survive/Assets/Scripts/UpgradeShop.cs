@@ -41,7 +41,7 @@ public class UpgradeShop : MonoBehaviour
         if (GameManager.instance.SpendCoins(cost))
         {
             GameManager.instance.UpgradeGun(upgradeType);
-            coinText.text = "       " + GameManager.instance.playerCoins.ToString();
+            coinText.text = GameManager.instance.playerCoins.ToString();
             Debug.Log(upgradeType + " upgraded!");
 
             // Update button states after upgrade
@@ -63,7 +63,7 @@ public class UpgradeShop : MonoBehaviour
         if (GameManager.instance.SpendCoins(cost))
         {
             GameManager.instance.UpgradeStat(statType);
-            coinText.text = "       " + GameManager.instance.playerCoins.ToString();
+            coinText.text = GameManager.instance.playerCoins.ToString();
             Debug.Log(statType + " upgraded!");
 
             // Update button states after upgrade

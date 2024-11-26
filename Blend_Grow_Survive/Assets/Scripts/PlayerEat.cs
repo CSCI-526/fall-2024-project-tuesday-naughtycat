@@ -214,7 +214,7 @@ public class PlayerEat : MonoBehaviour
                         analyticsManager.EnemySwallow();
 
                         GameManager.instance.AddCoins(2);
-                        coinText.text = "       " + GameManager.instance.playerCoins.ToString();
+                        coinText.text = GameManager.instance.playerCoins.ToString();
 
                         //GameManager.instance.ReduceLeftEnemy();
 
@@ -249,7 +249,7 @@ public class PlayerEat : MonoBehaviour
                         analyticsManager.EnemySwallow();
 
                         GameManager.instance.AddCoins(2);
-                        coinText.text = "       " + GameManager.instance.playerCoins.ToString();
+                        coinText.text = GameManager.instance.playerCoins.ToString();
                         GainExperience(10);
 
                         if (GameManager.instance != null)
@@ -319,7 +319,7 @@ public class PlayerEat : MonoBehaviour
                 analyticsManager.EnemySwallow();
 
                 GameManager.instance.AddCoins(2);
-                coinText.text = "       " + GameManager.instance.playerCoins.ToString();
+                coinText.text = GameManager.instance.playerCoins.ToString();
                 GainExperience(10);
 
                 if (GameManager.instance != null)
@@ -471,7 +471,7 @@ public class PlayerEat : MonoBehaviour
     {
         if (bullet_text != null)
         {
-            bullet_text.text = "         " + bulletCount;
+            bullet_text.text = "" + bulletCount;
             bullet_text.gameObject.SetActive(true);
         }
     }

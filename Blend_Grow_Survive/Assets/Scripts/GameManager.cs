@@ -314,7 +314,6 @@ public class GameManager : MonoBehaviour
     public void AddCoins(int coinAmount)
     {
         playerCoins += coinAmount;
-        Debug.Log("Current Coins: " + playerCoins);
         UpdateCoinText();
     }
 
@@ -361,7 +360,7 @@ public class GameManager : MonoBehaviour
         if (coinText != null)
         {
             Debug.Log("These are the curent amount of playercoins" + playerCoins);
-            coinText.text = "       " + playerCoins.ToString();
+            coinText.text = playerCoins.ToString();
         }
         CheckAndShowBButtonReminder();
     }
