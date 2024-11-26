@@ -8,6 +8,11 @@ using TMPro;
 public class Tutorial : MonoBehaviour
 {
     public Text hintText;
+    public Image hintImage;
+    public Image hintImageEscape1;
+    public Image hintImageEscape2;
+    public Image hintImageMouse;
+    public Image hintImageB;
     public GameObject tutorialAmmo, upgradePanel, tutorialPlayer, hpText, wall1, wall2;
 
     private int status = 0;
@@ -22,6 +27,10 @@ public class Tutorial : MonoBehaviour
     {
         tutorialAmmo = GameObject.Find("newAmmo");
         tutorialAmmo.SetActive(false);
+        hintImageEscape1.gameObject.SetActive(false);
+        hintImageEscape2.gameObject.SetActive(false);
+        hintImageMouse.gameObject.SetActive(false);
+        hintImageB.gameObject.SetActive(false);
         upgradePanel = GameObject.Find("UpgradePanel");
 
         // Locate and disable preset food items
@@ -91,8 +100,7 @@ public class Tutorial : MonoBehaviour
 
     private void DisplayHintsAndEnableFood()
     {
-        
-        DisplayHint("WASD to flag");
+        hintImage.gameObject.SetActive(true);
         food1.SetActive(true);
         food2.SetActive(true);
         food3.SetActive(true);
@@ -103,6 +111,7 @@ public class Tutorial : MonoBehaviour
     {
         if (foodEnabled && !GameObject.Find("Food") && !GameObject.Find("Food (1)") && !GameObject.Find("Food (2)"))
         {
+            hintImage.gameObject.SetActive(false);
             status++;
             DisplayHint("Incoming! Swallow it!");
         }
@@ -133,32 +142,33 @@ public class Tutorial : MonoBehaviour
         arrow.gameObject.SetActive(true);
         Time.timeScale = 0f;
         //yield return new WaitForSecondsRealtime(0.1f);
-
-        DisplayHint("Use W + D + Spacebar to ESCAPE!!!");
+        hintImageEscape1.gameObject.SetActive(true);
+        hintImageEscape2.gameObject.SetActive(true);
+        DisplayHint("                                                     ESCAPE!");
         status++;
         // escapeArrow.SetActive(true); // Show escape arrow if needed
     }
 
     private void ResumeAfterEscape()
     {
-        Time.timeScale = 0f;
         // Wait for the player to press Space to resume
         if (Input.GetKeyDown(KeyCode.Space))
         {
             arrow.gameObject.SetActive(false);
+            hintImageEscape1.gameObject.SetActive(false);
+            hintImageEscape2.gameObject.SetActive(false);
+            DisplayHint("");
             Time.timeScale = 1f; // Resume game
-            //escapeArrow.SetActive(false); // Hide the escape arrow
-            DisplayHint("Great!"); // Update the hint text
-    
             status++;
         }
     }
 
     private void ShowAmmoHint()
     {
-        if (!GameObject.Find("ammo")&& !GameObject.Find("newAmmo1") && !GameObject.Find("newAmmo2") && !GameObject.Find("newAmmo3"))
+        if (!GameObject.Find("ammo") && !GameObject.Find("newAmmo1") && !GameObject.Find("newAmmo2") && !GameObject.Find("newAmmo3"))
         {
-            DisplayHint("Left-click to shoot!");
+            hintImageMouse.gameObject.SetActive(true);
+            DisplayHint("            SHOOT!");
             status++;
         }
     }
@@ -173,7 +183,8 @@ public class Tutorial : MonoBehaviour
     {
         if (!secondEnemy)
         {
-            DisplayHint("Perfect!");
+            hintImageMouse.gameObject.SetActive(false);
+            DisplayHint("");
             status++;
         }
     }
@@ -209,7 +220,8 @@ public class Tutorial : MonoBehaviour
     {
         if (!thirdEnemy && !fourthEnemy && !fifthEnemy)
         {
-            DisplayHint("Press 'B' to open the upgrade system.");
+            hintImageB.gameObject.SetActive(true);
+            DisplayHint("                          Open the upgrade system");
             status++;
         }
     }
@@ -218,7 +230,8 @@ public class Tutorial : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            DisplayHint("Upgrade one skill for 10 coins.");
+            hintImageB.gameObject.SetActive(false);
+            DisplayHint("Upgrade one skill - 10 coins");
             status++;
         }
     }
@@ -228,7 +241,8 @@ public class Tutorial : MonoBehaviour
         if (GameManager.instance.playerCoins == 0)
         {
             GameManager.instance.ShowDeductedCoins(10);
-            DisplayHint("Press 'B' to close the upgrade system.");
+            hintImageB.gameObject.SetActive(true);
+            DisplayHint("Close it");
             status++;
         }
     }
