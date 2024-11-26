@@ -66,11 +66,13 @@ public class UpgradePanelToggle : MonoBehaviour
             {
                 FindObjectOfType<ObjectGenerator>().levelText.enabled = false;
             }
+            GameManager.instance.HideBButtonReminder();
             PauseGame();
         }
         else
         {
             ResumeGame();
+            GameManager.instance.CheckAndShowBButtonReminder();
         }
     }
 
@@ -88,17 +90,30 @@ public class UpgradePanelToggle : MonoBehaviour
     /// </summary>
     private void ResumeGame()
     {
-        
-        //Cursor.lockState = CursorLockMode.None;  // Lock the cursor
-        if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
+        //Time.timeScale = 1f;
+        //ObjectGenerator.ins.StartGenerating();
+
+
+        Time.timeScale = 1f;
+
+        // Resume enemy generation only if not in the tutorial
+        if (ObjectGenerator.ins != null && ObjectGenerator.ins.isTutorial == 0)
         {
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            Time.timeScale = 1f;                      // Resume the game
             ObjectGenerator.ins.StartGenerating();
         }
+        // Else, do not start generating in the tutorial scene
+
+
+        //Cursor.lockState = CursorLockMode.None;  // Lock the cursor
+        //if (SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
+        //{
+        //    Time.timeScale = 1f;
+        //}
+        //else
+        //{
+        //    Time.timeScale = 1f;                      // Resume the game
+        //    ObjectGenerator.ins.StartGenerating();
+        //}
     }
 
     /// <summary>

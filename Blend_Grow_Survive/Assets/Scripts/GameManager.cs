@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -109,6 +109,11 @@ public class GameManager : MonoBehaviour
     public GameObject bullet;
     private BulletAttack bulletAttack;
 
+    // B Button FLASH
+    public GameObject bButtonReminder;
+    private const int COIN_THRESHOLD_FOR_REMINDER = 20;
+    private Coroutine hideReminderCoroutine;
+
     //storing initial values of bullets so it can be reset to them upon restarting the game.
     private float initialBulletSpeed = 15f;
     private float initialMaxDistance = 10f;
@@ -214,6 +219,11 @@ public class GameManager : MonoBehaviour
         else
         {
             deductedCoinText = null;
+        }
+        bButtonReminder = GameObject.Find("BButtonReminder");
+        if (bButtonReminder != null)
+        {
+            bButtonReminder.SetActive(false); // Ensure it's disabled at start
         }
         if (GameObject.Find("ShrinkProgressBar"))
         {
@@ -353,6 +363,50 @@ public class GameManager : MonoBehaviour
             Debug.Log("These are the curent amount of playercoins" + playerCoins);
             coinText.text = "Coins: " + playerCoins.ToString();
         }
+        CheckAndShowBButtonReminder();
+    }
+
+    public void CheckAndShowBButtonReminder()
+    {
+        if (bButtonReminder != null)
+        {
+            if (playerCoins >= COIN_THRESHOLD_FOR_REMINDER && !bButtonReminder.activeSelf)
+            {
+                bButtonReminder.SetActive(true);
+                StartReminderTimeout(); // Start timeout when the reminder is shown
+            }
+            else if (playerCoins < COIN_THRESHOLD_FOR_REMINDER && bButtonReminder.activeSelf)
+            {
+                bButtonReminder.SetActive(false);
+                if (hideReminderCoroutine != null)
+                {
+                    StopCoroutine(hideReminderCoroutine); // Stop timeout if condition no longer met
+                }
+            }
+        }
+    }
+
+    public void HideBButtonReminder()
+    {
+        if (bButtonReminder != null)
+        {
+            bButtonReminder.SetActive(false);
+        }
+    }
+
+    public void StartReminderTimeout()
+    {
+        if (hideReminderCoroutine != null)
+        {
+            StopCoroutine(hideReminderCoroutine); // Stop any existing coroutine
+        }
+        hideReminderCoroutine = StartCoroutine(ReminderTimeoutCoroutine());
+    }
+
+    private IEnumerator ReminderTimeoutCoroutine()
+    {
+        yield return new WaitForSeconds(5f); // Wait for 5 seconds
+        HideBButtonReminder();
     }
     /*
     private void UpdateLeftEnemyText()
@@ -516,6 +570,11 @@ public class GameManager : MonoBehaviour
                 break;
             case "Reload":
                 break;
+        }
+        GameManager.instance.HideBButtonReminder();
+        if (hideReminderCoroutine != null)
+        {
+            StopCoroutine(hideReminderCoroutine);
         }
     }
 

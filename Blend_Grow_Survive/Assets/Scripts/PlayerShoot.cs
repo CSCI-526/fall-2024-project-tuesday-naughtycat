@@ -50,6 +50,10 @@ public class PlayerShoot : MonoBehaviour
     }
     void LateUpdate()
     {
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
         HandleGunRotation();
         // If click the left mouse, player hasn't shot yet and player eat the ammo
         if (Input.GetMouseButtonDown(0) && (upgradePanelToggle == null || !upgradePanelToggle.IsPanelOpen()))
