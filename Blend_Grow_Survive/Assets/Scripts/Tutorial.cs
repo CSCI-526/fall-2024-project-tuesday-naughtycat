@@ -22,6 +22,7 @@ public class Tutorial : MonoBehaviour
 
     private GameObject player;
     public TextMeshProUGUI arrow;
+    private int bulletChanged = 0;
 
     void Start()
     {
@@ -177,12 +178,24 @@ public class Tutorial : MonoBehaviour
     {
         secondEnemy.SetActive(true);
         status++;
+        
     }
 
     private void CheckSecondEnemyDefeat()
     {
+        if (secondEnemy && PlayerEat.ins.bulletCount == 0 && ObjectGenerator.ins.created_ammos.Count == 0)
+        {
+            if(bulletChanged == 0)
+            {
+                ObjectGenerator.ins.max_ammo = 3;
+                //bulletChanged++;
+            }
+            StartCoroutine(ObjectGenerator.ins.CreateAmmo());
+            
+        }
         if (!secondEnemy)
         {
+            ObjectGenerator.ins.max_ammo = 0;
             hintImageMouse.gameObject.SetActive(false);
             DisplayHint("");
             status++;

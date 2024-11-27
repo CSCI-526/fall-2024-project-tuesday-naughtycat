@@ -197,6 +197,7 @@ public class ObjectGenerator : MonoBehaviour
 
     public IEnumerator CreateAmmo()
     {
+        
         while (true)
         {
            
@@ -204,7 +205,16 @@ public class ObjectGenerator : MonoBehaviour
             
             if (created_ammos.Count < max_ammo)
             {
-                Vector2 Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
+                Vector2 Position;
+                if (isTutorial ==1)
+                {
+                    Position = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+                }
+                else
+                {
+                    Position = new Vector2(Random.Range(-30f, 30f), Random.Range(-30f, 30f));
+                }
+                
                 Collider2D hit = Physics2D.OverlapCircle(Position, 0.5f);
                 while (hit != null)
                 {
@@ -214,9 +224,11 @@ public class ObjectGenerator : MonoBehaviour
                 }
 
                 GameObject c = Instantiate(ammo, Position, Quaternion.identity);
+                Debug.Log("1111");
                 AddObject(c, created_ammos);
             }
         }
+
     }
 
     public IEnumerator CreateEnemy()
@@ -440,6 +452,7 @@ public class ObjectGenerator : MonoBehaviour
     // Add the gameobject to created_objects
     public void AddObject(GameObject m, List<GameObject> created_objects)
     {
+        Debug.Log("111111");
         if (!created_objects.Contains(m))
         {
             created_objects.Add(m);

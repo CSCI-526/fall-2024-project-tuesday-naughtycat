@@ -193,6 +193,10 @@ public class PlayerEat : MonoBehaviour
                     }
                     if (m.gameObject.CompareTag("Ammo"))
                     {
+                        if (ObjectGenerator.ins.isTutorial == 1)
+                        {
+                            ms.RemoveObject(m.gameObject, ms.created_ammos);
+                        }
                         //ms.RemoveObject(m.gameObject, ms.created_ammos);
                         //Debug.Log("eat ammo");
                         bulletCount += ammoAdd;
