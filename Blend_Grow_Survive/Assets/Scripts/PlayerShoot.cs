@@ -41,7 +41,7 @@ public class PlayerShoot : MonoBehaviour
         upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
         // check if this is needed!!!! my branch did not have this code
         currentGun = gun.transform.GetChild(currentGunIndex).GetComponent<Gun>();
-        if(SceneManager.GetActiveScene().name.CompareTo("TutorialScene") != 0)
+        if(1==1)
         {
             outOfBulletText = GameObject.Find("OutOfBullet").GetComponent<TextMeshProUGUI>();
             outOfBulletText.enabled = false;
