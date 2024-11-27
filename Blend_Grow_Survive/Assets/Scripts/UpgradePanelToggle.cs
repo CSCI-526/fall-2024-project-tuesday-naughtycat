@@ -8,6 +8,7 @@ public class UpgradePanelToggle : MonoBehaviour
     [Header("UI Elements")]
     public GameObject upgradePanel;               // Reference to the Upgrade Panel
     public TextMeshProUGUI feedbackText;      // Reference to the Button's Text (optional for feedback)
+    public UpgradeShop upgradeShop; // Assign this in the inspector or find it in code
 
     //[Header("Audio Feedback")]
     //public AudioSource audioSource;               // AudioSource component for sound effects
@@ -29,6 +30,10 @@ public class UpgradePanelToggle : MonoBehaviour
         if (upgradePanel != null)
         {
             upgradePanel.SetActive(false);        // Ensures that the panel is initially hidden
+        }
+        if (upgradeShop == null)
+        {
+            upgradeShop = FindObjectOfType<UpgradeShop>();
         }
     }
 
@@ -73,6 +78,11 @@ public class UpgradePanelToggle : MonoBehaviour
         {
             ResumeGame();
             GameManager.instance.CheckAndShowBButtonReminder();
+
+            if (upgradeShop != null)
+            {
+                upgradeShop.HideOutOfCoinsMessageImmediately();
+            }
         }
     }
 

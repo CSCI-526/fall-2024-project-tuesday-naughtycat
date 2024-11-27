@@ -4065,6 +4065,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradePanel: {fileID: 390704135}
   feedbackText: {fileID: 0}
+  upgradeShop: {fileID: 390704139}
   animationDuration: 0.3
 --- !u!1 &1244618563
 GameObject:

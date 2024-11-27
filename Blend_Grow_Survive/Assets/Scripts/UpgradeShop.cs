@@ -15,6 +15,8 @@ public class UpgradeShop : MonoBehaviour
     public Button bodyDamageButton;
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI outOfCoinsText;
+    private Coroutine hideMessageCoroutine;
+
 
     void Start()
     {
@@ -80,8 +82,14 @@ public class UpgradeShop : MonoBehaviour
     {
         if (outOfCoinsText != null)
         {
+            // If a coroutine is already running, stop it
+            if (hideMessageCoroutine != null)
+            {
+                StopCoroutine(hideMessageCoroutine);
+            }
+
             outOfCoinsText.gameObject.SetActive(true);
-            StartCoroutine(HideOutOfCoinsMessageAfterDelay(2f)); // Hide after 2 seconds
+            hideMessageCoroutine = StartCoroutine(HideOutOfCoinsMessageAfterDelay()); // Hide after 2 seconds
         }
         else
         {
@@ -89,14 +97,31 @@ public class UpgradeShop : MonoBehaviour
         }
     }
 
-    private System.Collections.IEnumerator HideOutOfCoinsMessageAfterDelay(float delay)
+
+    private System.Collections.IEnumerator HideOutOfCoinsMessageAfterDelay(float delay = 2f)
     {
         yield return new WaitForSecondsRealtime(delay);
         if (outOfCoinsText != null)
         {
             outOfCoinsText.gameObject.SetActive(false);
         }
+        hideMessageCoroutine = null;
     }
+
+    public void HideOutOfCoinsMessageImmediately()
+    {
+        if (hideMessageCoroutine != null)
+        {
+            StopCoroutine(hideMessageCoroutine);
+            hideMessageCoroutine = null;
+        }
+
+        if (outOfCoinsText != null)
+        {
+            outOfCoinsText.gameObject.SetActive(false);
+        }
+    }
+
 
 
     /// <summary>
