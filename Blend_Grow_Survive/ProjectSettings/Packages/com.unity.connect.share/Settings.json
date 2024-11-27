@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"/Users/kangdenglin/Documents/GitHub/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Builds/20241126;/Users/namankothari/Documents/Naman Kothari/Masters(University)/USC/SEM 2/AMDGC(CSCI-526)/newest-build;/Users/kangdenglin/Documents/GitHub/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Builds/20241119;/Users/yuxiangwang/Documents/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Build;/Users/kangdenglin/Documents/GitHub/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Builds/20241105;/Users/wenyuehu/CSCI 526/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/WebGL Builds;;;;\"}"
+                "value": "{\"m_Value\":\"/Users/namankothari/Documents/Naman Kothari/Masters(University)/USC/SEM 2/AMDGC(CSCI-526)/shangronggandubuilds/shangronggandubuild;/Users/kangdenglin/Documents/GitHub/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Builds/20241126;/Users/namankothari/Documents/Naman Kothari/Masters(University)/USC/SEM 2/AMDGC(CSCI-526)/newest-build;/Users/kangdenglin/Documents/GitHub/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Builds/20241119;/Users/yuxiangwang/Documents/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Build;/Users/kangdenglin/Documents/GitHub/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/Builds/20241105;/Users/wenyuehu/CSCI 526/fall-2024-project-tuesday-naughtycat/Blend_Grow_Survive/WebGL Builds;;;\"}"
             }
         ]
     }

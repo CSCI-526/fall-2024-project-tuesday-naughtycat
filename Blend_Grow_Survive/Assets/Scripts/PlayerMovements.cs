@@ -59,7 +59,7 @@ public class PlayerMovements : MonoBehaviour
             lastMoveDirection = moveDirection;
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && !GameManager.instance.isUpgradePanelOpen)
         {
             actions.PlayerThrow();  // Handle player throw
             if (!hasEscaped)

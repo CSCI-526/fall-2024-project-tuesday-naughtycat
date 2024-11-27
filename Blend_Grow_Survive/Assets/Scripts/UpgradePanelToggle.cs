@@ -52,7 +52,7 @@ public class UpgradePanelToggle : MonoBehaviour
     public void ToggleUpgradePanel()
     {
         isPanelOpen = !isPanelOpen;
-
+        GameManager.instance.isUpgradePanelOpen = isPanelOpen;
         if (upgradePanel != null)
         {
             upgradePanel.SetActive(isPanelOpen);
@@ -72,10 +72,12 @@ public class UpgradePanelToggle : MonoBehaviour
                 FindObjectOfType<ObjectGenerator>().levelText.enabled = false;
             }
             GameManager.instance.HideBButtonReminder();
+            GameManager.instance.ToggleBlur(true);
             PauseGame();
         }
         else
         {
+            GameManager.instance.ToggleBlur(false);
             ResumeGame();
             GameManager.instance.CheckAndShowBButtonReminder();
 
