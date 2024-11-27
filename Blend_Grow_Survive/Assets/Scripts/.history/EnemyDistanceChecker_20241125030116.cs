@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyDistanceChecker : MonoBehaviour
 {
-    public float detectionRange = 15f;
+    public float detectionRange = 10f;
     public int detectionThreshold = 2;
     public GameObject wasdImage;
     public GameObject spacebarImage;
@@ -40,7 +40,7 @@ public class EnemyDistanceChecker : MonoBehaviour
         }
 
         float playerSize = transform.localScale.x;
-        if (closeEnemiesCount >= detectionThreshold && playerSize >= 1.1f)
+        if (closeEnemiesCount > detectionThreshold && playerSize > 1.1f)
         {
             wasdImage.SetActive(true);
             spacebarImage.SetActive(true);
