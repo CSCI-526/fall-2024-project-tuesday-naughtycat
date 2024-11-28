@@ -224,7 +224,6 @@ public class ObjectGenerator : MonoBehaviour
                 }
 
                 GameObject c = Instantiate(ammo, Position, Quaternion.identity);
-                Debug.Log("1111");
                 AddObject(c, created_ammos);
             }
         }
@@ -452,7 +451,6 @@ public class ObjectGenerator : MonoBehaviour
     // Add the gameobject to created_objects
     public void AddObject(GameObject m, List<GameObject> created_objects)
     {
-        Debug.Log("111111");
         if (!created_objects.Contains(m))
         {
             created_objects.Add(m);

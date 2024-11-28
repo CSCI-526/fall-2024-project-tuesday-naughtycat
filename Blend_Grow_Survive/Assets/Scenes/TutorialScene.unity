@@ -457,7 +457,8 @@ PrefabInstance:
       value: Ammo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8454170102066932830, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
@@ -705,7 +706,8 @@ PrefabInstance:
       value: Ammo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8454170102066932830, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
@@ -971,6 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradePanel: {fileID: 657488025}
   feedbackText: {fileID: 0}
+  upgradeShop: {fileID: 0}
   animationDuration: 0.3
 --- !u!4 &399070904
 Transform:
@@ -3073,7 +3076,9 @@ MonoBehaviour:
   isTutorial: 1
   coinText: {fileID: 1730525800}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
+  postProcessVolume: {fileID: 0}
   bButtonReminder: {fileID: 0}
+  isUpgradePanelOpen: 0
   bulletSpeedLevel: 0
   bulletRangeLevel: 0
   shrinkResistanceLevel: 0
@@ -4449,7 +4454,8 @@ PrefabInstance:
       value: Ammo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8454170102066932830, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
@@ -6575,7 +6581,8 @@ PrefabInstance:
       value: Ammo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8454170102066932830, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
