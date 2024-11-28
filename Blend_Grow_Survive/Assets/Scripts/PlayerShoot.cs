@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -78,6 +79,14 @@ public class PlayerShoot : MonoBehaviour
             }
             else
             {
+                /*
+                Debug.Log("Sceen width: " + Screen.width + "  mouse pos:" + Input.mousePosition.x + "--" + Input.mousePosition.y);
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    //PointerEventData.pointer
+                    Debug.Log("         Clicked UI~~~~~~~~");
+                }
+                */
                 Shoot();
                 //CreatePlusSign();
                 /*

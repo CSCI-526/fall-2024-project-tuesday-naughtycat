@@ -6782,7 +6782,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 215430541}
         m_TargetAssemblyTypeName: ChangeScene, Assembly-CSharp
-        m_MethodName: switchScene
+        m_MethodName: addScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
