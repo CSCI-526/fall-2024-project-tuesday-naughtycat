@@ -36,7 +36,7 @@ public class PlayerShoot : MonoBehaviour
         player_eat = GetComponent<PlayerEat>();
         generator = ObjectGenerator.ins;
         generator.players.Add(gameObject);
-        ChangeCursorTemporarily();
+        //ChangeCursorTemporarily();
 
         upgradePanelToggle = FindObjectOfType<UpgradePanelToggle>();
         // check if this is needed!!!! my branch did not have this code
@@ -53,6 +53,13 @@ public class PlayerShoot : MonoBehaviour
         if (Time.timeScale == 0f)
         {
             return;
+        }
+        if(player_eat.bulletCount > 0)
+        {
+            ChangeCursorTemporarily();
+        } else
+        {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
 
         HandleGunRotation();
