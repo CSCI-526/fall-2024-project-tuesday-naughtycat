@@ -123,8 +123,8 @@ public class GameManager : MonoBehaviour
     public bool isUpgradePanelOpen = false;
 
     //storing initial values of bullets so it can be reset to them upon restarting the game.
-    private float initialBulletSpeed = 15f;
-    private float initialMaxDistance = 10f;
+    private float initialBulletSpeed = 5f;
+    private float initialMaxDistance = 3f;
     private float initialBulletDamage = 1f;
     //public List<string> availableGunUpgrades = new List<string> { "Bullet_Speed", "Range", "Damage" };
     //public List<string> availableStatUpgrades = new List<string> { "HP", "Speed", "AttackSpeed" };
