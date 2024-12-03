@@ -38,13 +38,15 @@ public class EnemyShoot : MonoBehaviour
         if (player != null)
         {
             Vector2 direction = (player.transform.position - transform.position).normalized;
+
             GameObject EnemyBullet_instance = Instantiate(EnemyBullet, transform.position, Quaternion.identity);
+            
             Rigidbody2D rb = EnemyBullet_instance.GetComponent<Rigidbody2D>();
             rb.velocity = direction * bullet_speed;
 
             // Rotate EnemyBullet to face player
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            EnemyBullet_instance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            EnemyBullet_instance.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
         }
     }
 }

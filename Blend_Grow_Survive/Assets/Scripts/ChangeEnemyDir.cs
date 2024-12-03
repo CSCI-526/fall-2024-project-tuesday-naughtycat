@@ -18,17 +18,17 @@ public class ChangeEnemyDir : MonoBehaviour
         }
         else if (FindObjectOfType<ObjectGenerator>().currentWave == 1)
         {
-            enemy_speed = Random.Range(3.0f, 7.0f);
+            enemy_speed = Random.Range(3.0f, 6.5f);
             
         }
         else if (FindObjectOfType<ObjectGenerator>().currentWave == 2)
         {
-            enemy_speed = Random.Range(5.0f, 9.0f);
+            enemy_speed = Random.Range(5.0f, 8.0f);
             
         }
         else if (FindObjectOfType<ObjectGenerator>().currentWave == 3)
         {
-            enemy_speed = Random.Range(6.0f, 10.0f);
+            enemy_speed = Random.Range(5.0f, 7.0f);
             
         }
         else
