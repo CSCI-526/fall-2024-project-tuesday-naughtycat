@@ -80,7 +80,7 @@ public class PlayerShoot : MonoBehaviour
             else
             {
                 
-                //Debug.Log("Sceen width: " + Screen.width + "  mouse pos:" + Input.mousePosition.x + "--" + Input.mousePosition.y);
+                //Debug.Log("Sceen width: " + Screen.width + "--" + Screen.height + "\n mouse pos:" + Input.mousePosition.x + "--" + Input.mousePosition.y);
                 /*
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
@@ -88,7 +88,12 @@ public class PlayerShoot : MonoBehaviour
                     Debug.Log("         Clicked UI~~~~~~~~");
                 }
                 */
-                Shoot();
+                double helpButtonLength = Screen.width * 100 / 1920;
+                if (Input.mousePosition.x > helpButtonLength || Input.mousePosition.y > helpButtonLength)
+                {
+                    Shoot();
+                }
+                
                 //CreatePlusSign();
                 /*
                 if (!isCursorChanged)
