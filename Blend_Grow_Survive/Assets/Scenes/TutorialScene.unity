@@ -2040,7 +2040,6 @@ RectTransform:
   - {fileID: 1971939377}
   - {fileID: 608248769}
   - {fileID: 125719344}
-  - {fileID: 657488029}
   - {fileID: 1730525799}
   - {fileID: 1083743882}
   - {fileID: 675446401}
@@ -2055,6 +2054,7 @@ RectTransform:
   - {fileID: 964691206}
   - {fileID: 760811231}
   - {fileID: 1177903202}
+  - {fileID: 657488029}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
