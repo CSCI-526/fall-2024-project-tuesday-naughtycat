@@ -349,11 +349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 714727141769916779, guid: 649c291eac9f426498398c40408b929c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.09284067
+      value: 3.41
       objectReference: {fileID: 0}
     - target: {fileID: 714727141769916779, guid: 649c291eac9f426498398c40408b929c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.2278156
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 714727141769916779, guid: 649c291eac9f426498398c40408b929c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3076,7 +3076,6 @@ MonoBehaviour:
   isTutorial: 1
   coinText: {fileID: 1730525800}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
-  postProcessVolume: {fileID: 0}
   bButtonReminder: {fileID: 0}
   isUpgradePanelOpen: 0
   bulletSpeedLevel: 0

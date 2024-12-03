@@ -79,8 +79,9 @@ public class PlayerShoot : MonoBehaviour
             }
             else
             {
+                
+                //Debug.Log("Sceen width: " + Screen.width + "  mouse pos:" + Input.mousePosition.x + "--" + Input.mousePosition.y);
                 /*
-                Debug.Log("Sceen width: " + Screen.width + "  mouse pos:" + Input.mousePosition.x + "--" + Input.mousePosition.y);
                 if (EventSystem.current.IsPointerOverGameObject())
                 {
                     //PointerEventData.pointer

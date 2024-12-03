@@ -1155,7 +1155,6 @@ MonoBehaviour:
   isTutorial: 0
   coinText: {fileID: 1739464017}
   bullet: {fileID: 7928638507455134860, guid: ed5434c3339b9cb42af4afc5035e031c, type: 3}
-  postProcessVolume: {fileID: 0}
   bButtonReminder: {fileID: 402004834}
   isUpgradePanelOpen: 0
   bulletSpeedLevel: 0
@@ -2976,7 +2975,7 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   experience: 0
-  ammoAdd: 200
+  ammoAdd: 1
   healthText: {fileID: 35127280}
   experienceText: {fileID: 1952333316}
 --- !u!114 &1020997020
@@ -6731,9 +6730,9 @@ RectTransform:
   - {fileID: 157456541}
   m_Father: {fileID: 215430540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1868, y: -1026}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 52, y: 54}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943157766
