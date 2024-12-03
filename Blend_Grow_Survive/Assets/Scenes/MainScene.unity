@@ -2963,6 +2963,9 @@ MonoBehaviour:
   - {fileID: 7928638507455134860, guid: ca8d757dd6499674d94180de8bdc72fc, type: 3}
   enemyArcher:
   - {fileID: 7928638507455134860, guid: 57a5b7198f581465c910d7a486d5f3d0, type: 3}
+  spacebarImage: {fileID: 576401222}
+  BButtonReminder: {fileID: 402004834}
+  outOfBulletText: {fileID: 122542578}
   boss: {fileID: 907539286}
   player: {fileID: 1020997018}
   result_text: {fileID: 959201867}
