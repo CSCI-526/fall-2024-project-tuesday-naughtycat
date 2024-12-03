@@ -26,7 +26,6 @@ public class PlayerEat : MonoBehaviour
     public GameObject[] enemyArcher;
     public GameObject spacebarImage;
     public GameObject BButtonReminder;
-    public GameObject outOfBulletText;
     public GameObject boss;
     public Transform player;
     public Text result_text;
@@ -505,16 +504,10 @@ public class PlayerEat : MonoBehaviour
             spacebarImage.SetActive(false);
         }
 
-        // Disable the BButtonReminder
+        // Disable the spacebarImage
         if (BButtonReminder != null)
         {
             BButtonReminder.SetActive(false);
-        }
-
-        // Disable the BButtonReminder
-        if (outOfBulletText != null)
-        {
-            outOfBulletText.SetActive(false);
         }
 
         Time.timeScale = 0f;
@@ -548,13 +541,6 @@ public class PlayerEat : MonoBehaviour
         {
             spacebarImage.SetActive(false);
         }
-
-        // Disable the BButtonReminder
-        if (BButtonReminder != null)
-        {
-            BButtonReminder.SetActive(false);
-        }
-
         Time.timeScale = 0f;
         GameManager.instance.RegisterSession(
         true, // isWin
