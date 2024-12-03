@@ -72,12 +72,10 @@ public class UpgradePanelToggle : MonoBehaviour
                 FindObjectOfType<ObjectGenerator>().levelText.enabled = false;
             }
             GameManager.instance.HideBButtonReminder();
-            GameManager.instance.ToggleBlur(true);
             PauseGame();
         }
         else
         {
-            GameManager.instance.ToggleBlur(false);
             ResumeGame();
             GameManager.instance.CheckAndShowBButtonReminder();
 

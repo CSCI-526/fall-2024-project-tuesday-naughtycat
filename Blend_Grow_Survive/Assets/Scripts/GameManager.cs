@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -110,10 +109,6 @@ public class GameManager : MonoBehaviour
     public GameObject bullet;
     private BulletAttack bulletAttack;
 
-    //for blurring
-    public PostProcessVolume postProcessVolume;
-    private DepthOfField depthOfField;
-
     // B Button FLASH
     public GameObject bButtonReminder;
     private const int COIN_THRESHOLD_FOR_REMINDER = 20;
@@ -195,10 +190,6 @@ public class GameManager : MonoBehaviour
             {
                 Debug.LogWarning("BulletAttack component not found on bulletPrefab.");
             }
-        }
-        if (postProcessVolume != null)
-        {
-            postProcessVolume.profile.TryGetSettings(out depthOfField);
         }
     }
 
@@ -457,15 +448,6 @@ public class GameManager : MonoBehaviour
 
     }
     */
-
-    //Blurtoggler
-    public void ToggleBlur(bool isBlurEnabled)
-    {
-        if (depthOfField != null)
-        {
-            depthOfField.active = isBlurEnabled;
-        }
-    }
 
     //WaveCHECKER
     public void CheckWaveCompletion()
