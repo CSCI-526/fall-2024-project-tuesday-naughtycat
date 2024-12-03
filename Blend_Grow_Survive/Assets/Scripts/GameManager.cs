@@ -612,7 +612,7 @@ public class GameManager : MonoBehaviour
                 PlayerMovements pm = FindObjectOfType<PlayerMovements>();
                 if (pm != null)
                 {
-                    pm.speed += 0.5f;
+                    pm.speed += 0.8f;
                     movementSpeedLevel++;
                     Debug.Log($"Movement Speed Upgraded to Level {movementSpeedLevel}");
                     movementCount++;
