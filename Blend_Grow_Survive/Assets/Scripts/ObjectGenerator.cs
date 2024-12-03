@@ -71,7 +71,7 @@ public class ObjectGenerator : MonoBehaviour
     //private Vector2 level2SizeRange = new Vector2(3.0f, 7.0f);
     //private Vector2 level3SizeRange = new Vector2(4.0f, 9.0f);
 
-    private Vector2 level1SizeRange = new Vector2(1.5f, 3.0f);
+    private Vector2 level1SizeRange = new Vector2(1.5f, 3.2f);
     private Vector2 level2SizeRange = new Vector2(2.0f, 5.0f);
     private Vector2 level3SizeRange = new Vector2(3.0f, 6.0f);
 
